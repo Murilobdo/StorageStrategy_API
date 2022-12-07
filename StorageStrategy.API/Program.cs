@@ -1,11 +1,21 @@
+using MediatR;
+using StorageStrategy.Data.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+ConfigureCors();
+builder.Services.AddDbContext<StorageDbContext>();
+
+ConfigureDependencyInjection();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddMediatR(typeof(Program));
 
 var app = builder.Build();
 
@@ -23,3 +33,14 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+void ConfigureCors()
+{
+    builder.Services.AddCors(p => p.AddPolicy("CorsStorage", builder => {
+        builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+    }));
+}
+void ConfigureDependencyInjection()
+{
+}
