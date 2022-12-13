@@ -16,7 +16,7 @@ namespace StorageStrategy.Data.Context
 
         }
 
-        public DbSet<Category> Category { get; set; }
+        public DbSet<CategoryEntity> Category { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<Company> Company { get; set; }
 

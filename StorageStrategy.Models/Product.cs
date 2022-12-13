@@ -10,7 +10,7 @@ namespace StorageStrategy.Models
         public decimal Price { get; set; }
         public decimal Qtd { get; set; }
         public bool IsActive { get; set; }
-        public virtual Category Category { get; set; } = new();
+        public virtual CategoryEntity Category { get; set; } = new();
         public int CategoryId { get; set; }
         public virtual Company Company { get; set; } = new();
         public int CompanyId { get; set; }

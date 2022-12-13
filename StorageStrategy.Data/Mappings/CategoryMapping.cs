@@ -4,9 +4,9 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Data.Mappings
 {
-    internal class CategoryMapping : IEntityTypeConfiguration<Category>
+    internal class CategoryMapping : IEntityTypeConfiguration<CategoryEntity>
     {
-        public void Configure(EntityTypeBuilder<Category> builder)
+        public void Configure(EntityTypeBuilder<CategoryEntity> builder)
         {
             builder.HasKey(p => p.CategoryId);
 

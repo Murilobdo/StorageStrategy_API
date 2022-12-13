@@ -8,7 +8,7 @@
         public bool IsActive { get; set; }
         public DateTime CreateAt { get; set; }
         public List<Product> Products { get; set; } = new();
-        public List<Category> Categorys { get; set; } = new();
+        public List<CategoryEntity> Categorys { get; set; } = new();
 
         public Company(int companyId, string name, string description, DateTime createAt)
         {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace StorageStrategy.Utils.AutoMapper
+namespace StorageStrategy.Domain.AutoMapper
 {
     public class CompanyProfile : Profile
     {

@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StorageStrategy.Data\StorageStrategy.Data.csproj" />
     <ProjectReference Include="..\StorageStrategy.Models\StorageStrategy.Models.csproj" />
     <ProjectReference Include="..\StorageStrategy.Utils\StorageStrategy.Utils.csproj" />
   </ItemGroup>
