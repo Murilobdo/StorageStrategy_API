@@ -10,6 +10,9 @@ namespace StorageStrategy.Domain.AutoMapper
         {
             CreateMap<CreateCategoryCommand, CategoryEntity>()
                 .ForMember(p => p.Company, opt => opt.Ignore());
+
+            CreateMap<UpdateCategoryCommand, CategoryEntity>()
+                .ForMember(p => p.Company, opt => opt.Ignore());
         }
     }
 }

@@ -7,7 +7,8 @@ using StorageStrategy.Models;
 namespace StorageStrategy.Domain.Handlers.Category
 {
     public class CategoryHandler : HandlerBase,
-        IRequestHandler<CreateCategoryCommand, Result>
+        IRequestHandler<CreateCategoryCommand, Result>,
+        IRequestHandler<UpdateCategoryCommand, Result>
     {
         private ICategoryRepository _repo;
         private IMapper _mapper;
@@ -17,7 +18,6 @@ namespace StorageStrategy.Domain.Handlers.Category
             _repo = repo;
             _mapper = mapper;
         }
-
 
         public async Task<Result> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
@@ -31,10 +31,28 @@ namespace StorageStrategy.Domain.Handlers.Category
 
             category = _mapper.Map<CategoryEntity>(request);
 
-            _repo.Add(category);
+            await _repo.AddAsync(category);
             await _repo.SaveAsync();
 
             return CreateResponse(category, "Categoria cadastrada com sucesso.");
+        }
+
+        public async Task<Result> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.IsValid())
+                return CreateError(request.GetErros(), "Dados invalidos");
+
+            var category = await _repo.GetByIdAsync(p => p.CategoryId == request.CategoryId);
+
+            if (category is null)
+                return CreateError(null, "Categoria não encontrada para edição.");
+
+            category = _mapper.Map<CategoryEntity>(request);
+
+            _repo.Update(category);
+            await _repo.SaveAsync();
+
+            return CreateResponse(category, "Categoria atualizada com sucesso.");
         }
     }
 }

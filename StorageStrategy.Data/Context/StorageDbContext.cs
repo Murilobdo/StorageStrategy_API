@@ -23,6 +23,7 @@ namespace StorageStrategy.Data.Context
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {   
             base.OnConfiguring(options);
+            options.EnableSensitiveDataLogging();
             options.UseSqlServer("Server=MURILOBDO\\LOCALHOST;Initial Catalog=StorageStrategy; Integrated Security = true; TrustServerCertificate=True;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

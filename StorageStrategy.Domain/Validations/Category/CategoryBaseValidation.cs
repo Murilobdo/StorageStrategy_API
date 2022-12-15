@@ -7,14 +7,14 @@ namespace StorageStrategy.Domain.Validations.Category
     {
         protected void validationId() => RuleFor(p => p.CategoryId)
             .GreaterThan(0)
-            .WithMessage("Campo obrigatório");
+            .WithMessage("O Id e obrigatório");
 
         protected void validationCompanyId() => RuleFor(p => p.CompanyId)
            .GreaterThan(0)
-           .WithMessage("Campo obrigatório");
+           .WithMessage("O Id da empresa e obrigatório");
 
         protected void validationName() => RuleFor(p => p.Name)
             .NotEmpty()
-            .WithMessage("Campo obrigatório");
+            .WithMessage("O Nome e obrigatório");
     }
 }

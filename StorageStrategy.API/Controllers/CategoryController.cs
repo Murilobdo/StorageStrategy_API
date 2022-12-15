@@ -29,5 +29,19 @@ namespace StorageStrategy.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> Update([FromBody]UpdateCategoryCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

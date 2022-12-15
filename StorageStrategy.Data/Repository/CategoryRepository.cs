@@ -18,5 +18,6 @@ namespace StorageStrategy.Data.Repository
         {
             return await _context.Category.FirstOrDefaultAsync(p => p.Name == name);
         }
+
     }
 }
