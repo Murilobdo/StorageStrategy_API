@@ -5,23 +5,30 @@
         public object Data { get; set; } = new();
         public string Message { get; set; } = string.Empty;
         public string ErrorMessage { get; set; } = string.Empty;
-        public List<Error> Errors { get; set; } = new();
-        public bool Success { get; set; }
+        public List<Error> Errors { get; set; }
+        public bool Success => Errors.Count == 0;
 
         public Result(object data, string message)
         {
             Data = data;
             Message = message;
+            Errors = new List<Error>();
         }
 
         public Result(string message)
         {
             Message = message;
+            Errors = new List<Error>();
+        }
+
+        public Result()
+        {
+
         }
 
         public Result(List<Error> errors, string errorMessage)
         {
-            Errors= errors;
+            Errors = errors;
             ErrorMessage= errorMessage;
         }
 

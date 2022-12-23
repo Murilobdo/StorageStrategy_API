@@ -21,7 +21,6 @@ namespace StorageStrategy.Tests.Handler
             var result = await _mediator.Object.Send(createCategory);
 
             Assert.Null(result);
-
         }
 
     }

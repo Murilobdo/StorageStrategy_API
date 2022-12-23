@@ -6,9 +6,7 @@ namespace StorageStrategy.Domain.Repository
     {
         public Task AddAsync(TModel model);
         public void Update(TModel model);
-        public void Delete(int id);
-        public TModel GetById(int id);
-        public Task<TModel> GetByIdAsync(Expression<Func<TModel, bool>> func);
+        public void Delete(TModel id);
         public void Save();
         public Task SaveAsync();
     }

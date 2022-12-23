@@ -17,9 +17,21 @@ namespace StorageStrategy.Domain.Handlers
             return new Result(message);
         }
 
+        public Result CreateError(string errorMessage)
+        {
+            var errors = new List<Models.Error>();
+            errors.Add(new Models.Error("", errorMessage));
+            return new Result(errors, errorMessage);
+        }
+
         public Result CreateError(List<Models.Error> errors, string errorMessage)
         {
             return new Result(errors, errorMessage);
+        }
+
+        public Result CreateError(Result result)
+        {
+            return result;
         }
     }
 }

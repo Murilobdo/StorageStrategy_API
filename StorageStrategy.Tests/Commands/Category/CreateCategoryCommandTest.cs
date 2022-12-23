@@ -6,10 +6,10 @@ using Xunit;
 
 namespace StorageStrategy.Tests.Commands.Category
 {
-    public class CategoryCommandTest : CommandBaseTest
+    public class CreateCategoryCommandTest : CommandBaseTest
     {
 
-        public CategoryCommandTest()
+        public CreateCategoryCommandTest()
         {
 
         }

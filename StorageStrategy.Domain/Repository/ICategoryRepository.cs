@@ -4,6 +4,9 @@ namespace StorageStrategy.Domain.Repository
 {
     public interface ICategoryRepository : IRepositoryBase<CategoryEntity>
     {
-        Task<CategoryEntity> FindByName(string name);
+        Task<CategoryEntity> FindByName(string name, int companyId);
+        Task<List<CategoryEntity>> ToList(int companyId);
+        public Task<CategoryEntity> GetByIdAsync(int categoryId, int companyId);
+
     }
 }
