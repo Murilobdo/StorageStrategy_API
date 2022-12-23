@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StorageStrategy.Data.Context;
 
@@ -11,9 +12,11 @@ using StorageStrategy.Data.Context;
 namespace StorageStrategy.Data.Migrations
 {
     [DbContext(typeof(StorageDbContext))]
-    partial class StorageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221223040409_Product_MudandoTipoNome")]
+    partial class ProductMudandoTipoNome
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,7 +81,7 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 1,
-                            CreateAt = new DateTime(2022, 12, 23, 1, 20, 28, 107, DateTimeKind.Local).AddTicks(4202),
+                            CreateAt = new DateTime(2022, 12, 23, 1, 4, 9, 187, DateTimeKind.Local).AddTicks(4138),
                             Description = "Bar",
                             IsActive = true,
                             Name = "Bar do Murps"
@@ -86,7 +89,7 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 2,
-                            CreateAt = new DateTime(2022, 12, 23, 1, 20, 28, 107, DateTimeKind.Local).AddTicks(4224),
+                            CreateAt = new DateTime(2022, 12, 23, 1, 4, 9, 187, DateTimeKind.Local).AddTicks(4158),
                             Description = "Tabacaria",
                             IsActive = true,
                             Name = "Rei do Baco"
@@ -108,8 +111,8 @@ namespace StorageStrategy.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Cost")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)");
+                        .HasPrecision(2)
+                        .HasColumnType("decimal(2,2)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -120,8 +123,8 @@ namespace StorageStrategy.Data.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<decimal>("Price")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)");
+                        .HasPrecision(2)
+                        .HasColumnType("decimal(2,2)");
 
                     b.Property<decimal>("Qtd")
                         .HasColumnType("decimal(18,2)");

@@ -17,8 +17,8 @@ namespace StorageStrategy.Data.Context
         }
 
         public DbSet<CategoryEntity> Category { get; set; }
-        public DbSet<Product> Product { get; set; }
-        public DbSet<Company> Company { get; set; }
+        public DbSet<ProductEntity> Product { get; set; }
+        public DbSet<CompanyEntity> Company { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {   
@@ -28,9 +28,9 @@ namespace StorageStrategy.Data.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Company>()
-                .HasData(new Company(companyId: 1, name: "Bar do Murps", description: "Bar", createAt: DateTime.Now),
-                        new Company(companyId: 2, name: "Rei do Baco", description: "Tabacaria", createAt: DateTime.Now));
+            modelBuilder.Entity<CompanyEntity>()
+                .HasData(new CompanyEntity(companyId: 1, name: "Bar do Murps", description: "Bar", createAt: DateTime.Now),
+                        new CompanyEntity(companyId: 2, name: "Rei do Baco", description: "Tabacaria", createAt: DateTime.Now));
 
             modelBuilder.ApplyConfiguration(new CompanyMapping());
             modelBuilder.ApplyConfiguration(new ProductMapping());

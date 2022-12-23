@@ -5,9 +5,9 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Data.Mappings
 {
-    internal class ProductMapping : IEntityTypeConfiguration<Product>
+    internal class ProductMapping : IEntityTypeConfiguration<ProductEntity>
     {
-        public void Configure(EntityTypeBuilder<Product> builder)
+        public void Configure(EntityTypeBuilder<ProductEntity> builder)
         {
             builder.HasKey(p => p.ProductId);
 
@@ -15,10 +15,10 @@ namespace StorageStrategy.Data.Mappings
                 .HasMaxLength(100);
 
             builder.Property(p => p.Cost)
-                .HasPrecision(2);
+                .HasPrecision(10, 2);
 
             builder.Property(p => p.Price)
-                .HasPrecision(2);
+                .HasPrecision(10, 2);
 
         }
     }

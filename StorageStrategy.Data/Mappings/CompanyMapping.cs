@@ -4,9 +4,9 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Data.Mappings
 {
-    public class CompanyMapping : IEntityTypeConfiguration<Company>
+    public class CompanyMapping : IEntityTypeConfiguration<CompanyEntity>
     {
-        public void Configure(EntityTypeBuilder<Company> builder)
+        public void Configure(EntityTypeBuilder<CompanyEntity> builder)
         {
             builder.HasKey(p => p.CompanyId);
 
