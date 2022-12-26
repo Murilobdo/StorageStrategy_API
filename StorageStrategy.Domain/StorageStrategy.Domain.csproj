@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Commands\Company\" />
-    <Folder Include="Commands\Products\" />
   </ItemGroup>
 
   <ItemGroup>

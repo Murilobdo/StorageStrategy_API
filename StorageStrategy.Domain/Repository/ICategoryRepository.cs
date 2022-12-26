@@ -6,7 +6,7 @@ namespace StorageStrategy.Domain.Repository
     {
         Task<CategoryEntity> FindByName(string name, int companyId);
         Task<List<CategoryEntity>> ToList(int companyId);
-        public Task<CategoryEntity> GetByIdAsync(int categoryId, int companyId);
+        Task<CategoryEntity> GetByIdAsync(int categoryId, int companyId);
 
     }
 }

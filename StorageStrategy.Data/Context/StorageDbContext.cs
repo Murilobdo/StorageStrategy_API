@@ -19,6 +19,7 @@ namespace StorageStrategy.Data.Context
         public DbSet<CategoryEntity> Category { get; set; }
         public DbSet<ProductEntity> Product { get; set; }
         public DbSet<CompanyEntity> Company { get; set; }
+        public DbSet<EmployeeEntity> Employee { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {   
@@ -35,6 +36,7 @@ namespace StorageStrategy.Data.Context
             modelBuilder.ApplyConfiguration(new CompanyMapping());
             modelBuilder.ApplyConfiguration(new ProductMapping());
             modelBuilder.ApplyConfiguration(new CategoryMapping());
+            modelBuilder.ApplyConfiguration(new EmployeeMapping());
 
             base.OnModelCreating(modelBuilder);
         }

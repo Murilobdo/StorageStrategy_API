@@ -9,7 +9,7 @@ namespace StorageStrategy.Data.Repository
     public class CategoryRepository : RepositoryBase<CategoryEntity>, ICategoryRepository
     {
         private StorageDbContext _context;
-
+        
         public CategoryRepository(StorageDbContext context) : base(context)
         {
             _context = context;

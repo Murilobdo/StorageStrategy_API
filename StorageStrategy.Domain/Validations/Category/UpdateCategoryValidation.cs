@@ -4,9 +4,9 @@
     {
         public UpdateCategoryValidation()
         {
-            validationId();
-            validationCompanyId();
-            validationName();
+            ValidationId();
+            ValidationCompanyId();
+            ValidationName();
         }
     }
 }

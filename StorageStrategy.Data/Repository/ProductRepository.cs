@@ -20,9 +20,9 @@ namespace StorageStrategy.Data.Repository
             return await _context.Product.FirstOrDefaultAsync(p => p.Name == name && p.CompanyId == companyId);
         }
 
-        public async Task<ProductEntity> GetByIdAsync(int categoryId, int companyId)
+        public async Task<ProductEntity> GetByIdAsync(int productId, int companyId)
         {
-            var result = await _context.Product.FirstOrDefaultAsync(p => p.CategoryId == categoryId && p.CompanyId == companyId);
+            var result = await _context.Product.FirstOrDefaultAsync(p => p.ProductId == productId && p.CompanyId == companyId);
             _context.ChangeTracker.Clear();
             return result;
         }

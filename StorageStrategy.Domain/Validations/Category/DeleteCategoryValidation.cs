@@ -4,8 +4,8 @@
     {
         public DeleteCategoryValidation()
         {
-            validationId();
-            validationCompanyId();
+            ValidationId();
+            ValidationCompanyId();
         }
     }
 }

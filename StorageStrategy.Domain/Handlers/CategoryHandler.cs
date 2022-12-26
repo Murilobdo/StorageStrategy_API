@@ -4,7 +4,7 @@ using StorageStrategy.Domain.Commands.Category;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
 
-namespace StorageStrategy.Domain.Handlers.Category
+namespace StorageStrategy.Domain.Handlers
 {
     public class CategoryHandler : HandlerBase,
         IRequestHandler<CreateCategoryCommand, Result>,
@@ -32,7 +32,6 @@ namespace StorageStrategy.Domain.Handlers.Category
 
             category = _mapper.Map<CategoryEntity>(request);
 
-
             await _repo.AddAsync(category);
             await _repo.SaveAsync();
 
@@ -59,8 +58,6 @@ namespace StorageStrategy.Domain.Handlers.Category
 
         public async Task<Result> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
         {
-            Result result = new();
-
             if (!request.IsValid())
                 return CreateError(request.GetErros(), "Dados invalidos");
 
@@ -68,8 +65,6 @@ namespace StorageStrategy.Domain.Handlers.Category
 
             if (category is null)
                 return CreateError("Categoria não encontrada para exclusão.");
-
-            category = _mapper.Map<CategoryEntity>(request);
 
             _repo.Delete(category);
             await _repo.SaveAsync();

@@ -4,8 +4,8 @@
     {
         public CreateCategoryValidation()
         {
-            validationCompanyId();
-            validationName();
+            ValidationCompanyId();
+            ValidationName();
         }
     }
 }

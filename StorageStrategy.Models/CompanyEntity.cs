@@ -1,16 +1,16 @@
 ﻿namespace StorageStrategy.Models
 {
-    public class Company
+    public class CompanyEntity
     {
         public int CompanyId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public bool IsActive { get; set; }
         public DateTime CreateAt { get; set; }
-        public List<Product> Products { get; set; } = new();
+        public List<ProductEntity> Products { get; set; } = new();
         public List<CategoryEntity> Categorys { get; set; } = new();
 
-        public Company(int companyId, string name, string description, DateTime createAt)
+        public CompanyEntity(int companyId, string name, string description, DateTime createAt)
         {
             CompanyId = companyId;
             Name = name;
@@ -19,7 +19,7 @@
             CreateAt = createAt;
         }
 
-        public Company()
+        public CompanyEntity()
         {
             IsActive = true;
         }

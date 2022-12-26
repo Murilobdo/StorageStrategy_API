@@ -52,4 +52,7 @@ void ConfigureCors()
 void ConfigureDependencyInjection()
 {
     builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+    builder.Services.AddScoped<IProductRepository, ProductRepository>();
+    builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 }
+
