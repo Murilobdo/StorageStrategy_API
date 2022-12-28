@@ -28,7 +28,7 @@ namespace StorageStrategy.Domain.Handlers
             var category = await _repo.FindByName(request.Name, request.CompanyId);
 
             if (category is not null)
-                return CreateError(null, "Ja existe uma categoria com esse nome.");
+                return CreateError("Ja existe uma categoria com esse nome.");
 
             category = _mapper.Map<CategoryEntity>(request);
 

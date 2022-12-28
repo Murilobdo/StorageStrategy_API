@@ -36,6 +36,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("CorsStorage");
+
 app.UseAuthorization();
 
 app.MapControllers();
@@ -46,9 +48,12 @@ app.Run();
 void ConfigureCors()
 {
     builder.Services.AddCors(p => p.AddPolicy("CorsStorage", builder => {
-        builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+        builder.WithOrigins("http://localhost:3000");
+        builder.AllowAnyHeader();
+        builder.AllowAnyMethod();
     }));
 }
+
 void ConfigureDependencyInjection()
 {
     builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
