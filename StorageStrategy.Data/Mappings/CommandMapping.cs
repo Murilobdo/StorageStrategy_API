@@ -10,10 +10,9 @@ namespace StorageStrategy.Data.Mappings
         {
             builder.HasKey(p => p.CommandId);
 
-            builder.HasMany(p => p.Products)
-                .WithOne(p => p.Command)
-                .HasForeignKey(p => p.CommandId)
-                .OnDelete(DeleteBehavior.Restrict);
+            builder.HasMany(p => p.Items)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(p => p.Employee)
                 .WithOne();

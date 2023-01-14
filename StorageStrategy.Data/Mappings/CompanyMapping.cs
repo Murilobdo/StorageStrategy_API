@@ -19,6 +19,16 @@ namespace StorageStrategy.Data.Mappings
               .WithOne(p => p.Company)
               .HasForeignKey(p => p.CompanyId)
               .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(p => p.Employees)
+                .WithOne(p => p.Company)
+                .HasForeignKey(p => p.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(p => p.Commands)
+                .WithOne(p => p.Company)
+                .HasForeignKey(p => p.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

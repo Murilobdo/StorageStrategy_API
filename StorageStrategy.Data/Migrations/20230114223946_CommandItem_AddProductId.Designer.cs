@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StorageStrategy.Data.Context;
 
@@ -11,9 +12,11 @@ using StorageStrategy.Data.Context;
 namespace StorageStrategy.Data.Migrations
 {
     [DbContext(typeof(StorageDbContext))]
-    partial class StorageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230114223946_CommandItem_AddProductId")]
+    partial class CommandItemAddProductId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,6 +102,9 @@ namespace StorageStrategy.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommandItemId"));
 
+                    b.Property<int?>("CommandEntityCommandId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CommandId")
                         .HasColumnType("int");
 
@@ -120,7 +126,7 @@ namespace StorageStrategy.Data.Migrations
 
                     b.HasKey("CommandItemId");
 
-                    b.HasIndex("CommandId");
+                    b.HasIndex("CommandEntityCommandId");
 
                     b.HasIndex("ProductId");
 
@@ -157,7 +163,7 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 1,
-                            CreateAt = new DateTime(2023, 1, 14, 20, 21, 4, 597, DateTimeKind.Local).AddTicks(4221),
+                            CreateAt = new DateTime(2023, 1, 14, 19, 39, 46, 672, DateTimeKind.Local).AddTicks(3261),
                             Description = "Bar",
                             IsActive = true,
                             Name = "Bar do Murps"
@@ -165,7 +171,7 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 2,
-                            CreateAt = new DateTime(2023, 1, 14, 20, 21, 4, 597, DateTimeKind.Local).AddTicks(4247),
+                            CreateAt = new DateTime(2023, 1, 14, 19, 39, 46, 672, DateTimeKind.Local).AddTicks(3285),
                             Description = "Tabacaria",
                             IsActive = true,
                             Name = "Rei do Baco"
@@ -283,19 +289,16 @@ namespace StorageStrategy.Data.Migrations
 
             modelBuilder.Entity("StorageStrategy.Models.CommandItem", b =>
                 {
-                    b.HasOne("StorageStrategy.Models.CommandEntity", "Command")
+                    b.HasOne("StorageStrategy.Models.CommandEntity", null)
                         .WithMany("Items")
-                        .HasForeignKey("CommandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CommandEntityCommandId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("StorageStrategy.Models.ProductEntity", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Command");
 
                     b.Navigation("Product");
                 });

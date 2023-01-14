@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StorageStrategy.Data.Context;
 
@@ -11,9 +12,11 @@ using StorageStrategy.Data.Context;
 namespace StorageStrategy.Data.Migrations
 {
     [DbContext(typeof(StorageDbContext))]
-    partial class StorageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230114220259_Product_RemoveCommandColumn")]
+    partial class ProductRemoveCommandColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,42 +94,6 @@ namespace StorageStrategy.Data.Migrations
                     b.ToTable("Command");
                 });
 
-            modelBuilder.Entity("StorageStrategy.Models.CommandItem", b =>
-                {
-                    b.Property<int>("CommandItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommandItemId"));
-
-                    b.Property<int>("CommandId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Qtd")
-                        .HasColumnType("int");
-
-                    b.HasKey("CommandItemId");
-
-                    b.HasIndex("CommandId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("CommandItems");
-                });
-
             modelBuilder.Entity("StorageStrategy.Models.CompanyEntity", b =>
                 {
                     b.Property<int>("CompanyId")
@@ -157,7 +124,7 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 1,
-                            CreateAt = new DateTime(2023, 1, 14, 20, 21, 4, 597, DateTimeKind.Local).AddTicks(4221),
+                            CreateAt = new DateTime(2023, 1, 14, 19, 2, 59, 633, DateTimeKind.Local).AddTicks(9759),
                             Description = "Bar",
                             IsActive = true,
                             Name = "Bar do Murps"
@@ -165,7 +132,7 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 2,
-                            CreateAt = new DateTime(2023, 1, 14, 20, 21, 4, 597, DateTimeKind.Local).AddTicks(4247),
+                            CreateAt = new DateTime(2023, 1, 14, 19, 2, 59, 633, DateTimeKind.Local).AddTicks(9785),
                             Description = "Tabacaria",
                             IsActive = true,
                             Name = "Rei do Baco"
@@ -217,6 +184,9 @@ namespace StorageStrategy.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CommandEntityCommandId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
@@ -245,6 +215,8 @@ namespace StorageStrategy.Data.Migrations
                     b.HasKey("ProductId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("CommandEntityCommandId");
 
                     b.HasIndex("CompanyId");
 
@@ -281,25 +253,6 @@ namespace StorageStrategy.Data.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("StorageStrategy.Models.CommandItem", b =>
-                {
-                    b.HasOne("StorageStrategy.Models.CommandEntity", "Command")
-                        .WithMany("Items")
-                        .HasForeignKey("CommandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StorageStrategy.Models.ProductEntity", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Command");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("StorageStrategy.Models.EmployeeEntity", b =>
                 {
                     b.HasOne("StorageStrategy.Models.CompanyEntity", "Company")
@@ -319,6 +272,11 @@ namespace StorageStrategy.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("StorageStrategy.Models.CommandEntity", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CommandEntityCommandId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("StorageStrategy.Models.CompanyEntity", "Company")
                         .WithMany("Products")
                         .HasForeignKey("CompanyId")
@@ -337,7 +295,7 @@ namespace StorageStrategy.Data.Migrations
 
             modelBuilder.Entity("StorageStrategy.Models.CommandEntity", b =>
                 {
-                    b.Navigation("Items");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("StorageStrategy.Models.CompanyEntity", b =>

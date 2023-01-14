@@ -7,7 +7,7 @@ namespace StorageStrategy.Data.Repository
 {
     public class RepositoryBase<TModel> : IRepositoryBase<TModel> where TModel : class
     {
-        private readonly StorageDbContext _context;
+        protected readonly StorageDbContext _context;
 
         public RepositoryBase(StorageDbContext context)
         {

@@ -21,6 +21,7 @@ namespace StorageStrategy.Data.Context
         public DbSet<CompanyEntity> Company { get; set; }
         public DbSet<EmployeeEntity> Employee { get; set; }
         public DbSet<CommandEntity> Command { get; set; }
+        public DbSet<CommandItem> CommandItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {   
@@ -40,6 +41,7 @@ namespace StorageStrategy.Data.Context
             modelBuilder.ApplyConfiguration(new CategoryMapping());
             modelBuilder.ApplyConfiguration(new EmployeeMapping());
             modelBuilder.ApplyConfiguration(new CommandMapping());
+            modelBuilder.ApplyConfiguration(new CommandItemMapping());
 
             base.OnModelCreating(modelBuilder);
         }
