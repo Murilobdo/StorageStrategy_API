@@ -8,19 +8,22 @@ namespace StorageStrategy.Models
         public string Name { get; set; }
         public decimal Cost { get; set; }
         public decimal Price { get; set; }
-        public decimal Qtd { get; set; }
+        public int Qtd { get; set; }
+        public int StockAlert { get; set; }
         public bool IsActive { get; set; }
         public virtual CategoryEntity Category { get; set; }
         public int CategoryId { get; set; }
         public virtual CompanyEntity Company { get; set; }
         public int CompanyId { get; set; }
+        public virtual CommandEntity Command { get; set; }
+        public int CommandId { get; set; }
 
         public ProductEntity()
         {
 
         }
 
-        public ProductEntity(int productId, string name, decimal cost, decimal price, decimal qtd, bool isActive, int categoryId)
+        public ProductEntity(int productId, string name, decimal cost, decimal price, int qtd, bool isActive, int categoryId)
         {
             ProductId = productId;
             Name = name;

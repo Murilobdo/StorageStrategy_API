@@ -12,8 +12,10 @@ namespace StorageStrategy.Domain.Commands.Category
             IsActive = isActive;
             CompanyId = companyId;
         }
+
         public CreateCategoryCommand()
         {
+
         }
 
         public bool IsValid() => new CreateCategoryValidation().Validate(this).IsValid;

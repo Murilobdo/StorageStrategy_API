@@ -20,6 +20,10 @@ namespace StorageStrategy.Data.Mappings
             builder.Property(p => p.Price)
                 .HasPrecision(10, 2);
 
+            builder.HasOne(p => p.Command)
+                .WithMany(p => p.Products)
+                .HasForeignKey(p => p.CommandId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -20,13 +20,15 @@ namespace StorageStrategy.Data.Context
         public DbSet<ProductEntity> Product { get; set; }
         public DbSet<CompanyEntity> Company { get; set; }
         public DbSet<EmployeeEntity> Employee { get; set; }
+        public DbSet<CommandEntity> Command { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {   
             base.OnConfiguring(options);
-            options.EnableSensitiveDataLogging();
+            //options.EnableSensitiveDataLogging();
             options.UseSqlServer("Server=MURILOBDO\\LOCALDB;Initial Catalog=StorageStrategy; Integrated Security = true; TrustServerCertificate=True;");
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CompanyEntity>()
@@ -37,6 +39,7 @@ namespace StorageStrategy.Data.Context
             modelBuilder.ApplyConfiguration(new ProductMapping());
             modelBuilder.ApplyConfiguration(new CategoryMapping());
             modelBuilder.ApplyConfiguration(new EmployeeMapping());
+            modelBuilder.ApplyConfiguration(new CommandMapping());
 
             base.OnModelCreating(modelBuilder);
         }

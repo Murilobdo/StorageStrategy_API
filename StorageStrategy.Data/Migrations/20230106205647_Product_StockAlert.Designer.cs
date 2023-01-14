@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StorageStrategy.Data.Context;
 
@@ -11,9 +12,11 @@ using StorageStrategy.Data.Context;
 namespace StorageStrategy.Data.Migrations
 {
     [DbContext(typeof(StorageDbContext))]
-    partial class StorageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230106205647_Product_StockAlert")]
+    partial class ProductStockAlert
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,35 +51,6 @@ namespace StorageStrategy.Data.Migrations
                     b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("StorageStrategy.Models.CommandEntity", b =>
-                {
-                    b.Property<int>("CommandId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommandId"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Payment")
-                        .HasColumnType("int");
-
-                    b.HasKey("CommandId");
-
-                    b.HasIndex("EmployeeId")
-                        .IsUnique();
-
-                    b.ToTable("Command");
-                });
-
             modelBuilder.Entity("StorageStrategy.Models.CompanyEntity", b =>
                 {
                     b.Property<int>("CompanyId")
@@ -107,7 +81,7 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 1,
-                            CreateAt = new DateTime(2023, 1, 14, 1, 26, 15, 898, DateTimeKind.Local).AddTicks(7876),
+                            CreateAt = new DateTime(2023, 1, 6, 17, 56, 47, 294, DateTimeKind.Local).AddTicks(3484),
                             Description = "Bar",
                             IsActive = true,
                             Name = "Bar do Murps"
@@ -115,7 +89,7 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 2,
-                            CreateAt = new DateTime(2023, 1, 14, 1, 26, 15, 898, DateTimeKind.Local).AddTicks(7897),
+                            CreateAt = new DateTime(2023, 1, 6, 17, 56, 47, 294, DateTimeKind.Local).AddTicks(3503),
                             Description = "Tabacaria",
                             IsActive = true,
                             Name = "Rei do Baco"
@@ -167,9 +141,6 @@ namespace StorageStrategy.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CommandId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
@@ -199,8 +170,6 @@ namespace StorageStrategy.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("CommandId");
-
                     b.HasIndex("CompanyId");
 
                     b.ToTable("Product");
@@ -215,17 +184,6 @@ namespace StorageStrategy.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("StorageStrategy.Models.CommandEntity", b =>
-                {
-                    b.HasOne("StorageStrategy.Models.EmployeeEntity", "Employee")
-                        .WithOne()
-                        .HasForeignKey("StorageStrategy.Models.CommandEntity", "EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("StorageStrategy.Models.EmployeeEntity", b =>
@@ -247,12 +205,6 @@ namespace StorageStrategy.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StorageStrategy.Models.CommandEntity", "Command")
-                        .WithMany("Products")
-                        .HasForeignKey("CommandId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("StorageStrategy.Models.CompanyEntity", "Company")
                         .WithMany("Products")
                         .HasForeignKey("CompanyId")
@@ -261,17 +213,10 @@ namespace StorageStrategy.Data.Migrations
 
                     b.Navigation("Category");
 
-                    b.Navigation("Command");
-
                     b.Navigation("Company");
                 });
 
             modelBuilder.Entity("StorageStrategy.Models.CategoryEntity", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("StorageStrategy.Models.CommandEntity", b =>
                 {
                     b.Navigation("Products");
                 });

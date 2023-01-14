@@ -9,7 +9,7 @@ namespace StorageStrategy.Domain.Commands.Products
 
         }
 
-        public ProductCommandBase(int productId, string name, decimal cost, decimal price, decimal qtd, bool isActive, int categoryId, int companyId)
+        public ProductCommandBase(int productId, string name, decimal cost, decimal price, int qtd, bool isActive, int categoryId, int companyId)
         {
             ProductId = productId;
             Name = name;
@@ -25,7 +25,8 @@ namespace StorageStrategy.Domain.Commands.Products
         public string Name { get; set; } = string.Empty;
         public decimal Cost { get; set; }
         public decimal Price { get; set; }
-        public decimal Qtd { get; set; }
+        public int Qtd { get; set; }
+        public int StockAlert { get; set; }
         public bool IsActive { get; set; }
         public int CategoryId { get; set; }
         public int CompanyId { get; set; }
