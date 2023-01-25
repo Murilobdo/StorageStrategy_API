@@ -15,7 +15,7 @@ namespace StorageStrategy.Data.Mappings
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(p => p.Employee)
-                .WithOne();
+                .WithMany();
         }
     }
 }

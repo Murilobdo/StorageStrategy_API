@@ -12,15 +12,18 @@ namespace StorageStrategy.Models
         public int EmployeeId { get; set; }
         public virtual EmployeeEntity Employee { get; set; }
         public string Name { get; set; } = string.Empty;
-        public virtual List<ProductEntity> Products { get; set; } = new();
+        public virtual List<CommandItem> Items { get; set; } = new();
+        public decimal TotalCost { get; set; } = 0;
+        public decimal TotalPrice { get; set; } = 0;
         public PaymentEnum Payment { get; set; }
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime InitialDate { get; set; }
+        public DateTime? FinalDate { get; set; }
         public CompanyEntity Company { get; set; }
         public int CompanyId { get; set; }
 
         public CommandEntity()
         {
-
+            InitialDate = DateTime.Now;
         }
 
     }

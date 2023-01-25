@@ -15,8 +15,6 @@ namespace StorageStrategy.Models
         public int CategoryId { get; set; }
         public virtual CompanyEntity Company { get; set; }
         public int CompanyId { get; set; }
-        public virtual CommandEntity Command { get; set; }
-        public int CommandId { get; set; }
 
         public ProductEntity()
         {

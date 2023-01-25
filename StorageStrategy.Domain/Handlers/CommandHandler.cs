@@ -14,19 +14,48 @@ namespace StorageStrategy.Domain.Handlers
 
         private IProductRepository _repoProduct;
         private ICommandRepository _repoCommand;
+        private IEmployeeRepository _repoEmployee;
         private IMapper _mapper;
 
-        public CommandHandler(IProductRepository repoProduct, ICommandRepository repoCommand, IMapper mapper)
+        public CommandHandler(IProductRepository repoProduct, ICommandRepository repoCommand, 
+            IEmployeeRepository employeeRepository, IMapper mapper)
         {
             _repoProduct = repoProduct;
             _mapper = mapper;
             _repoCommand = repoCommand;
+            _repoEmployee = employeeRepository;
         }
 
-
-        public Task<Result> Handle(CreateCommandCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(CreateCommandCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            if (!request.IsValid())
+                return CreateError(request.GetErros(), "Dados invalido");
+
+            var employee = await _repoEmployee.GetByIdAsync(request.EmployeeId, request.CompanyId);
+
+            if (employee is null)
+                return CreateError("Funcionario não encontrado");
+
+            var command = _mapper.Map<CommandEntity>(request);
+            command.InitialDate = DateTime.Now;
+
+            var commandItems = request.Items.Select(p => _mapper.Map<CommandItem>(p)).ToList();
+
+            if (command.Name == "Consumidor")
+                command.FinalDate = DateTime.Now;
+
+            command.TotalPrice = commandItems.Sum(p => p.Price * p.Qtd);
+            command.TotalCost = commandItems.Sum(p => p.Cost * p.Qtd);
+
+            await _repoCommand.AddAsync(command);
+            await _repoCommand.SaveAsync();
+
+
+            commandItems.ForEach(p => p.CommandId = command.CommandId);
+            await _repoCommand.AddItemsAsync(commandItems);
+            await _repoCommand.SaveAsync();
+
+            return CreateResponse(command, "Comanda cadastrada com sucesso.");
         }
 
         public Task<Result> Handle(UpdateCommandCommand request, CancellationToken cancellationToken)

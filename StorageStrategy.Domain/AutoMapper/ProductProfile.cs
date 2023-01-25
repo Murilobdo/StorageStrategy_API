@@ -20,6 +20,10 @@ namespace StorageStrategy.Domain.AutoMapper
                 .ForMember(p => p.Company, opt => opt.Ignore())
                 .ForMember(p => p.Category, opt => opt.Ignore());
 
+            CreateMap<ProductCommandBase, ProductEntity>()
+                .ForMember(p => p.Company, opt => opt.Ignore())
+                .ForMember(p => p.Category, opt => opt.Ignore()); 
+
             CreateMap<ProductEntity, CreateProductCommand>();
         }
     }

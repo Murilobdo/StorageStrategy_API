@@ -6,15 +6,15 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Commands.Command
 {
-    public record class UpdateCommandCommandBase : CommandCommandBase, IValidation
+    public record class UpdateCommandCommand : CommandCommandBase, IValidation
     {
-        public UpdateCommandCommandBase(int commandId, int companyId, string name, int employeeId, List<ProductCommandBase> products, PaymentEnum payment)
+        public UpdateCommandCommand(int commandId, int companyId, string name, int employeeId, List<CommandItemBase> items, PaymentEnum payment)
         {
             CommandId = commandId;
             CompanyId = companyId;
             Name = name;
             EmployeeId = employeeId;
-            Products = products;
+            Items = items;
             Payment = payment;
         }
 

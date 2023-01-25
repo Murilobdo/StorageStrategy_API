@@ -9,7 +9,7 @@ using StorageStrategy.Domain.Repository;
 namespace StorageStrategy.API.Controllers
 {
     [ApiController]
-    [Route("product")]
+    [Route("command")]
     public class CommandController : Controller
     {
         private readonly IMediator _mediator;
@@ -22,19 +22,39 @@ namespace StorageStrategy.API.Controllers
         }
 
         [HttpGet("list")]
-        public async Task<IActionResult> ToList([FromServices] ICommandRepository repo, int companyId)
-        {
+        public async Task<IActionResult> ToList(
+            [FromServices] ICommandRepository repo, 
+            [FromQuery] int companyId,
+            [FromQuery] bool haveEndDate
+        ) {
             try
             {
-                var categorys = await repo.ToList(companyId);
+                var command = await repo.ToListAsync(companyId, haveEndDate);
                 List<CreateCommandCommand> result = new();
 
-                categorys.ForEach(category =>
+                command.ForEach(category =>
                 {
                     result.Add(_mapper.Map<CreateCommandCommand>(category));
                 });
 
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("getcommand")]
+        public async Task<IActionResult> GetCommand(
+            [FromServices] ICommandRepository repo, 
+            [FromQuery] int companyId,
+            [FromQuery] int commandId
+        ) {
+            try
+            {
+                var command = await repo.GetCommandByIdAsync(commandId, companyId);
+                return Ok(_mapper.Map<CreateCommandCommand>(command));
             }
             catch (Exception ex)
             {
@@ -70,8 +90,8 @@ namespace StorageStrategy.API.Controllers
             }
         }
 
-        [HttpDelete("delete")]
-        public async Task<IActionResult> Delete([FromBody] DeleteCommandCommand command)
+        [HttpDelete("FinalizeCommand")]
+        public async Task<IActionResult> FinalizeCommand([FromBody] DeleteCommandCommand command)
         {
             try
             {

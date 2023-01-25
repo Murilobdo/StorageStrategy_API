@@ -9,8 +9,8 @@ namespace StorageStrategy.Models
 {
     public enum PaymentEnum
     {
-        Debit = 0,
-        Credit = 1,
+        Debit = 1,
+        Credit = 2,
         Pix = 3,
         Cash = 4,
     }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StorageStrategy.Data.Context;
 
@@ -11,9 +12,11 @@ using StorageStrategy.Data.Context;
 namespace StorageStrategy.Data.Migrations
 {
     [DbContext(typeof(StorageDbContext))]
-    partial class StorageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230117003845_Command_FinalDateNulale")]
+    partial class CommandFinalDateNulale
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,15 +107,15 @@ namespace StorageStrategy.Data.Migrations
                     b.Property<decimal>("Cost")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Qtd")
                         .HasColumnType("int");
@@ -156,7 +159,7 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 1,
-                            CreateAt = new DateTime(2023, 1, 24, 22, 44, 30, 173, DateTimeKind.Local).AddTicks(3358),
+                            CreateAt = new DateTime(2023, 1, 16, 21, 38, 45, 622, DateTimeKind.Local).AddTicks(7708),
                             Description = "Bar",
                             IsActive = true,
                             Name = "Bar do Murps"
@@ -164,7 +167,7 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 2,
-                            CreateAt = new DateTime(2023, 1, 24, 22, 44, 30, 173, DateTimeKind.Local).AddTicks(3383),
+                            CreateAt = new DateTime(2023, 1, 16, 21, 38, 45, 622, DateTimeKind.Local).AddTicks(7742),
                             Description = "Tabacaria",
                             IsActive = true,
                             Name = "Rei do Baco"

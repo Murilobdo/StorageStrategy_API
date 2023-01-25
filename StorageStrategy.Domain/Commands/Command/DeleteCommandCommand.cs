@@ -6,9 +6,9 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Commands.Command
 {
-    public record class DeleteCommandCommandBase : CommandCommandBase, IValidation
+    public record class DeleteCommandCommand : CommandCommandBase, IValidation
     {
-        public DeleteCommandCommandBase(int commandId, int companyId)
+        public DeleteCommandCommand(int commandId, int companyId)
         {
             CommandId = commandId;
             CompanyId = companyId;

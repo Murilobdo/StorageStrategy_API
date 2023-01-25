@@ -17,25 +17,25 @@ namespace StorageStrategy.Tests.Commands.Category
         [Fact]
         public void Sucesso_ao_excluir_uma_categoria()
         {
-            DeleteCategoryCommand createCategory = new(categoryId: 1, companyId: 1);
+            DeleteCategoryCommand deleteCategory = new(categoryId: 1, companyId: 1);
 
-            Assert.True(createCategory.IsValid());
+            Assert.True(deleteCategory.IsValid());
         }
 
         [Fact]
         public void Erro_ao_excluir_uma_categoria_sem_id()
         {
-            DeleteCategoryCommand createCategory = new(categoryId: 0, companyId: 1);
+            DeleteCategoryCommand deleteCategory = new(categoryId: 0, companyId: 1);
 
-            Assert.True(MensagemDeErroExistente(createCategory.GetErros(), "O Id e obrigatório"));
+            Assert.True(MensagemDeErroExistente(deleteCategory.GetErros(), "O Id e obrigatório"));
         }
 
         [Fact]
         public void Erro_ao_excluir_uma_categoria_sem_id_empresa()
         {
-            DeleteCategoryCommand createCategory = new(categoryId: 1, companyId: 0);
+            DeleteCategoryCommand deleteCategory = new(categoryId: 1, companyId: 0);
 
-            Assert.True(MensagemDeErroExistente(createCategory.GetErros(), "O Id da empresa e obrigatório"));
+            Assert.True(MensagemDeErroExistente(deleteCategory.GetErros(), "O Id da empresa e obrigatório"));
         }
 
     }

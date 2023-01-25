@@ -31,8 +31,8 @@ namespace StorageStrategy.Domain.Validations.Command
            .IsInEnum()
            .WithMessage("O tipo do pagamento e obrigatório");
 
-        protected void ValidationProducts() => RuleFor(p => p.Products.Count)
+        protected void ValidationProducts() => RuleFor(p => p.Items.Count)
             .GreaterThan(0)
-            .WithMessage("A comanda deve conter produtos nela.");
+            .WithMessage("Essa comanda não possui produtos");
     }
 }
