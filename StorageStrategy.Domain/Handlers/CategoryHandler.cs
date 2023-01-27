@@ -46,7 +46,7 @@ namespace StorageStrategy.Domain.Handlers
             var category = await _repo.GetByIdAsync(request.CategoryId, request.CompanyId);
 
             if (category is null)
-                return CreateError(null, "Categoria não encontrada para edição.");
+                return CreateError("Categoria não encontrada para edição.");
 
             category = _mapper.Map<CategoryEntity>(request);
 

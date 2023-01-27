@@ -76,6 +76,20 @@ namespace StorageStrategy.API.Controllers
             }
         }
 
+        [HttpPost("finish-command")]
+        public async Task<IActionResult> FinishCommand([FromBody] FinishCommandCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPut("update")]
         public async Task<IActionResult> Update([FromBody] UpdateCommandCommand command)
         {

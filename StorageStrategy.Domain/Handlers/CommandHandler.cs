@@ -9,7 +9,8 @@ namespace StorageStrategy.Domain.Handlers
     public class CommandHandler : HandlerBase,
         IRequestHandler<CreateCommandCommand, Result>,
         IRequestHandler<UpdateCommandCommand, Result>,
-        IRequestHandler<DeleteCommandCommand, Result>
+        IRequestHandler<DeleteCommandCommand, Result>,
+        IRequestHandler<FinishCommandCommand, Result>
     {
 
         private IProductRepository _repoProduct;
@@ -66,6 +67,26 @@ namespace StorageStrategy.Domain.Handlers
         public Task<Result> Handle(DeleteCommandCommand request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Result> Handle(FinishCommandCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.IsValid())
+                return CreateError(request.GetErros(), "Dados inválidos");
+
+            var command = await _repoCommand.GetCommandByIdAsync(request.CommandId, request.CompanyId);
+
+            if(command is null)
+                return CreateError("Comanda não encontrada");
+
+            command.FinalDate = DateTime.Now;
+            command.Payment = request.Payment;
+
+            _repoCommand.Update(command);
+            await _repoCommand.SaveAsync();
+
+            return CreateResponse(command, "Comanda finalizada com sucesso.");
+
         }
     }
 }
