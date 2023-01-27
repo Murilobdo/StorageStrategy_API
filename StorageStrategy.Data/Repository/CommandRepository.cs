@@ -27,15 +27,18 @@ namespace StorageStrategy.Data.Repository
 
         public async Task<List<CommandEntity>> ToListAsync(int companyId, bool haveEndDate)
         {
-            var query = _context.Command
-                .Where(p => p.CompanyId == companyId)
-                .Include(p => p.Items)
-                .AsQueryable();
-
             if (haveEndDate)
-                query = query.Where(p => p.FinalDate != null);
-
-            return await query.ToListAsync();
+                return await _context.Command
+                    .Where(p => p.CompanyId == companyId)
+                    .Include(p => p.Items)
+                    .Where(p => p.FinalDate != null)
+                    .ToListAsync();
+            else
+                return await _context.Command
+                    .Where(p => p.CompanyId == companyId)
+                    .Include(p => p.Items)
+                    .Where(p => p.FinalDate == null)
+                    .ToListAsync();
         }
     }
 }

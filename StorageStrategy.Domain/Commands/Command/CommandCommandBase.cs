@@ -27,6 +27,6 @@ namespace StorageStrategy.Domain.Commands.Command
         public DateTime InitialDate { get; set; }
         public DateTime? FinalDate { get; set; }
         public List<CommandItemBase> Items { get; set; } = new();
-        public PaymentEnum Payment { get; set; }
+        public PaymentEnum? Payment { get; set; }
     }
 }

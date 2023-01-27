@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace StorageStrategy.Domain.Validations.Command
 {
-    public class UpdateCommandValidation : CommandBaseValidation
+    public class CreateCommandValidation : CommandBaseValidation
     {
-        public UpdateCommandValidation()
+        public CreateCommandValidation()
         {
-            ValidationId();
             ValidationCompanyId();
             ValidationEmployeeId();
             ValidationName();
-            ValidationPayament();
             ValidationProducts();
         }
     }
