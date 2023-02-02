@@ -5,6 +5,7 @@ using StorageStrategy.Domain.Commands.Category;
 using StorageStrategy.Domain.Commands.Command;
 using StorageStrategy.Domain.Commands.Products;
 using StorageStrategy.Domain.Repository;
+using StorageStrategy.Models;
 
 namespace StorageStrategy.API.Controllers
 {
@@ -37,7 +38,7 @@ namespace StorageStrategy.API.Controllers
                     result.Add(_mapper.Map<CreateCommandCommand>(category));
                 });
 
-                return Ok(result);
+                return Ok(new Result(result, "Busca realizada"));
             }
             catch (Exception ex)
             {
@@ -53,8 +54,9 @@ namespace StorageStrategy.API.Controllers
         ) {
             try
             {
-                var command = await repo.GetCommandByIdAsync(commandId, companyId);
-                return Ok(_mapper.Map<CreateCommandCommand>(command));
+                var entity = await repo.GetCommandByIdAsync(commandId, companyId);
+                var command = _mapper.Map<CreateCommandCommand>(entity);
+                return Ok(new Result(command, "Busca realizada"));
             }
             catch (Exception ex)
             {
@@ -78,6 +80,20 @@ namespace StorageStrategy.API.Controllers
 
         [HttpPost("finish-command")]
         public async Task<IActionResult> FinishCommand([FromBody] FinishCommandCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("add-product-command")]
+        public async Task<IActionResult> AddProductCommand([FromBody] AddProductCommandCommand command)
         {
             try
             {

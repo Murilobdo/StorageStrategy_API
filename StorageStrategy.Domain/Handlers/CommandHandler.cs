@@ -10,7 +10,8 @@ namespace StorageStrategy.Domain.Handlers
         IRequestHandler<CreateCommandCommand, Result>,
         IRequestHandler<UpdateCommandCommand, Result>,
         IRequestHandler<DeleteCommandCommand, Result>,
-        IRequestHandler<FinishCommandCommand, Result>
+        IRequestHandler<FinishCommandCommand, Result>,
+        IRequestHandler<AddProductCommandCommand, Result>
     {
 
         private IProductRepository _repoProduct;
@@ -87,6 +88,33 @@ namespace StorageStrategy.Domain.Handlers
 
             return CreateResponse(command, "Comanda finalizada com sucesso.");
 
+        }
+
+        public async Task<Result> Handle(AddProductCommandCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.IsValid())
+                return CreateError(request.GetErros(), "Dados invalidos.");
+
+            var command = await _repoCommand.GetCommandByIdAsync(request.CommandId, request.CompanyId);
+
+            if (command is null)
+                return CreateError("Comanda não encontrada");
+
+            await _repoCommand.RemoveCommandItems(command.Items);
+
+            var commandItems = request.Items.Select(p => _mapper.Map<CommandItem>(p)).ToList();
+            commandItems.ForEach(p => p.CommandId = command.CommandId);
+
+            await _repoCommand.AddItemsAsync(commandItems);
+            await _repoCommand.SaveAsync();
+
+            command.TotalPrice = commandItems.Sum(p => p.Price * p.Qtd);
+            command.TotalCost = commandItems.Sum(p => p.Cost * p.Qtd);
+
+            _repoCommand.Update(command);
+            await _repoCommand.SaveAsync();
+
+            return CreateResponse(command, "Comanda atualizada com sucesso.");
         }
     }
 }

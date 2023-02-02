@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using StorageStrategy.Domain.Commands.Category;
 using StorageStrategy.Domain.Commands.Products;
 using StorageStrategy.Domain.Repository;
+using StorageStrategy.Models;
 
 namespace StorageStrategy.API.Controllers
 {
@@ -25,15 +26,16 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
-                var categorys = await repo.ToList(companyId);
-                List<CreateProductCommand> result = new();
+                var products = await repo.ToList(companyId);
+                List<CreateProductCommand> listProduct = new();
 
-                categorys.ForEach(category =>
+                products.ForEach(category =>
                 {
-                    result.Add(_mapper.Map<CreateProductCommand>(category));
+                    listProduct.Add(_mapper.Map<CreateProductCommand>(category));
                 });
 
-                return Ok(result);
+
+                return Ok(new Result(listProduct, "Busca realizada"));
             }
             catch (Exception ex)
             {

@@ -7,6 +7,7 @@ namespace StorageStrategy.Domain.Repository
         public Task AddAsync(TModel model);
         public void Update(TModel model);
         public void Delete(TModel id);
+        public void RemoveRange(TModel model);
         public void Save();
         public Task SaveAsync();
     }

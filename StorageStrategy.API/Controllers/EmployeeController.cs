@@ -5,6 +5,7 @@ using StorageStrategy.Domain.Commands.Category;
 using StorageStrategy.Domain.Commands.Employee;
 using StorageStrategy.Domain.Commands.Products;
 using StorageStrategy.Domain.Repository;
+using StorageStrategy.Models;
 
 namespace StorageStrategy.API.Controllers
 {
@@ -26,15 +27,15 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
-                var categorys = await repo.ToList(companyId);
+                var employees = await repo.ToList(companyId);
                 List<CreateEmployeeCommand> result = new();
 
-                categorys.ForEach(category =>
+                employees.ForEach(category =>
                 {
                     result.Add(_mapper.Map<CreateEmployeeCommand>(category));
                 });
 
-                return Ok(result);
+                return Ok(new Result(result, "Busca realizada"));
             }
             catch (Exception ex)
             {

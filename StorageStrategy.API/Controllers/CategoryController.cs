@@ -33,7 +33,7 @@ namespace StorageStrategy.API.Controllers
                     result.Add(_mapper.Map<CreateCategoryCommand>(category));
                 });
 
-                return Ok(result);
+                return Ok(new Result(result, "Busca realizada"));
             }
             catch (Exception ex)
             {
