@@ -41,7 +41,7 @@ namespace StorageStrategy.Domain.Handlers
             var command = _mapper.Map<CommandEntity>(request);
             command.InitialDate = DateTime.Now;
 
-            var commandItems = request.Items.Select(p => _mapper.Map<CommandItem>(p)).ToList();
+            var commandItems = request.Items.Select(p => _mapper.Map<CommandItemEntity>(p)).ToList();
 
             if (command.Name == "Consumidor")
                 command.FinalDate = DateTime.Now;
@@ -100,9 +100,9 @@ namespace StorageStrategy.Domain.Handlers
             if (command is null)
                 return CreateError("Comanda não encontrada");
 
-            await _repoCommand.RemoveCommandItems(command.Items);
+            await _repoCommand.RemoveCommandItemsAsync(command.Items);
 
-            var commandItems = request.Items.Select(p => _mapper.Map<CommandItem>(p)).ToList();
+            var commandItems = request.Items.Select(p => _mapper.Map<CommandItemEntity>(p)).ToList();
             commandItems.ForEach(p => p.CommandId = command.CommandId);
 
             await _repoCommand.AddItemsAsync(commandItems);

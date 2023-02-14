@@ -1,6 +1,6 @@
 ﻿namespace StorageStrategy.Models
 {
-    public class CommandItem
+    public class CommandItemEntity
     {
         public int CommandItemId { get; set; }
         public int CommandId { get; set; }
@@ -12,7 +12,7 @@
         public int Qtd { get; set; }
         public virtual ProductEntity Product { get; set; }
 
-        public CommandItem()
+        public CommandItemEntity()
         {
 
         }

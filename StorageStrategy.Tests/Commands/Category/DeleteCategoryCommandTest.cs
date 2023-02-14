@@ -35,7 +35,7 @@ namespace StorageStrategy.Tests.Commands.Category
         {
             DeleteCategoryCommand deleteCategory = new(categoryId: 1, companyId: 0);
 
-            Assert.True(MensagemDeErroExistente(deleteCategory.GetErros(), "O Id da empresa e obrigatório"));
+            Assert.True(MensagemDeErroExistente(deleteCategory.GetErros(), "O Id da Empresa e obrigatório"));
         }
 
     }

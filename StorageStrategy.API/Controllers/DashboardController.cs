@@ -32,5 +32,19 @@ namespace StorageStrategy.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("entry-and-exit-for-day")]
+        public async Task<IActionResult> EntryAndExitForDay([FromBody] EntryAndExitForDayCommand command)
+        {
+            try
+            {
+                var response = await _mediator.Send(command);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace StorageStrategy.Domain.Validations.Category
 
         protected void ValidationCompanyId() => RuleFor(p => p.CompanyId)
            .GreaterThan(0)
-           .WithMessage("O Id da empresa e obrigatório");
+           .WithMessage("O Id da Empresa e obrigatório");
 
         protected void ValidationName() => RuleFor(p => p.Name)
             .NotEmpty()

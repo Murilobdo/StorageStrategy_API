@@ -35,7 +35,7 @@ namespace StorageStrategy.Tests.Commands.Category
         {
             CreateCategoryCommand createCategory = new(1, "test", true, 0);
 
-            Assert.True(MensagemDeErroExistente(createCategory.GetErros(), "O Id da empresa e obrigatório"));
+            Assert.True(MensagemDeErroExistente(createCategory.GetErros(), "O Id da Empresa e obrigatório"));
         }
     }
 }

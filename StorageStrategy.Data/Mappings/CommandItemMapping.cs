@@ -4,9 +4,9 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Data.Mappings
 {
-    public class CommandItemMapping : IEntityTypeConfiguration<CommandItem>
+    public class CommandItemMapping : IEntityTypeConfiguration<CommandItemEntity>
     {
-        public void Configure(EntityTypeBuilder<CommandItem> builder)
+        public void Configure(EntityTypeBuilder<CommandItemEntity> builder)
         {
             builder.HasKey(p => p.CommandItemId);
 

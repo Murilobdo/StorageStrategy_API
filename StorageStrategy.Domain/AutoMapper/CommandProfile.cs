@@ -26,8 +26,8 @@ namespace StorageStrategy.Domain.AutoMapper
                 .ForMember(p => p.Company, opt => opt.Ignore())
                 .ForMember(p => p.Employee, opt => opt.Ignore());
 
-            CreateMap<CommandItemBase, CommandItem>();
-            CreateMap<CommandItem, CommandItemBase>();
+            CreateMap<CommandItemBase, CommandItemEntity>();
+            CreateMap<CommandItemEntity, CommandItemBase>();
 
         }
     }

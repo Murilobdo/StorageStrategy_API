@@ -21,13 +21,13 @@ namespace StorageStrategy.Data.Context
         public DbSet<CompanyEntity> Company { get; set; }
         public DbSet<EmployeeEntity> Employee { get; set; }
         public DbSet<CommandEntity> Command { get; set; }
-        public DbSet<CommandItem> CommandItems { get; set; }
+        public DbSet<CommandItemEntity> CommandItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {   
             base.OnConfiguring(options);
             //options.EnableSensitiveDataLogging();
-            options.UseSqlServer("Server=MURILOBDO\\LOCALDB;Initial Catalog=StorageStrategy; Integrated Security = true; TrustServerCertificate=True;");
+            options.UseSqlServer("Server=TI-17\\LOCALHOST;Initial Catalog=StorageStrategy; User Id=sa; Password=localdb; TrustServerCertificate=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
