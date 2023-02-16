@@ -11,9 +11,8 @@ namespace StorageStrategy.Domain.Commands.Expenses
 
         }
 
-        public CreateExpensesCommand(int expenseId, int companyId, string description, int expensesTypeId, DateTime createAt)
+        public CreateExpensesCommand(int companyId, string description, int expensesTypeId, DateTime createAt)
         {
-            ExpenseId = expenseId;
             CompanyId = companyId;
             Description = description;
             ExpensesTypeId = expensesTypeId;

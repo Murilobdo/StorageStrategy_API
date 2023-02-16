@@ -22,6 +22,5 @@ namespace StorageStrategy.Tests.Handler
 
             Assert.Null(result);
         }
-
     }
 }

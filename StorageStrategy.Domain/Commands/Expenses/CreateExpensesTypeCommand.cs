@@ -7,9 +7,8 @@ namespace StorageStrategy.Domain.Commands.Expenses
     public record class CreateExpensesTypeCommand : ExpensesTypeCommandBase, IValidation
     {
 
-        public CreateExpensesTypeCommand(int expenseTypeId, int companyId, string description)
+        public CreateExpensesTypeCommand(int companyId, string description)
         {
-            ExpenseTypeId = expenseTypeId;
             CompanyId = companyId;
             Description = description;
         }
