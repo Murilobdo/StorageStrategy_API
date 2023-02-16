@@ -2,6 +2,7 @@
 using StorageStrategy.Data.Context;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
+using StorageStrategy.Utils.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace StorageStrategy.Data.Repository
 
         public async Task<EmployeeEntity> FindByName(string name, int companyId)
         {
-            return await _context.Employee.FirstOrDefaultAsync(p => p.Name == name && p.CompanyId == companyId);
+            return await _context.Employee.FirstOrDefaultAsync(p => p.Name.Compare(name) && p.CompanyId == companyId);
         }
 
         public async Task<EmployeeEntity> GetByIdAsync(int employeeId, int companyId)

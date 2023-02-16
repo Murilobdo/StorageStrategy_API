@@ -11,8 +11,8 @@ namespace StorageStrategy.Domain.Handlers
         IRequestHandler<UpdateCategoryCommand, Result>,
         IRequestHandler<DeleteCategoryCommand, Result>
     {
-        private ICategoryRepository _repo;
-        private IMapper _mapper;
+        private readonly ICategoryRepository _repo;
+        private readonly IMapper _mapper;
 
         public CategoryHandler(ICategoryRepository repo, IMapper mapper)
         {

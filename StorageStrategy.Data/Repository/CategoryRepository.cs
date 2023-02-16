@@ -2,6 +2,7 @@
 using StorageStrategy.Data.Context;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
+using StorageStrategy.Utils.Extensions;
 
 namespace StorageStrategy.Data.Repository
 {
@@ -16,7 +17,7 @@ namespace StorageStrategy.Data.Repository
 
         public async Task<CategoryEntity> FindByName(string name, int companyId)
         {
-            return await _context.Category.FirstOrDefaultAsync(p => p.Name == name && p.CompanyId == companyId);
+            return await _context.Category.FirstOrDefaultAsync(p => p.Name.Compare(name) && p.CompanyId == companyId);
         }
 
         public async Task<CategoryEntity> GetByIdAsync(int categoryId, int companyId)
