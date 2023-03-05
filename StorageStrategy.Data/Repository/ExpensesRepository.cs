@@ -34,7 +34,7 @@ namespace StorageStrategy.Data.Repository
 
         public Task<ExpensesTypeEntity> GetExpensesTypeByDescriptionAsync(string description, int companyId)
         {
-            return _context.ExpensesType.FirstOrDefaultAsync(p => p.CompanyId == companyId && p.Description.Compare(description));
+            return _context.ExpensesType.FirstOrDefaultAsync(p => p.CompanyId == companyId && p.Description.ToLower().Trim() == description.ToLower().Trim());
         }
 
         public Task<ExpensesTypeEntity> GetExpensesTypeByIdAsync(int expensesTypeId, int companyId)

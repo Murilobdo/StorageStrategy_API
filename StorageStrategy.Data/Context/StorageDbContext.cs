@@ -28,7 +28,6 @@ namespace StorageStrategy.Data.Context
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {   
             base.OnConfiguring(options);
-            //options.EnableSensitiveDataLogging();
             options.UseSqlServer("Server=TI-17\\LOCALHOST;Initial Catalog=StorageStrategy; User Id=sa; Password=localdb; TrustServerCertificate=True;");
         }
 

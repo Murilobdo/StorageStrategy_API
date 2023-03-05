@@ -60,12 +60,14 @@ namespace StorageStrategy.Domain.Handlers
             var expenseType = await _repo.GetExpensesTypeByDescriptionAsync(request.Description, request.CompanyId);
 
             if (expenseType is not null)
-                return CreateError("Essa despesa ja foi cadastrada");
+                return CreateError("Essa Categoria de Despesa ja foi cadastrada");
+
+            expenseType = _mapper.Map<ExpensesTypeEntity>(request);
 
             await _repo.AddExpenseTypeAsync(expenseType);
             await _repo.SaveAsync();
 
-            return CreateResponse(expenseType, "Despesa cadastrada com sucesso.");
+            return CreateResponse(expenseType, "Categoria de Despesa cadastrada com sucesso.");
         }
 
         public async Task<Result> Handle(DeleteExpensesTypeCommand request, CancellationToken cancellationToken)
@@ -78,7 +80,7 @@ namespace StorageStrategy.Domain.Handlers
             _repo.DeleteExpenseType(expenseType);
             await _repo.SaveAsync();
 
-            return CreateResponse(expenseType, "Despesa cadastrada com sucesso.");
+            return CreateResponse(expenseType, "Categoria de Despesa excluida com sucesso.");
         }
     }
 }

@@ -15,7 +15,6 @@ namespace StorageStrategy.Data.Mappings
 
             builder.Property(p => p.JobRole)
                 .HasMaxLength(30);
-
         }
     }
 }

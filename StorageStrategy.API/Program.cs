@@ -63,3 +63,4 @@ void ConfigureDependencyInjection()
     builder.Services.AddScoped<IExpensesRepository, ExpensesRepository>();
 }
 
+ 

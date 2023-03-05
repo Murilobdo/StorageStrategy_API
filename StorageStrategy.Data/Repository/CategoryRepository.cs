@@ -17,7 +17,7 @@ namespace StorageStrategy.Data.Repository
 
         public async Task<CategoryEntity> FindByName(string name, int companyId)
         {
-            return await _context.Category.FirstOrDefaultAsync(p => p.Name.Compare(name) && p.CompanyId == companyId);
+            return await _context.Category.FirstOrDefaultAsync(p => p.Name.ToLower().Trim() == name.ToLower().Trim() && p.CompanyId == companyId);
         }
 
         public async Task<CategoryEntity> GetByIdAsync(int categoryId, int companyId)

@@ -22,7 +22,7 @@ namespace StorageStrategy.Data.Repository
 
         public async Task<EmployeeEntity> FindByName(string name, int companyId)
         {
-            return await _context.Employee.FirstOrDefaultAsync(p => p.Name.Compare(name) && p.CompanyId == companyId);
+            return await _context.Employee.FirstOrDefaultAsync(p => p.Name.ToLower().Trim() == name.ToLower().Trim() && p.CompanyId == companyId);
         }
 
         public async Task<EmployeeEntity> GetByIdAsync(int employeeId, int companyId)

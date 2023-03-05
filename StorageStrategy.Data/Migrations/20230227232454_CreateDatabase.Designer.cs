@@ -12,8 +12,8 @@ using StorageStrategy.Data.Context;
 namespace StorageStrategy.Data.Migrations
 {
     [DbContext(typeof(StorageDbContext))]
-    [Migration("20230117003845_Command_FinalDateNulale")]
-    partial class CommandFinalDateNulale
+    [Migration("20230227232454_CreateDatabase")]
+    partial class CreateDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,7 +75,7 @@ namespace StorageStrategy.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Payment")
+                    b.Property<int?>("Payment")
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalCost")
@@ -93,7 +93,7 @@ namespace StorageStrategy.Data.Migrations
                     b.ToTable("Command");
                 });
 
-            modelBuilder.Entity("StorageStrategy.Models.CommandItem", b =>
+            modelBuilder.Entity("StorageStrategy.Models.CommandItemEntity", b =>
                 {
                     b.Property<int>("CommandItemId")
                         .ValueGeneratedOnAdd()
@@ -107,15 +107,15 @@ namespace StorageStrategy.Data.Migrations
                     b.Property<decimal>("Cost")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Qtd")
                         .HasColumnType("int");
@@ -159,7 +159,7 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 1,
-                            CreateAt = new DateTime(2023, 1, 16, 21, 38, 45, 622, DateTimeKind.Local).AddTicks(7708),
+                            CreateAt = new DateTime(2023, 2, 27, 20, 24, 53, 869, DateTimeKind.Local).AddTicks(3679),
                             Description = "Bar",
                             IsActive = true,
                             Name = "Bar do Murps"
@@ -167,7 +167,7 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 2,
-                            CreateAt = new DateTime(2023, 1, 16, 21, 38, 45, 622, DateTimeKind.Local).AddTicks(7742),
+                            CreateAt = new DateTime(2023, 2, 27, 20, 24, 53, 869, DateTimeKind.Local).AddTicks(3745),
                             Description = "Tabacaria",
                             IsActive = true,
                             Name = "Rei do Baco"
@@ -206,6 +206,58 @@ namespace StorageStrategy.Data.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("Employee");
+                });
+
+            modelBuilder.Entity("StorageStrategy.Models.ExpensesEntity", b =>
+                {
+                    b.Property<int>("ExpenseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExpenseId"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ExpensesTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ExpenseId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("ExpensesTypeId");
+
+                    b.ToTable("Expenses");
+                });
+
+            modelBuilder.Entity("StorageStrategy.Models.ExpensesTypeEntity", b =>
+                {
+                    b.Property<int>("ExpenseTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExpenseTypeId"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ExpenseTypeId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("ExpensesType");
                 });
 
             modelBuilder.Entity("StorageStrategy.Models.ProductEntity", b =>
@@ -283,7 +335,7 @@ namespace StorageStrategy.Data.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("StorageStrategy.Models.CommandItem", b =>
+            modelBuilder.Entity("StorageStrategy.Models.CommandItemEntity", b =>
                 {
                     b.HasOne("StorageStrategy.Models.CommandEntity", "Command")
                         .WithMany("Items")
@@ -308,6 +360,36 @@ namespace StorageStrategy.Data.Migrations
                         .WithMany("Employees")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("StorageStrategy.Models.ExpensesEntity", b =>
+                {
+                    b.HasOne("StorageStrategy.Models.CompanyEntity", "Company")
+                        .WithMany("Expenses")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("StorageStrategy.Models.ExpensesTypeEntity", "ExpensesType")
+                        .WithMany()
+                        .HasForeignKey("ExpensesTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("ExpensesType");
+                });
+
+            modelBuilder.Entity("StorageStrategy.Models.ExpensesTypeEntity", b =>
+                {
+                    b.HasOne("StorageStrategy.Models.CompanyEntity", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");
@@ -349,6 +431,8 @@ namespace StorageStrategy.Data.Migrations
                     b.Navigation("Commands");
 
                     b.Navigation("Employees");
+
+                    b.Navigation("Expenses");
 
                     b.Navigation("Products");
                 });

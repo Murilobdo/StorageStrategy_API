@@ -156,7 +156,7 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 1,
-                            CreateAt = new DateTime(2023, 2, 15, 20, 36, 57, 606, DateTimeKind.Local).AddTicks(6561),
+                            CreateAt = new DateTime(2023, 2, 27, 20, 24, 53, 869, DateTimeKind.Local).AddTicks(3679),
                             Description = "Bar",
                             IsActive = true,
                             Name = "Bar do Murps"
@@ -164,7 +164,7 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 2,
-                            CreateAt = new DateTime(2023, 2, 15, 20, 36, 57, 606, DateTimeKind.Local).AddTicks(6587),
+                            CreateAt = new DateTime(2023, 2, 27, 20, 24, 53, 869, DateTimeKind.Local).AddTicks(3745),
                             Description = "Tabacaria",
                             IsActive = true,
                             Name = "Rei do Baco"
@@ -232,7 +232,7 @@ namespace StorageStrategy.Data.Migrations
 
                     b.HasIndex("ExpensesTypeId");
 
-                    b.ToTable("ExpensesEntity");
+                    b.ToTable("Expenses");
                 });
 
             modelBuilder.Entity("StorageStrategy.Models.ExpensesTypeEntity", b =>
@@ -254,7 +254,7 @@ namespace StorageStrategy.Data.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("ExpensesTypeEntity");
+                    b.ToTable("ExpensesType");
                 });
 
             modelBuilder.Entity("StorageStrategy.Models.ProductEntity", b =>
