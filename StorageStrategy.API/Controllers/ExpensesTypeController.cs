@@ -10,7 +10,7 @@ namespace StorageStrategy.API.Controllers
 {
     [ApiController]
     [Route("expenses-type")]
-    public class ExpensesTypeController : Controller
+    public class ExpensesTypeController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;

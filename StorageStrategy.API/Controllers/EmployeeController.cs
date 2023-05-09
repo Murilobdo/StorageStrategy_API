@@ -11,7 +11,7 @@ namespace StorageStrategy.API.Controllers
 {
     [ApiController]
     [Route("employee")]
-    public class EmployeeController : Controller
+    public class EmployeeController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;

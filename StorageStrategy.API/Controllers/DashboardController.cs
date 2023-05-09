@@ -8,7 +8,7 @@ namespace StorageStrategy.API.Controllers
 {
     [Route("dashboard")]
     [ApiController]
-    public class DashboardController : Controller
+    public class DashboardController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;

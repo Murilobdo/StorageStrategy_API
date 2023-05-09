@@ -48,7 +48,7 @@ app.Run();
 void ConfigureCors()
 {
     builder.Services.AddCors(p => p.AddPolicy("CorsStorage", builder => {
-        builder.WithOrigins("http://localhost:3000");
+        builder.WithOrigins("http://localhost:3000", "http://localhost:19006", "http://localhost:19007");
         builder.AllowAnyHeader();
         builder.AllowAnyMethod();
     }));
@@ -61,6 +61,7 @@ void ConfigureDependencyInjection()
     builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
     builder.Services.AddScoped<ICommandRepository, CommandRepository>();
     builder.Services.AddScoped<IExpensesRepository, ExpensesRepository>();
+    builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 }
 
  

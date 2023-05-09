@@ -9,7 +9,7 @@ namespace StorageStrategy.API.Controllers
 {
     [ApiController]
     [Route("category")]
-    public class CategoryController : Controller
+    public class CategoryController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
