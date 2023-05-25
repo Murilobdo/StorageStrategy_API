@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using StorageStrategy.Domain.Commands.Category;
 using StorageStrategy.Domain.Commands.Expenses;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
@@ -9,7 +8,7 @@ using StorageStrategy.Models;
 namespace StorageStrategy.API.Controllers
 {
     [ApiController]
-    [Route("expenses-type")]
+    [Route("ExpensesType")]
     public class ExpensesTypeController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -49,6 +48,40 @@ namespace StorageStrategy.API.Controllers
             {
                 var result = await _mediator.Send(command);
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("AddRangeExpensesType")]
+        public async Task<IActionResult> AddRangeCategory(
+            [FromServices] IExpensesRepository repo,
+            [FromBody] List<CreateExpensesTypeCommand> command)
+        {
+            try
+            {
+                var logs = new List<Error>();
+                await repo.CreateTranscationAsync();
+
+                foreach (var category in command)
+                {
+                    var result = await _mediator.Send(category);
+                    if(!result.Success)
+                    {
+                        logs.AddRange(result.Errors);
+                    }
+                }
+
+                if(logs.Count == 0) {
+                    await repo.CommitAsync();
+                    return Ok(new Result(command, $"{command.Count} categorias importadas com sucesso"));
+                }
+                else {
+                    await repo.RollbackAsync();
+                    return Ok(new Result(logs, "Não foi possivel importar a planilha"));
+                }
             }
             catch (Exception ex)
             {

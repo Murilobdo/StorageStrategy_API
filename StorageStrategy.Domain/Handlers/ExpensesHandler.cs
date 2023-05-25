@@ -60,7 +60,7 @@ namespace StorageStrategy.Domain.Handlers
             var expenseType = await _repo.GetExpensesTypeByDescriptionAsync(request.Description, request.CompanyId);
 
             if (expenseType is not null)
-                return CreateError("Essa Categoria de Despesa ja foi cadastrada");
+                return CreateError($"Ja existe uma categoria com o nome {expenseType.Description}.");
 
             expenseType = _mapper.Map<ExpensesTypeEntity>(request);
 
