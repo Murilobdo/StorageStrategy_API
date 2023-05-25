@@ -20,5 +20,8 @@ namespace StorageStrategy.Data.Repository
         public void Update(TModel model) => _context.Update(model);
         public async Task SaveAsync() => await _context.SaveChangesAsync();
         public void Save() => _context.SaveChanges();
+        public async Task CreateTranscationAsync() => await _context.Database.BeginTransactionAsync();
+        public async Task RollbackAsync() => await _context.Database.RollbackTransactionAsync();
+        public async Task CommitAsync() => await _context.Database.CommitTransactionAsync();
     }
 }

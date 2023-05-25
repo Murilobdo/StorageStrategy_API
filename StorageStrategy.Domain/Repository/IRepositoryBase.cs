@@ -10,5 +10,8 @@ namespace StorageStrategy.Domain.Repository
         public void RemoveRange(TModel model);
         public void Save();
         public Task SaveAsync();
+        public Task CreateTranscationAsync();
+        public Task RollbackAsync();
+        public Task CommitAsync();
     }
 }
