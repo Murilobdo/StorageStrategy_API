@@ -1,14 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
-using StorageStrategy.Domain.Commands.Category;
 using StorageStrategy.Domain.Commands.Products;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StorageStrategy.Domain.Handlers
 {
@@ -36,7 +30,7 @@ namespace StorageStrategy.Domain.Handlers
             var product = await _repo.FindByName(request.Name, request.CompanyId);
 
             if (product is not null)
-                return CreateError("Ja existe um produto com esse nome.");
+                return CreateError($"Ja existe um produto com esse nome {product.Name}");
 
             var category = await _repoCategory.GetByIdAsync(request.CategoryId, request.CompanyId);
 

@@ -2,8 +2,6 @@
 using StorageStrategy.Data.Context;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
-using StorageStrategy.Utils.Extensions;
-using System.ComponentModel.Design;
 
 namespace StorageStrategy.Data.Repository
 {

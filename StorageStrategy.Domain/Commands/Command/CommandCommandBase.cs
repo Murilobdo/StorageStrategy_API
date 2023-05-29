@@ -1,6 +1,4 @@
-﻿using StorageStrategy.Domain.Commands.Products;
-using StorageStrategy.Models;
-using System.ComponentModel.Design;
+﻿using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Commands.Command
 {

@@ -1,5 +1,4 @@
-﻿using StorageStrategy.Models;
-
+﻿
 namespace StorageStrategy.Domain.Commands.Products
 {
     public record class ProductCommandBase : CommandBase

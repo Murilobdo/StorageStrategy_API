@@ -65,9 +65,9 @@ namespace StorageStrategy.API.Controllers
                 var logs = new List<Error>();
                 await repo.CreateTranscationAsync();
 
-                foreach (var category in command)
+                foreach (var expensesType in command)
                 {
-                    var result = await _mediator.Send(category);
+                    var result = await _mediator.Send(expensesType);
                     if(!result.Success)
                     {
                         logs.AddRange(result.Errors);
