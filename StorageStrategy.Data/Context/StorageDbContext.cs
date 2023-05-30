@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Isopoh.Cryptography.Argon2;
+using Microsoft.EntityFrameworkCore;
 using StorageStrategy.Data.Mappings;
 using StorageStrategy.Models;
 
@@ -33,9 +34,21 @@ namespace StorageStrategy.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CompanyEntity>()
-                .HasData(new CompanyEntity(companyId: 1, name: "Bar do Murps", description: "Bar", createAt: DateTime.Now, validate: DateTime.Now.AddYears(10)),
-                        new CompanyEntity(companyId: 2, name: "Rei do Baco", description: "Tabacaria", createAt: DateTime.Now, validate: DateTime.Now.AddYears(3)));
+            CompanyEntity adminCompany = new(companyId: 1, name: "Admin Company", description: "Admin", 
+                createAt: DateTime.Now, validate: DateTime.Now.AddYears(10));
+
+            modelBuilder.Entity<CompanyEntity>().HasData(adminCompany);
+
+             modelBuilder.Entity<EmployeeEntity>().HasData(new EmployeeEntity{
+                EmployeeId = 1,
+                Name = "Murilo Bernardes (Admin)",
+                Email = "murilobdo@admin.com.br",
+                PasswordHash = Argon2.Hash("123"),
+                JobRole = "Developer",
+                CompanyId = adminCompany.CompanyId,
+                Comission = 0,
+                IsActive = true
+            });
 
             modelBuilder.ApplyConfiguration(new CompanyMapping());
             modelBuilder.ApplyConfiguration(new ProductMapping());

@@ -20,11 +20,15 @@ namespace StorageStrategy.Data.Repository
             _context = context;
         }
 
-        public async Task<EmployeeEntity> FindByName(string name, int companyId)
-        {
-            return await _context.Employee.FirstOrDefaultAsync(p => p.Name.ToLower().Trim() == name.ToLower().Trim() && p.CompanyId == companyId);
-        }
+        public async Task<EmployeeEntity> FindByEmail(string email) =>
+            await _context.Employee.FirstOrDefaultAsync(p => p.Email.ToLower().Trim() == email.ToLower().Trim());
 
+        public async Task<EmployeeEntity> FindByName(string name, int companyId) =>
+            await _context.Employee.FirstOrDefaultAsync(p => p.Name.ToLower().Trim() == name.ToLower().Trim() && p.CompanyId == companyId);
+
+        public async Task<List<EmployeeEntity>> ToList(int companyId) => 
+            await _context.Employee.Where(p => p.CompanyId == companyId).ToListAsync();
+            
         public async Task<EmployeeEntity> GetByIdAsync(int employeeId, int companyId)
         {
             var result = await _context.Employee.FirstOrDefaultAsync(p => p.EmployeeId == employeeId && p.CompanyId == companyId);
@@ -32,9 +36,5 @@ namespace StorageStrategy.Data.Repository
             return result;
         }
 
-        public async Task<List<EmployeeEntity>> ToList(int companyId)
-        {
-            return await _context.Employee.Where(p => p.CompanyId == companyId).ToListAsync();
-        }
     }
 }

@@ -18,6 +18,10 @@ namespace StorageStrategy.Domain.Validations.Employee
             .NotEmpty()
             .WithMessage("O Nome e obrigatório");
 
+         protected void ValidationPassword() => RuleFor(p => p.Password)
+            .NotEmpty()
+            .WithMessage("A Senha e obrigatório");
+
         protected void ValidationComission() => RuleFor(p => p.Comission)
             .GreaterThanOrEqualTo(0)
             .WithMessage("O Comissão e obrigatório");

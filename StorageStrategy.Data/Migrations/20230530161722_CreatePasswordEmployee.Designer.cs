@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StorageStrategy.Data.Context;
 
@@ -11,9 +12,11 @@ using StorageStrategy.Data.Context;
 namespace StorageStrategy.Data.Migrations
 {
     [DbContext(typeof(StorageDbContext))]
-    partial class StorageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230530161722_CreatePasswordEmployee")]
+    partial class CreatePasswordEmployee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,11 +162,11 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 1,
-                            CreateAt = new DateTime(2023, 5, 30, 13, 19, 14, 394, DateTimeKind.Local).AddTicks(8606),
+                            CreateAt = new DateTime(2023, 5, 30, 13, 17, 21, 410, DateTimeKind.Local).AddTicks(539),
                             Description = "Admin",
                             IsActive = true,
                             Name = "Admin Company",
-                            Validate = new DateTime(2033, 5, 30, 13, 19, 14, 394, DateTimeKind.Local).AddTicks(8622)
+                            Validate = new DateTime(2033, 5, 30, 13, 17, 21, 410, DateTimeKind.Local).AddTicks(556)
                         });
                 });
 
@@ -216,9 +219,9 @@ namespace StorageStrategy.Data.Migrations
                             CompanyId = 1,
                             Email = "murilobdo@admin.com.br",
                             IsActive = true,
-                            JobRole = "Developer",
+                            JobRole = "",
                             Name = "Murilo Bernardes (Admin)",
-                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$XKxsutIKm2KWJm2k+4Wkbw$v/5iZExYOFfp+n4tzcr6IeNXeBwYVHKN0TqC0jPXOGI"
+                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$2GWZBcDZrThSnj/D+oNKpw$RKhP3QU8S4Tuur6pY+e1aIqGAqIy2Mt2cdXTDsGiM7Q"
                         });
                 });
 

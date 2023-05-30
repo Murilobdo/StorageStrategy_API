@@ -23,6 +23,7 @@ namespace StorageStrategy.Domain.Commands.Employee
         public string Name { get; set; } = string.Empty;
         public int Comission { get; set; }
         public string JobRole { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
         public bool IsActive { get; set; }
         public int CompanyId { get; set; }
     }

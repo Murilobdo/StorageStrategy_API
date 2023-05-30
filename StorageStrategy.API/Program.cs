@@ -1,10 +1,11 @@
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using StorageStrategy.Data.Context;
 using StorageStrategy.Data.Repository;
-using StorageStrategy.Domain.Commands.Category;
 using StorageStrategy.Domain.Repository;
-using StorageStrategy.Models;
-using System.Reflection;
+using StorageStrategy.Utils.Services;
+using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,8 @@ builder.Services.AddDbContext<StorageDbContext>();
 
 ConfigureDependencyInjection();
 
+ConfigureJwt();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -38,6 +41,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("CorsStorage");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
@@ -56,6 +60,7 @@ void ConfigureCors()
 
 void ConfigureDependencyInjection()
 {
+    builder.Services.AddSingleton<TokenService>();
     builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
     builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
@@ -63,6 +68,24 @@ void ConfigureDependencyInjection()
     builder.Services.AddScoped<IExpensesRepository, ExpensesRepository>();
     builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
     builder.Services.AddScoped<IReportRepository, ReportRepository>();
+}
+
+void ConfigureJwt()
+{
+    builder.Services.AddAuthentication(x => {
+        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    }).AddJwtBearer(x => {
+        x.RequireHttpsMetadata = false;
+        x.SaveToken = true;
+        x.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"])),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
 }
 
  

@@ -6,7 +6,8 @@ namespace StorageStrategy.Domain.Commands.Employee
 {
     public record class UpdateEmployeeCommand : EmployeeCommandBase, IValidation
     {
-        public UpdateEmployeeCommand(int employeeId, string name, int comission, string jobRole, bool isActive, int companyId)
+        public UpdateEmployeeCommand(int employeeId, string name, int comission, string jobRole, 
+            bool isActive, int companyId, string password)
         {
             EmployeeId = employeeId;
             Name = name;
@@ -14,6 +15,7 @@ namespace StorageStrategy.Domain.Commands.Employee
             JobRole = jobRole;
             IsActive = isActive;
             CompanyId = companyId;
+            Password = password;
         }
 
         public UpdateEmployeeCommand()

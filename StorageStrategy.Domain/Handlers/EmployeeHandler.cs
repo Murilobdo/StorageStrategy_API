@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Isopoh.Cryptography.Argon2;
 using MediatR;
 using StorageStrategy.Domain.Commands.Employee;
 using StorageStrategy.Domain.Repository;
@@ -32,7 +33,8 @@ namespace StorageStrategy.Domain.Handlers
                 return CreateError("Ja existe um funcionário com esse nome.");
 
             employee = _mapper.Map<EmployeeEntity>(request);
-
+            employee.PasswordHash = Argon2.Hash(request.Password);
+            
             await _repo.AddAsync(employee);
             await _repo.SaveAsync();
 
