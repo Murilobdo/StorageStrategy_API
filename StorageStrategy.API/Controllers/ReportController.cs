@@ -1,16 +1,19 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorageStrategy.Domain.Commands.Report;
 using StorageStrategy.Domain.Repository;
+using StorageStrategy.Utils.Extensions;
 
 namespace StorageStrategy.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
+    [Authorize]
     public class ReportController : ControllerBase
     {
-         private readonly IMediator _mediator;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
         public ReportController(IMediator mediator, IMapper mapper)
@@ -26,6 +29,7 @@ namespace StorageStrategy.API.Controllers
         ) {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var response = await _mediator.Send(command);
                 return Ok(response);
             }

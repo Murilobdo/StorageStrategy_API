@@ -11,15 +11,21 @@ namespace StorageStrategy.Data.Repository
         {
         }
 
-        public async Task<List<CommandEntity>> ReadCommandsByMounthAsync(int companyId, int month)
+        public async Task<List<CommandEntity>> ReadCommandsByDateAsync(int companyId, DateTime initialDate, DateTime finalDate, int employeeId)
         {
-            var commands = await _context.Command
-                .Include(p => p.Items)
-                .Where(p => p.CompanyId == companyId)
-                .Where(p => p.FinalDate.HasValue && p.FinalDate.Value.Month == month)
-                .ToListAsync();
-        
-            return commands;
+            {
+                var query = _context.Command
+                    .Include(p => p.Items)
+                    .Include(p => p.Employee)
+                    .Where(p => p.InitialDate >= initialDate)
+                    .Where(p => p.InitialDate <= finalDate)
+                    .AsQueryable();
+
+                if (employeeId > 0)
+                    query = query.Where(p => p.EmployeeId == employeeId);
+
+                return await query.ToListAsync();
+            }
         }
     }
 }

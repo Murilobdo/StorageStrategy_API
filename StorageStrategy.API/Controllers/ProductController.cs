@@ -1,14 +1,17 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorageStrategy.Domain.Commands.Products;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
+using StorageStrategy.Utils.Extensions;
 
 namespace StorageStrategy.API.Controllers
 {
     [ApiController]
-    [Route("product")]
+    [Route("api/[controller]")]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -25,6 +28,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                companyId = User.GetCompanyId();
                 var products = await repo.ToList(companyId);
                 List<CreateProductCommand> listProduct = new();
 
@@ -47,6 +51,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }
@@ -59,16 +64,18 @@ namespace StorageStrategy.API.Controllers
         [HttpPost("AddRangeProduct")]
         public async Task<IActionResult> AddRangeCategory(
             [FromServices] ICategoryRepository repo,
-            [FromBody] List<CreateProductCommand> command)
+            [FromBody] List<CreateProductCommand> commands)
         {
             try
             {
+                commands.ForEach(command => command.CompanyId = User.GetCompanyId());
+
                 var logs = new List<Error>();
                 await repo.CreateTranscationAsync();
 
-                foreach (var category in command)
+                foreach (var product in commands)
                 {
-                    var result = await _mediator.Send(category);
+                    var result = await _mediator.Send(product);
                     if(!result.Success)
                     {
                         logs.AddRange(result.Errors);
@@ -77,7 +84,7 @@ namespace StorageStrategy.API.Controllers
 
                 if(logs.Count == 0){
                     await repo.CommitAsync();
-                    return Ok(new Result(command, $"{command.Count} produtos importadas com sucesso"));
+                    return Ok(new Result(commands, $"{commands.Count} produtos importadas com sucesso"));
                 }
                 else{
                     await repo.RollbackAsync();
@@ -95,6 +102,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }
@@ -109,6 +117,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }

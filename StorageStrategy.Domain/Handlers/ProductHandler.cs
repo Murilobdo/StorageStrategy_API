@@ -34,8 +34,9 @@ namespace StorageStrategy.Domain.Handlers
 
             var category = await _repoCategory.GetByIdAsync(request.CategoryId, request.CompanyId);
 
-            if (category is null)
+            if (category is null) {
                 return CreateError("Categoria não encontrada");
+            }
 
             product = _mapper.Map<ProductEntity>(request);
 

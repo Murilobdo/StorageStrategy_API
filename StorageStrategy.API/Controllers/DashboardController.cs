@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorageStrategy.Domain.Commands.Dashboard;
+using StorageStrategy.Utils.Extensions;
 
 namespace StorageStrategy.API.Controllers
 {
-    [Route("dashboard")]
     [ApiController]
+    [Route("api/[controller]")]
+    [Authorize]
     public class DashboardController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -24,6 +26,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var response = await _mediator.Send(command);
                 return Ok(response);    
             }
@@ -38,6 +41,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var response = await _mediator.Send(command);
                 return Ok(response);
             }

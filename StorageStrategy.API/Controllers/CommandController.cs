@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StorageStrategy.Domain.Commands.Category;
 using StorageStrategy.Domain.Commands.Command;
-using StorageStrategy.Domain.Commands.Products;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
+using StorageStrategy.Utils.Extensions;
 
 namespace StorageStrategy.API.Controllers
 {
     [ApiController]
-    [Route("command")]
+    [Route("api/[controller]")]
+    [Authorize]
     public class CommandController : Controller
     {
         private readonly IMediator _mediator;
@@ -30,6 +31,7 @@ namespace StorageStrategy.API.Controllers
         ) {
             try
             {
+                companyId = User.GetCompanyId();
                 var command = await repo.ToListAsync(companyId, haveEndDate);
                 List<CreateCommandCommand> result = new();
 
@@ -54,6 +56,7 @@ namespace StorageStrategy.API.Controllers
         ) {
             try
             {
+                companyId = User.GetCompanyId();
                 var entity = await repo.GetCommandByIdAsync(commandId, companyId);
                 var command = _mapper.Map<CreateCommandCommand>(entity);
                 return Ok(new Result(command, "Busca realizada"));
@@ -69,6 +72,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }
@@ -83,6 +87,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }
@@ -97,6 +102,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }
@@ -111,6 +117,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }
@@ -125,6 +132,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }

@@ -1,3 +1,4 @@
+using DevTrends.ConfigurationExtensions;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -60,6 +61,7 @@ void ConfigureCors()
 
 void ConfigureDependencyInjection()
 {
+    builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));
     builder.Services.AddSingleton<TokenService>();
     builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -81,7 +83,7 @@ void ConfigureJwt()
         x.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"])),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["AppSettings:JwtKey"])),
             ValidateIssuer = false,
             ValidateAudience = false
         };

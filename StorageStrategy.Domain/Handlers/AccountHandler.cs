@@ -1,6 +1,7 @@
 using AutoMapper;
 using Isopoh.Cryptography.Argon2;
 using MediatR;
+using Microsoft.Extensions.Options;
 using StorageStrategy.Domain.Commands.Login;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
@@ -13,11 +14,13 @@ namespace StorageStrategy.Domain.Handlers
     {
         private readonly IEmployeeRepository _repo;
         private readonly IMapper _mapper;
+        private readonly IOptions<AppSettings> _appSettings;
 
-        public AccountHandler(IEmployeeRepository repo, IMapper mapper)
+        public AccountHandler(IEmployeeRepository repo, IMapper mapper, IOptions<AppSettings> appSettings)
         {
             _repo = repo;
             _mapper = mapper;
+            _appSettings = appSettings;
         }
 
         public async Task<Result> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -33,9 +36,14 @@ namespace StorageStrategy.Domain.Handlers
                 return CreateError("Email ou Senha incorreta");
 
             TokenService tokenService = new TokenService();
-            string token = tokenService.GenerateToken(employee);
+            string token = tokenService.GenerateToken(employee, _appSettings.Value.JwtKey);
             
-            return CreateResponse(token, "Login efetuado com sucesso");
+            employee.PasswordHash = string.Empty;
+
+            return CreateResponse(new {
+                employee,
+                token
+            }, "Login efetuado com sucesso");
         }
     }
 }

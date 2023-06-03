@@ -1,16 +1,18 @@
-﻿using AutoMapper;
+﻿using System.Net;
+using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StorageStrategy.Domain.Commands.Category;
 using StorageStrategy.Domain.Commands.Employee;
-using StorageStrategy.Domain.Commands.Products;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
+using StorageStrategy.Utils.Extensions;
 
 namespace StorageStrategy.API.Controllers
 {
     [ApiController]
-    [Route("employee")]
+    [Route("api/[controller]")]
+    [Authorize]
     public class EmployeeController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -27,6 +29,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                companyId = User.GetCompanyId();
                 var employees = await repo.ToList(companyId);
                 List<CreateEmployeeCommand> result = new();
 
@@ -48,6 +51,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }
@@ -62,6 +66,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }
@@ -76,6 +81,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }

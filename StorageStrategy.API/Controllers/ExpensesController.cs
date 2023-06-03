@@ -1,15 +1,17 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StorageStrategy.Domain.Commands.Category;
 using StorageStrategy.Domain.Commands.Expenses;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
+using StorageStrategy.Utils.Extensions;
 
 namespace StorageStrategy.API.Controllers
 {
     [ApiController]
-    [Route("expenses")]
+    [Route("api/[controller]")]
+    [Authorize]
     public class ExpensesController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -26,6 +28,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                companyId = User.GetCompanyId();
                 var expenses = await repo.ToList(companyId);
                 List<ExpensesCommandBase> result = new();
 
@@ -47,6 +50,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }
@@ -61,6 +65,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }

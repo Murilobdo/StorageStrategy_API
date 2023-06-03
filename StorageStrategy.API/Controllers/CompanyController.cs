@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StorageStrategy.Domain.Commands.Category;
 using StorageStrategy.Domain.Commands.Company;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
@@ -9,7 +9,8 @@ using StorageStrategy.Models;
 namespace StorageStrategy.API.Controllers
 {
     [ApiController]
-    [Route("company")]
+    [Route("api/[controller]")]
+    [Authorize]
     public class CompanyController : ControllerBase
     {
         private readonly IMediator _mediator;

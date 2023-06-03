@@ -1,14 +1,17 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorageStrategy.Domain.Commands.Expenses;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
+using StorageStrategy.Utils.Extensions;
 
 namespace StorageStrategy.API.Controllers
 {
     [ApiController]
-    [Route("ExpensesType")]
+    [Route("api/[controller]")]
+    [Authorize]
     public class ExpensesTypeController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -25,6 +28,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                companyId = User.GetCompanyId();
                 var expensesType = await repo.ReadExpensesTypeAsync(companyId);
                 List<ExpensesTypeCommandBase> result = new();
 
@@ -46,6 +50,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }
@@ -58,14 +63,17 @@ namespace StorageStrategy.API.Controllers
         [HttpPost("AddRangeExpensesType")]
         public async Task<IActionResult> AddRangeCategory(
             [FromServices] IExpensesRepository repo,
-            [FromBody] List<CreateExpensesTypeCommand> command)
+            [FromBody] List<CreateExpensesTypeCommand> commands)
         {
             try
             {
+                
+                commands.ForEach(command => command.CompanyId = User.GetCompanyId());
+
                 var logs = new List<Error>();
                 await repo.CreateTranscationAsync();
 
-                foreach (var expensesType in command)
+                foreach (var expensesType in commands)
                 {
                     var result = await _mediator.Send(expensesType);
                     if(!result.Success)
@@ -76,7 +84,7 @@ namespace StorageStrategy.API.Controllers
 
                 if(logs.Count == 0) {
                     await repo.CommitAsync();
-                    return Ok(new Result(command, $"{command.Count} categorias importadas com sucesso"));
+                    return Ok(new Result(commands, $"{commands.Count} categorias importadas com sucesso"));
                 }
                 else {
                     await repo.RollbackAsync();
@@ -94,6 +102,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }

@@ -1,14 +1,17 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorageStrategy.Domain.Commands.Category;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
+using StorageStrategy.Utils.Extensions;
 
 namespace StorageStrategy.API.Controllers
 {
     [ApiController]
-    [Route("category")]
+    [Route("api/[controller]")]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -25,6 +28,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                companyId = User.GetCompanyId();
                 var categorys = await repo.ToList(companyId);
                 List<CreateCategoryCommand> result = new();
 
@@ -42,10 +46,11 @@ namespace StorageStrategy.API.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody]CreateCategoryCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateCategoryCommand command)
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }
@@ -62,23 +67,25 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.ForEach(c => c.CompanyId = User.GetCompanyId());
+
                 var logs = new List<Error>();
                 await repo.CreateTranscationAsync();
 
                 foreach (var category in command)
                 {
                     var result = await _mediator.Send(category);
-                    if(!result.Success)
-                    {
+                    if (!result.Success)
                         logs.AddRange(result.Errors);
-                    }
                 }
 
-                if(logs.Count == 0){
+                if (logs.Count == 0)
+                {
                     await repo.CommitAsync();
                     return Ok(new Result(command, $"{command.Count} categorias importadas com sucesso"));
                 }
-                else{
+                else
+                {
                     await repo.RollbackAsync();
                     return Ok(new Result(logs, "Não foi possivel importar a planilha"));
                 }
@@ -90,10 +97,11 @@ namespace StorageStrategy.API.Controllers
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> Update([FromBody]UpdateCategoryCommand command)
+        public async Task<IActionResult> Update([FromBody] UpdateCategoryCommand command)
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }
@@ -108,6 +116,7 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
+                command.CompanyId = User.GetCompanyId();
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }

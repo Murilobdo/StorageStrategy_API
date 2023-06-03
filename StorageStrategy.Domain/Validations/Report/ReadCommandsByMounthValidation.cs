@@ -12,6 +12,13 @@ namespace StorageStrategy.Domain.Validations.Report
                 .GreaterThan(0)
                 .WithMessage("O Id da empresa e obrigatório");
 
+            RuleFor(p => p.InitialDate)
+                .NotEmpty()
+                .WithMessage("A data inicial e obrigatória");
+            
+            RuleFor(p => p.FinalDate)
+                .NotEmpty()
+                .WithMessage("A data final e obrigatória");
         }
     }
 }

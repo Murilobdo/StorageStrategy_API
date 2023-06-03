@@ -27,7 +27,11 @@ namespace StorageStrategy.Domain.Handlers
                 return CreateError(request.GetErros(), "Dados invalidos");
             
             CommandsByMounthViewModel response = new();
-            response.Commands = await _repo.ReadCommandsByMounthAsync(request.CompanyId, request.Month);
+            response.Commands = await _repo.ReadCommandsByDateAsync(
+                request.CompanyId, 
+                request.InitialDate,
+                request.FinalDate,
+                request.EmployeeId);
             
             foreach (var item in response.Commands.SelectMany(p => p.Items))
             {

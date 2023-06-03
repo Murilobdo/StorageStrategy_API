@@ -7,10 +7,11 @@ namespace StorageStrategy.Utils.Services
 {
     public class TokenService
     {
-        public string GenerateToken(EmployeeEntity emploeyee)
+        public string GenerateToken(EmployeeEntity emploeyee, string jwtKey)
         {
+
             var tokenHandler = new JwtSecurityTokenHandler();
-            byte[] key = System.Text.Encoding.ASCII.GetBytes("Pegar do appsettings.json");
+            byte[] key = System.Text.Encoding.ASCII.GetBytes(jwtKey);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
