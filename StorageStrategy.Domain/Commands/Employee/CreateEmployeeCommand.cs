@@ -1,24 +1,20 @@
 ﻿using StorageStrategy.Domain.Validations.Employee;
-using StorageStrategy.Domain.Validations.Product;
 using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Commands.Employee
 {
     public record class CreateEmployeeCommand : EmployeeCommandBase, IValidation
     {
-        public CreateEmployeeCommand(int employeeId, string name, int comission, string jobRole, bool isActive, int companyId, string password)
-        {
-            EmployeeId = employeeId;
-            Name = name;
-            Comission = comission;
-            JobRole = jobRole;
-            IsActive = isActive;
-            CompanyId = companyId;
-            Password = password;
-        }
+       
         public CreateEmployeeCommand()
         {
 
+        }
+
+        public CreateEmployeeCommand(int employeeId, string name, int comission, string jobRole, 
+            string email, string password, bool isActive, int companyId) : 
+            base(employeeId, name, comission, jobRole, email, password, isActive, companyId)
+        {
         }
 
         public bool IsValid() => new CreateEmployeeValidation().Validate(this).IsValid;

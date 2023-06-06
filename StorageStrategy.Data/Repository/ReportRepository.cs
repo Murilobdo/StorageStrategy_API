@@ -13,19 +13,17 @@ namespace StorageStrategy.Data.Repository
 
         public async Task<List<CommandEntity>> ReadCommandsByDateAsync(int companyId, DateTime initialDate, DateTime finalDate, int employeeId)
         {
-            {
-                var query = _context.Command
-                    .Include(p => p.Items)
-                    .Include(p => p.Employee)
-                    .Where(p => p.InitialDate >= initialDate)
-                    .Where(p => p.InitialDate <= finalDate)
-                    .AsQueryable();
+            var query = _context.Command
+                .Include(p => p.Items)
+                .Include(p => p.Employee)
+                .Where(p => p.InitialDate >= initialDate)
+                .Where(p => p.FinalDate != null && p.FinalDate.Value <= finalDate)
+                .AsQueryable();
 
-                if (employeeId > 0)
-                    query = query.Where(p => p.EmployeeId == employeeId);
+            if (employeeId > 0)
+                query = query.Where(p => p.EmployeeId == employeeId);
 
-                return await query.ToListAsync();
-            }
+            return await query.ToListAsync();
         }
     }
 }

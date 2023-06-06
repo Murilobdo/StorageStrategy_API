@@ -97,12 +97,12 @@ namespace StorageStrategy.API.Controllers
             }
         }
 
-        [HttpDelete("delete")]
-        public async Task<IActionResult> Delete([FromBody] DeleteExpensesTypeCommand command)
+        [HttpDelete("delete/{expenseTypeId:int}")]
+        public async Task<IActionResult> Delete([FromRoute]int expenseTypeId)
         {
             try
             {
-                command.CompanyId = User.GetCompanyId();
+                var command = new DeleteExpensesTypeCommand(expenseTypeId, User.GetCompanyId());
                 var result = await _mediator.Send(command);
                 return Ok(result);
             }

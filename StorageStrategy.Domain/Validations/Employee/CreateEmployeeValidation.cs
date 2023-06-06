@@ -8,6 +8,8 @@
             ValidationComission();
             ValidationName();
             ValidationJobRole();
+            ValidationPassword();
+            ValidationEmail();
         }
     }
 }

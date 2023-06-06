@@ -8,8 +8,6 @@ namespace StorageStrategy.Domain.Handlers
 {
     public class CommandHandler : HandlerBase,
         IRequestHandler<CreateCommandCommand, Result>,
-        IRequestHandler<UpdateCommandCommand, Result>,
-        IRequestHandler<DeleteCommandCommand, Result>,
         IRequestHandler<FinishCommandCommand, Result>,
         IRequestHandler<AddProductCommandCommand, Result>
     {
@@ -58,16 +56,6 @@ namespace StorageStrategy.Domain.Handlers
             await _repoCommand.SaveAsync();
 
             return CreateResponse(command, "Comanda cadastrada com sucesso.");
-        }
-
-        public Task<Result> Handle(UpdateCommandCommand request, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Result> Handle(DeleteCommandCommand request, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<Result> Handle(FinishCommandCommand request, CancellationToken cancellationToken)

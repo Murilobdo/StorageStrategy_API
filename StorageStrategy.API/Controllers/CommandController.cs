@@ -126,20 +126,5 @@ namespace StorageStrategy.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpDelete("FinalizeCommand")]
-        public async Task<IActionResult> FinalizeCommand([FromBody] DeleteCommandCommand command)
-        {
-            try
-            {
-                command.CompanyId = User.GetCompanyId();
-                var result = await _mediator.Send(command);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
     }
 }
