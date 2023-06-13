@@ -15,6 +15,7 @@ namespace StorageStrategy.API.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+
         public CompanyController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
@@ -35,6 +36,20 @@ namespace StorageStrategy.API.Controllers
                 });
 
                 return Ok(new Result(result, "Busca realizada"));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] CreateCompanyCommand command)
+        {
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(new Result(result, "Empresa cadastrada com sucesso"));
             }
             catch (Exception ex)
             {
