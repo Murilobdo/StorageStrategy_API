@@ -9,6 +9,8 @@ namespace StorageStrategy.Domain.AutoMapper
         public CompanyProfile()
         {
             CreateMap<CompanyEntity, CompanyCommandBase>();
+
+            CreateMap<CreateCompanyCommand, CompanyEntity>();
         }
     }
 }

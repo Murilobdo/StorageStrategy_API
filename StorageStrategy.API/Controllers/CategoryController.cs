@@ -77,6 +77,8 @@ namespace StorageStrategy.API.Controllers
                     var result = await _mediator.Send(category);
                     if (!result.Success)
                         logs.AddRange(result.Errors);
+
+                    category.CategoryId = ((CategoryEntity)result.Data).CategoryId;
                 }
 
                 if (logs.Count == 0)

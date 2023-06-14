@@ -10,7 +10,7 @@ namespace StorageStrategy.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    // [Authorize(Roles = "Admin")]
     public class CompanyController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -48,8 +48,8 @@ namespace StorageStrategy.API.Controllers
         {
             try
             {
-                var result = await _mediator.Send(command);
-                return Ok(new Result(result, "Empresa cadastrada com sucesso"));
+                var response = await _mediator.Send(command);
+                return Ok(response);
             }
             catch (Exception ex)
             {

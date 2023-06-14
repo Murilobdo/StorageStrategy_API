@@ -62,7 +62,7 @@ namespace StorageStrategy.API.Controllers
         }
 
         [HttpPost("AddRangeProduct")]
-        public async Task<IActionResult> AddRangeCategory(
+        public async Task<IActionResult> AddRangeProduct(
             [FromServices] ICategoryRepository repo,
             [FromBody] List<CreateProductCommand> commands)
         {

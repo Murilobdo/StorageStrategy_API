@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StorageStrategy.Data.Context;
 
@@ -11,9 +12,11 @@ using StorageStrategy.Data.Context;
 namespace StorageStrategy.Data.Migrations
 {
     [DbContext(typeof(StorageDbContext))]
-    partial class StorageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230614014129_RegraProdutoDelete")]
+    partial class RegraProdutoDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,11 +162,11 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 1,
-                            CreateAt = new DateTime(2023, 6, 13, 22, 50, 27, 36, DateTimeKind.Local).AddTicks(1121),
+                            CreateAt = new DateTime(2023, 6, 13, 22, 41, 28, 126, DateTimeKind.Local).AddTicks(4879),
                             Description = "Admin",
                             IsActive = true,
                             Name = "Admin Company",
-                            Validate = new DateTime(2033, 6, 13, 22, 50, 27, 36, DateTimeKind.Local).AddTicks(1138)
+                            Validate = new DateTime(2033, 6, 13, 22, 41, 28, 126, DateTimeKind.Local).AddTicks(4893)
                         });
                 });
 
@@ -218,7 +221,7 @@ namespace StorageStrategy.Data.Migrations
                             IsActive = true,
                             JobRole = "Developer",
                             Name = "Murilo Bernardes (Admin)",
-                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$tz1kynOTjrTCNkPi8qtvew$4x5/gOjHs7F+pkdn+ALpHIIol9lJchf3I56n53ykuVY"
+                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$/jAa5EL20awStnPy7h6XdQ$YSAl/9GJjD0a6vfCbe8fEgetJbCxRpu9tK+QYiydaA4"
                         });
                 });
 
@@ -282,6 +285,9 @@ namespace StorageStrategy.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
 
+                    b.Property<int?>("CategoryEntityCategoryId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
@@ -312,7 +318,10 @@ namespace StorageStrategy.Data.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CategoryEntityCategoryId");
+
+                    b.HasIndex("CategoryId")
+                        .IsUnique();
 
                     b.HasIndex("CompanyId");
 
@@ -411,9 +420,13 @@ namespace StorageStrategy.Data.Migrations
 
             modelBuilder.Entity("StorageStrategy.Models.ProductEntity", b =>
                 {
-                    b.HasOne("StorageStrategy.Models.CategoryEntity", "Category")
+                    b.HasOne("StorageStrategy.Models.CategoryEntity", null)
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("CategoryEntityCategoryId");
+
+                    b.HasOne("StorageStrategy.Models.CategoryEntity", "Category")
+                        .WithOne()
+                        .HasForeignKey("StorageStrategy.Models.ProductEntity", "CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
