@@ -31,5 +31,18 @@ namespace StorageStrategy.Models
             IsActive = isActive;
             CategoryId = categoryId;
         }
+
+        public ProductEntity(string name, decimal cost, decimal price, int qtd, int stockAlert, int categoryId, int companyId)
+        {
+            Name = name;
+            Cost = cost;
+            Price = price;
+            Qtd = qtd;
+            StockAlert = stockAlert;
+            CategoryId = categoryId;
+            CompanyId = companyId;
+            IsActive = true;
+        }
+
     }
 }

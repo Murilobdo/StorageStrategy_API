@@ -7,8 +7,7 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Handlers
 {
-    public class ReportHandler : HandlerBase,
-        IRequestHandler<ReadCommandsByMounthCommand, Result>
+    public class ReportHandler : HandlerBase
     {
         private IReportRepository _repo;
         private ICategoryRepository _repoCategory;
@@ -19,27 +18,6 @@ namespace StorageStrategy.Domain.Handlers
             _repo = repo;
             _mapper = mapper;
             _repoCategory = repoCategory;
-        }
-
-        public async Task<Result> Handle(ReadCommandsByMounthCommand request, CancellationToken cancellationToken)
-        {
-            if(!request.IsValid())
-                return CreateError(request.GetErros(), "Dados invalidos");
-            
-            CommandsByMounthViewModel response = new();
-            response.Commands = await _repo.ReadCommandsByDateAsync(
-                request.CompanyId, 
-                request.InitialDate,
-                request.FinalDate,
-                request.EmployeeId);
-            
-            foreach (var item in response.Commands.SelectMany(p => p.Items))
-            {
-                response.TotalCost += item.Cost;
-                response.TotalPrice += item.Price;
-            }
-            
-            return CreateResponse(response, "Busca realizada");
         }
     }
 }

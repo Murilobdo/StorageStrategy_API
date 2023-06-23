@@ -61,35 +61,15 @@ namespace StorageStrategy.API.Controllers
             }
         }
 
-        [HttpPost("AddRangeProduct")]
-        public async Task<IActionResult> AddRangeProduct(
-            [FromServices] ICategoryRepository repo,
-            [FromBody] List<CreateProductCommand> commands)
+        [HttpPost("ImportExcel")]
+        public async Task<IActionResult> ImportExcel(
+            [FromBody] ImportProductCommand command)
         {
             try
             {
-                commands.ForEach(command => command.CompanyId = User.GetCompanyId());
-
-                var logs = new List<Error>();
-                await repo.CreateTranscationAsync();
-
-                foreach (var product in commands)
-                {
-                    var result = await _mediator.Send(product);
-                    if(!result.Success)
-                    {
-                        logs.AddRange(result.Errors);
-                    }
-                }
-
-                if(logs.Count == 0){
-                    await repo.CommitAsync();
-                    return Ok(new Result(commands, $"{commands.Count} produtos importadas com sucesso"));
-                }
-                else{
-                    await repo.RollbackAsync();
-                    return Ok(new Result(logs, "Não foi possivel importar a planilha"));
-                }
+                command.CompanyId = User.GetCompanyId();
+                var result = await _mediator.Send(command);
+                return Ok(result);
             }
             catch (Exception ex)
             {

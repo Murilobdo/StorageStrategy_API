@@ -15,6 +15,12 @@ namespace StorageStrategy.Data.Repository
             _context = context;
         }
 
+        public async Task AddRange(IEnumerable<CategoryEntity> categorys)
+        {
+            await _context.Category.AddRangeAsync(categorys);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<CategoryEntity> FindByName(string name, int companyId)
         {
             return await _context.Category.FirstOrDefaultAsync(p => p.Name.ToLower().Trim() == name.ToLower().Trim() && p.CompanyId == companyId);

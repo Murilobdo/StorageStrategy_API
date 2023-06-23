@@ -2,11 +2,14 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.ViewModels
 {
-    public class CommandsByMounthViewModel
+    public class ImportProductViewModel
     {
-        public List<CommandEntity> Commands { get; set; } = new();
-        public decimal  TotalCost { get; set; }
-        public decimal  TotalPrice { get; set; }
-        public decimal TotalLucro => TotalPrice - TotalCost;
+        public string Name { get; set; } = string.Empty;
+        public string Category { get; set; } = string.Empty;
+        public string Cost { get; set; } = string.Empty;
+        public string Price { get; set; } = string.Empty;
+        public string Qtd { get; set; } = string.Empty;
+        public string StockAlert { get; set; } = string.Empty;
+        public int CompanyId { get; set; }
     }
 }

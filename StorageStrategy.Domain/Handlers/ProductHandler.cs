@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Globalization;
+using AutoMapper;
 using MediatR;
 using StorageStrategy.Domain.Commands.Products;
 using StorageStrategy.Domain.Repository;
@@ -9,7 +10,8 @@ namespace StorageStrategy.Domain.Handlers
     public class ProductHandler : HandlerBase,
         IRequestHandler<CreateProductCommand, Result>,
         IRequestHandler<UpdateProductCommand, Result>,
-        IRequestHandler<DeleteProductCommand, Result>
+        IRequestHandler<DeleteProductCommand, Result>,
+        IRequestHandler<ImportProductCommand, Result>
     {
         private IProductRepository _repo;
         private ICategoryRepository _repoCategory;
@@ -34,7 +36,8 @@ namespace StorageStrategy.Domain.Handlers
 
             var category = await _repoCategory.GetByIdAsync(request.CategoryId, request.CompanyId);
 
-            if (category is null) {
+            if (category is null)
+            {
                 return CreateError("Categoria não encontrada");
             }
 
@@ -83,6 +86,47 @@ namespace StorageStrategy.Domain.Handlers
             await _repo.SaveAsync();
 
             return CreateResponse(product, "Produto excluido com sucesso.");
+        }
+
+        public async Task<Result> Handle(ImportProductCommand request, CancellationToken cancellationToken)
+        {
+            var categorys = request.Products.Select(p => new CategoryEntity(p.Category, request.CompanyId));
+
+            foreach (var category in categorys)
+            {
+                if (await _repoCategory.FindByName(category.Name, request.CompanyId) is null)
+                    await _repoCategory.AddAsync(category);
+            }
+            await _repoCategory.SaveAsync();
+
+            List<ProductEntity> products = new();
+            foreach (var product in request.Products)
+            {
+                var category = await _repoCategory.FindByName(product.Category, request.CompanyId);
+
+                if (await _repo.FindByName(product.Name, request.CompanyId) is null)
+                {
+                    products.Add(new ProductEntity(
+                        name: product.Name,
+                        cost: ConvertMoney(product.Cost),
+                        price: ConvertMoney(product.Price),
+                        qtd: Convert.ToInt32(product.Qtd),
+                        stockAlert: Convert.ToInt32(product.StockAlert),
+                        categoryId: category.CategoryId,
+                        companyId: request.CompanyId
+                    ));
+                }
+            }
+
+            await _repo.AddRange(products);
+
+            return CreateResponse(products, "Produtos importados com sucesso.");
+        }
+
+        private decimal ConvertMoney(string value)
+        {
+            value = value.Trim().Replace("R$ ", "").Replace("R$", "");
+            return Convert.ToDecimal(value);
         }
     }
 }
