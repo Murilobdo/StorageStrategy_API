@@ -8,6 +8,7 @@ namespace StorageStrategy.Domain.Repository
         public void Update(TModel model);
         public void Delete(TModel id);
         public void RemoveRange(TModel model);
+        public Task<TModel> GetById(int id);
         public void Save();
         public Task SaveAsync();
         public Task CreateTranscationAsync();

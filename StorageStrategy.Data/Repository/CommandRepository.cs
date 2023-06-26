@@ -18,6 +18,11 @@ namespace StorageStrategy.Data.Repository
             await _context.CommandItems.AddRangeAsync(items);
         }
 
+        public override async Task<CommandEntity> GetById(int id)
+        {
+            return await _context.Command.FirstOrDefaultAsync(p => p.CommandId == id);
+        }
+
         public async Task<CommandEntity> GetCommandByIdAsync(int commandId, int companyId)
         {
             return await _context.Command

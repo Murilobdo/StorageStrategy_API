@@ -11,6 +11,11 @@ namespace StorageStrategy.Data.Repository
         {
         }
 
+        public override async Task<CommandEntity> GetById(int id)
+        {
+            return await _context.Command.FirstOrDefaultAsync(p => p.CommandId == id);
+        }
+
         public async Task<List<CommandEntity>> ReadCommandsByDateAsync(int companyId, DateTime initialDate, DateTime finalDate, int employeeId)
         {
             var query = _context.Command

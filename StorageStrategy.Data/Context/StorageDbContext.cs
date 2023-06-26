@@ -29,7 +29,7 @@ namespace StorageStrategy.Data.Context
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {   
             base.OnConfiguring(options);
-            options.UseSqlServer("Server=MURILOBDO\\LOCALDB;Initial Catalog=StorageStrategy; Integrated Security = true; TrustServerCertificate=True;");
+            options.UseSqlServer("Server=tcp:elitegate.database.windows.net,1433;Initial Catalog=Storage Strategy;Persist Security Info=False;User ID=murilobdo;Password=Fib@1123581321;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

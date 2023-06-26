@@ -12,9 +12,17 @@ namespace StorageStrategy.Data.Repository
 
         }
 
+        public override async Task<CompanyEntity> GetById(int companyId)
+        {
+            return await _context.Company.FirstOrDefaultAsync(company => company.CompanyId == companyId);
+
+        }
+
         public async Task<List<CompanyEntity>> ToList()
         {
             return await _context.Company.ToListAsync();
         }
+
+       
     }
 }

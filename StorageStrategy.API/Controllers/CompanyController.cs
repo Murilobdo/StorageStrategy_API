@@ -10,7 +10,7 @@ namespace StorageStrategy.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    // [Authorize(Roles = "Admin")]
+    [Authorize]
     public class CompanyController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -36,6 +36,21 @@ namespace StorageStrategy.API.Controllers
                 });
 
                 return Ok(new Result(result, "Busca realizada"));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("GetById/{companyId:int}")]
+        public async Task<IActionResult> GetById([FromServices] ICompanyRepository repo, [FromRoute] int companyId)
+        {
+            try
+            {
+                var company = await repo.GetById(companyId);
+              
+                return Ok(new Result(company.Name, "Busca realizada"));
             }
             catch (Exception ex)
             {

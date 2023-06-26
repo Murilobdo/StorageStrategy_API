@@ -25,6 +25,11 @@ namespace StorageStrategy.Data.Repository
             return await _context.Product.FirstOrDefaultAsync(p => p.Name.ToLower().Trim() == name.ToLower().Trim() && p.CompanyId == companyId);
         }
 
+        public override async Task<ProductEntity> GetById(int id)
+        {
+            return await _context.Product.FirstOrDefaultAsync(p => p.ProductId == id);
+        }
+
         public async Task<ProductEntity> GetByIdAsync(int productId, int companyId)
         {
             var result = await _context.Product.FirstOrDefaultAsync(p => p.ProductId == productId && p.CompanyId == companyId);

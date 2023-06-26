@@ -2,12 +2,6 @@
 using StorageStrategy.Data.Context;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
-using StorageStrategy.Utils.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StorageStrategy.Data.Repository
 {
@@ -36,5 +30,9 @@ namespace StorageStrategy.Data.Repository
             return result;
         }
 
+        public override async Task<EmployeeEntity> GetById(int id)
+        {
+            return await _context.Employee.FirstOrDefaultAsync(p => p.EmployeeId == id);
+        }
     }
 }

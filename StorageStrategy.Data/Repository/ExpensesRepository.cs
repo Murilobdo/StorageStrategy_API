@@ -2,12 +2,6 @@
 using StorageStrategy.Data.Context;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
-using StorageStrategy.Utils.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StorageStrategy.Data.Repository
 {
@@ -25,6 +19,11 @@ namespace StorageStrategy.Data.Repository
         public void DeleteExpenseType(ExpensesTypeEntity expensesType)
         {
             _context.ExpensesType.Remove(expensesType);
+        }
+
+        public override async Task<ExpensesEntity> GetById(int id)
+        {
+            return await _context.Expenses.FirstOrDefaultAsync(p => p.ExpenseId == id);
         }
 
         public Task<ExpensesEntity> GetExpensesByIdAsync(int expensesId, int companyId)

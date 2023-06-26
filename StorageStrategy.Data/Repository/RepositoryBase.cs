@@ -3,7 +3,7 @@ using StorageStrategy.Domain.Repository;
 
 namespace StorageStrategy.Data.Repository
 {
-    public class RepositoryBase<TModel> : IRepositoryBase<TModel> where TModel : class
+    public abstract class RepositoryBase<TModel> : IRepositoryBase<TModel> where TModel : class
     {
         protected readonly StorageDbContext _context;
 
@@ -14,7 +14,7 @@ namespace StorageStrategy.Data.Repository
         public async Task AddAsync(TModel model) => await _context.AddAsync(model);
         public void Delete(TModel model) => _context.Remove(model);
         public void RemoveRange(TModel model) => _context.RemoveRange(model);
-        public TModel GetById(int id) => _context.Find<TModel>(id);
+        public abstract Task<TModel> GetById(int id);
         public void Update(TModel model) => _context.Update(model);
         public async Task SaveAsync() => await _context.SaveChangesAsync();
         public void Save() => _context.SaveChanges();
