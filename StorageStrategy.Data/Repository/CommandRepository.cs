@@ -54,7 +54,7 @@ namespace StorageStrategy.Data.Repository
                             
             return await query.ToListAsync();
         }
-
+ 
         public async Task RemoveCommandItemsAsync(List<CommandItemEntity> items)
         {
             _context.CommandItems.RemoveRange(items);
