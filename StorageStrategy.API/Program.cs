@@ -37,7 +37,7 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.UseCors("CorsStorage");
+app.UseCors("Allow");
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -49,11 +49,17 @@ app.Run();
 
 void ConfigureCors()
 {
-    builder.Services.AddCors(p => p.AddPolicy("CorsStorage", builder => {
-        builder.WithOrigins("http://localhost:3000", "http://localhost:19006", "http://localhost:19007");
+    builder.Services.AddCors(p => p.AddPolicy("Allow", builder => {
+        builder.AllowAnyOrigin();
         builder.AllowAnyHeader();
         builder.AllowAnyMethod();
     }));
+
+    // builder.Services.AddCors(p => p.AddPolicy("CorsStorage", builder => {
+    //     builder.WithOrigins("http://localhost:3000", "http://localhost:19006", "http://localhost:19007");
+    //     builder.AllowAnyHeader();
+    //     builder.AllowAnyMethod();
+    // }));
 }
 
 void ConfigureDependencyInjection()
