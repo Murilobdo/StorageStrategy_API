@@ -50,8 +50,6 @@ namespace StorageStrategy.Data.Context
                 IsActive = true
             });
 
-            
-
             modelBuilder.ApplyConfiguration(new CompanyMapping());
             modelBuilder.ApplyConfiguration(new ProductMapping());
             modelBuilder.ApplyConfiguration(new CategoryMapping());
