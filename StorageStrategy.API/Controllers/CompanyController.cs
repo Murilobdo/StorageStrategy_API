@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorageStrategy.Domain.Commands.Company;
+using StorageStrategy.Domain.Commands.Login;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
 
@@ -10,7 +11,6 @@ namespace StorageStrategy.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class CompanyController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -49,8 +49,7 @@ namespace StorageStrategy.API.Controllers
             try
             {
                 var company = await repo.GetById(companyId);
-              
-                return Ok(new Result(company.Name, "Busca realizada"));
+                return Ok(new Result(company, "Busca realizada"));
             }
             catch (Exception ex)
             {
@@ -60,6 +59,20 @@ namespace StorageStrategy.API.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateCompanyCommand command)
+        {
+            try
+            {
+                var response = await _mediator.Send(command);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("ChangePassword")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordCommand command)
         {
             try
             {

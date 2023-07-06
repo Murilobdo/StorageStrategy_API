@@ -9,8 +9,10 @@ using StorageStrategy.Utils.Services;
 
 namespace StorageStrategy.Domain.Handlers
 {
+    
     public class AccountHandler : HandlerBase,
-        IRequestHandler<LoginCommand, Result>
+        IRequestHandler<LoginCommand, Result>,
+        IRequestHandler<ChangePasswordCommand, Result>
     {
         private readonly IEmployeeRepository _repo;
         private readonly IMapper _mapper;
@@ -44,6 +46,21 @@ namespace StorageStrategy.Domain.Handlers
                 employee,
                 token
             }, "Login efetuado com sucesso");
+        }
+
+        public async Task<Result> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
+        {
+            var employee = await _repo.GetByIdAsync(request.UserId, request.CompanyId);
+
+            if(employee == null)
+                return CreateError("Funcionário não encontrado");
+
+            employee.PasswordHash = Argon2.Hash(request.NewPassword);
+
+            _repo.Update(employee);
+            await _repo.SaveAsync();
+
+            return CreateResponse(employee, "Senha alterada com sucesso");
         }
     }
 }

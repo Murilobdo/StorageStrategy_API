@@ -37,7 +37,7 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.UseCors("Allow");
+app.UseCors("CorsStorage");
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -55,11 +55,11 @@ void ConfigureCors()
         builder.AllowAnyMethod();
     }));
 
-    // builder.Services.AddCors(p => p.AddPolicy("CorsStorage", builder => {
-    //     builder.WithOrigins("http://localhost:3000", "http://localhost:19006", "http://localhost:19007");
-    //     builder.AllowAnyHeader();
-    //     builder.AllowAnyMethod();
-    // }));
+    builder.Services.AddCors(p => p.AddPolicy("CorsStorage", builder => {
+        builder.WithOrigins("http://localhost:3000", "http://localhost:19006", "http://localhost:19007", "https://storage-strategy-site.vercel.app");
+        builder.AllowAnyHeader();
+        builder.AllowAnyMethod();
+    }));
 }
 
 void ConfigureDependencyInjection()
