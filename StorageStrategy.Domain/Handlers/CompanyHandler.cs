@@ -32,18 +32,18 @@ namespace StorageStrategy.Domain.Handlers
             await _repository.AddAsync(company);
             await _repository.SaveAsync();
 
-            await CreateUserCompanyAdmin(request.AdminUserEmail, request.Password, company.CompanyId);
+            await CreateUserCompanyAdmin(request.AdminUserName, request.AdminUserEmail, request.Password, company.CompanyId);
 
             return CreateResponse(company, "Empresa cadastrada com sucesso.");
         }
 
-        private async Task CreateUserCompanyAdmin(string adminUserEmail, string password, int companyId)
+        private async Task CreateUserCompanyAdmin(string adminUserName, string adminUserEmail, string password, int companyId)
         {
             var employeeAdmin = new EmployeeEntity
             {
                 CompanyId = companyId,
                 Email = adminUserEmail,
-                Name = "Administrador",
+                Name = adminUserName,
                 PasswordHash = Argon2.Hash(password),
                 IsActive = true,
                 JobRole = "Gerente",

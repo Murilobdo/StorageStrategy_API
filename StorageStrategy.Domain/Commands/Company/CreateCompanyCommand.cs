@@ -18,7 +18,8 @@ namespace StorageStrategy.Domain.Commands.Company
         }
 
         public string AdminUserEmail { get; set; }
-        public string Password { get; set; }
+        public string AdminUserName { get; set; }
+        public string Password { get; set; }   
 
         public bool IsValid() => new CreateCompanyValidation().Validate(this).IsValid;
         public List<Error> GetErros() => new CreateCompanyValidation().Validate(this)
