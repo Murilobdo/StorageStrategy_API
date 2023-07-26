@@ -30,16 +30,16 @@ namespace StorageStrategy.Domain.Handlers
                 return CreateError(request.GetErros(), "Dados invalidos");
 
             var product = await _repo.FindByName(request.Name, request.CompanyId);
-
+                
             if (product is not null)
                 return CreateError($"Ja existe um produto com esse nome {product.Name}");
-
+ 
             var category = await _repoCategory.GetByIdAsync(request.CategoryId, request.CompanyId);
 
             if (category is null)
-            {
+            { 
                 return CreateError("Categoria não encontrada");
-            }
+            } 
 
             product = _mapper.Map<ProductEntity>(request);
 
@@ -90,15 +90,25 @@ namespace StorageStrategy.Domain.Handlers
 
         public async Task<Result> Handle(ImportProductCommand request, CancellationToken cancellationToken)
         {
-            var categorys = request.Products.Select(p => new CategoryEntity(p.Category, request.CompanyId));
-
-            foreach (var category in categorys)
+            try
             {
-                if (await _repoCategory.FindByName(category.Name, request.CompanyId) is null)
-                    await _repoCategory.AddAsync(category);
-            }
-            await _repoCategory.SaveAsync();
+                await _repo.CreateTranscationAsync();
+                    await CreateCategorys(request);
 
+                    var products = await CreateProducts(request);
+                
+                await _repo.CommitAsync();
+                return CreateResponse(products, "Produtos importados com sucesso.");
+            }
+            catch (Exception ex)
+            {
+                await _repo.RollbackAsync();
+                return CreateError(new Result("", ex.Message));
+            }
+        }
+
+        private async Task<List<ProductEntity>> CreateProducts(ImportProductCommand request)
+        {
             List<ProductEntity> products = new();
             foreach (var product in request.Products)
             {
@@ -106,6 +116,11 @@ namespace StorageStrategy.Domain.Handlers
 
                 if (await _repo.FindByName(product.Name, request.CompanyId) is null)
                 {
+                    if(product.Name == "HD Externo")
+                    {
+                        
+                    }
+
                     products.Add(new ProductEntity(
                         name: product.Name,
                         cost: ConvertMoney(product.Cost),
@@ -119,14 +134,30 @@ namespace StorageStrategy.Domain.Handlers
             }
 
             await _repo.AddRange(products);
+            await _repo.SaveAsync();
 
-            return CreateResponse(products, "Produtos importados com sucesso.");
+            return products;
+        }
+
+        private async Task CreateCategorys(ImportProductCommand request)
+        {
+            var categorys = request.Products.Select(p => new CategoryEntity(p.Category, request.CompanyId));
+
+            foreach (var category in categorys)
+            {
+                if (await _repoCategory.FindByName(category.Name, request.CompanyId) is null)
+                    await _repoCategory.AddAsync(category);
+            }
+            await _repoCategory.SaveAsync();
+
         }
 
         private decimal ConvertMoney(string value)
         {
             value = value.Trim().Replace("R$ ", "").Replace("R$", "");
-            return Convert.ToDecimal(value);
+            value = value.Replace(".", ",");
+            decimal returnValue = Convert.ToDecimal(value, new System.Globalization.CultureInfo("pt-BR"));
+            return returnValue;
         }
     }
 }

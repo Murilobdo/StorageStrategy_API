@@ -7,5 +7,6 @@ namespace StorageStrategy.Utils.Services
             
         }
         public string JwtKey { get; set; } = string.Empty;
+        public string Database { get; set; } = string.Empty;
     }
 }

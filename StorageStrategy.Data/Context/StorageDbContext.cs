@@ -1,20 +1,19 @@
 ﻿using Isopoh.Cryptography.Argon2;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using StorageStrategy.Data.Mappings;
 using StorageStrategy.Models;
+using StorageStrategy.Utils.Services;
 
 namespace StorageStrategy.Data.Context
 {
     public class StorageDbContext : DbContext
     {
-        public StorageDbContext(DbContextOptions<StorageDbContext> options) : base(options)
+        private readonly IOptions<AppSettings> _appSettings;
+        
+        public StorageDbContext(DbContextOptions<StorageDbContext> options, IOptions<AppSettings> appSettings) : base(options)
         {
-
-        }
-
-        public StorageDbContext()
-        {
-
+            _appSettings = appSettings;
         }
 
         public DbSet<CategoryEntity> Category { get; set; }
@@ -29,7 +28,7 @@ namespace StorageStrategy.Data.Context
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {   
             base.OnConfiguring(options);
-            options.UseSqlServer("Server=tcp:elitegate.database.windows.net,1433;Initial Catalog=Storage Strategy;Persist Security Info=False;User ID=murilobdo;Password=Fib@1123581321;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            options.UseSqlServer(_appSettings.Value.Database);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,10 +38,10 @@ namespace StorageStrategy.Data.Context
 
             modelBuilder.Entity<CompanyEntity>().HasData(adminCompany);
 
-             modelBuilder.Entity<EmployeeEntity>().HasData(new EmployeeEntity{
+            modelBuilder.Entity<EmployeeEntity>().HasData(new EmployeeEntity {
                 EmployeeId = 1,
                 Name = "Murilo Bernardes (Admin)",
-                Email = "murilobdo@admin.com.br",
+                Email = "murilobdo@admin.com",
                 PasswordHash = Argon2.Hash("fib"),
                 JobRole = "Developer",
                 CompanyId = adminCompany.CompanyId,

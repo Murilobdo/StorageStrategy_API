@@ -1,3 +1,4 @@
 {
-    "dotnet.defaultSolution": "StorageStrategy_API.sln"
+    "dotnet.defaultSolution": "StorageStrategy_API.sln",
+    "editor.fontFamily": "Fira Code"
 }

@@ -8,7 +8,6 @@ namespace StorageStrategy.Domain.Commands.Command
         public int CommandId { get; set; }
         public int CompanyId { get; set; }
         public List<CommandItemBase> Items { get; set; } = new();
-
         public AddProductCommandCommand(int commandId, int companyId, List<CommandItemBase> items)
         {
             CommandId = commandId;
