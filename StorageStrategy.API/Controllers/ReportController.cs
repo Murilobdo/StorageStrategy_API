@@ -40,5 +40,15 @@ namespace StorageStrategy.API.Controllers
             var response = await _mediator.Send(command);
             return Ok(response);
         }
+
+        [HttpGet("GetPaymentsOfCommands")]
+        public async Task<IActionResult> GetPaymentsOfCommands(
+            [FromServices] IReportRepository repo,
+            [FromBody] ReadPaymentCommandCommand command
+        ) {
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
     }
 }

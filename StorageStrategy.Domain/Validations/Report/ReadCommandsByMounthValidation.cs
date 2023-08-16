@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StorageStrategy.Domain.Validations.Report
 {
-    public class ReadCommandsByMounthValidation : AbstractValidator<ReadCommandsByMounthCommand>
+    public class ReadCommandsByMounthValidation : AbstractValidator<FilterDashboard>
     {
         public ReadCommandsByMounthValidation()
         {
