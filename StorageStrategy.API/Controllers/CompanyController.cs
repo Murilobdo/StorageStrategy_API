@@ -26,50 +26,29 @@ namespace StorageStrategy.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromServices] ICompanyRepository repo)
         {
-            try
-            {
-                var companys = await repo.ToList();
-                List<CompanyCommandBase> result = new();
+            var companys = await repo.ToList();
+            List<CompanyCommandBase> result = new();
 
-                companys.ForEach(company =>
-                {
-                    result.Add(_mapper.Map<CompanyCommandBase>(company));
-                });
-
-                return Ok(new Result(result, "Busca realizada"));
-            }
-            catch (Exception ex)
+            companys.ForEach(company =>
             {
-                return BadRequest(ex.Message);
-            }
+                result.Add(_mapper.Map<CompanyCommandBase>(company));
+            });
+
+            return Ok(new Result(result, "Busca realizada"));
         }
 
         [HttpGet("GetById/{companyId:int}")]
         public async Task<IActionResult> GetById([FromServices] ICompanyRepository repo, [FromRoute] int companyId)
         {
-            try
-            {
-                var company = await repo.GetById(companyId);
-                return Ok(new Result(company, "Busca realizada"));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var company = await repo.GetById(companyId);
+            return Ok(new Result(company, "Busca realizada"));
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateCompanyCommand command)
         {
-            try
-            {
-                var response = await _mediator.Send(command);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
 
         

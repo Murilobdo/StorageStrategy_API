@@ -24,31 +24,17 @@ namespace StorageStrategy.API.Controllers
         [HttpPost("entry-and-exit-month")]
         public async Task<IActionResult> EntryAndExitOfMonth([FromBody] EntryAndExitOfMonthCommand command)
         {
-            try
-            {
-                command.CompanyId = User.GetCompanyId();
-                var response = await _mediator.Send(command);
-                return Ok(response);    
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);    
         }
 
         [HttpPost("entry-and-exit-for-day")]
         public async Task<IActionResult> EntryAndExitForDay([FromBody] EntryAndExitForDayCommand command)
         {
-            try
-            {
-                command.CompanyId = User.GetCompanyId();
-                var response = await _mediator.Send(command);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
     }
 }

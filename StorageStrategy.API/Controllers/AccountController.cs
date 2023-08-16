@@ -23,29 +23,15 @@ namespace StorageStrategy.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> LoginAsync([FromBody] LoginCommand login)
         {
-            try
-            {
-                var response = await _mediator.Send(login);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var response = await _mediator.Send(login);
+            return Ok(response);
         }
 
         [HttpPost("ChangePassword")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordCommand command)
         {
-            try
-            {
-                var response = await _mediator.Send(command);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
     }
 }

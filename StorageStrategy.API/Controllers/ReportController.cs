@@ -10,7 +10,6 @@ namespace StorageStrategy.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class ReportController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -22,22 +21,24 @@ namespace StorageStrategy.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost("GetCommands")]
+        [HttpGet("GetCommands")]
         public async Task<IActionResult> GetCommands(
+            [FromServices] IReportRepository repo, 
+            [FromBody] ReadCommandsBetweenDatesCommand command
+        ) {
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
+        [HttpGet("GetCommandsByMounth")]
+        public async Task<IActionResult> GetCommandsByMounth(
             [FromServices] IReportRepository repo, 
             [FromBody] ReadCommandsByMounthCommand command
         ) {
-            try
-            {
-                command.CompanyId = User.GetCompanyId();
-                var response = await _mediator.Send(command);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
-      
     }
 }

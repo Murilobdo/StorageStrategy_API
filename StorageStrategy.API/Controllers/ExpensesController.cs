@@ -24,55 +24,35 @@ namespace StorageStrategy.API.Controllers
         }
 
         [HttpGet("list")]
-        public async Task<IActionResult> ToList([FromServices] IExpensesRepository repo, int companyId)
+        public async Task<IActionResult> ToList([FromServices] IExpenseRepository repo, int companyId)
         {
-            try
-            {
-                companyId = User.GetCompanyId();
-                var expenses = await repo.ToList(companyId);
-                List<ExpensesCommandBase> result = new();
+            companyId = User.GetCompanyId();
+            var expenses = await repo.ToList(companyId);
+            List<ExpenseCommandBase> result = new();
 
-                expenses.ForEach(category =>
-                {
-                    result.Add(_mapper.Map<ExpensesCommandBase>(category));
-                });
-
-                return Ok(new Result(result, "Busca realizada"));
-            }
-            catch (Exception ex)
+            expenses.ForEach(category =>
             {
-                return BadRequest(ex.Message);
-            }
+                result.Add(_mapper.Map<ExpenseCommandBase>(category));
+            });
+
+            return Ok(new Result(result, "Busca realizada"));
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody]CreateExpensesCommand command)
+        public async Task<IActionResult> Create([FromBody]CreateExpenseCommand command)
         {
-            try
-            {
-                command.CompanyId = User.GetCompanyId();
-                var result = await _mediator.Send(command);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            
+            command.CompanyId = User.GetCompanyId();
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpDelete("delete/{expenseId:int}")]
         public async Task<IActionResult> Delete([FromRoute]int expenseId)
         {
-            try
-            {
-                var command = new DeleteExpensesCommand(expenseId, User.GetCompanyId());
-                var result = await _mediator.Send(command);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var command = new DeleteExpenseCommand(expenseId, User.GetCompanyId());
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
     }
 }

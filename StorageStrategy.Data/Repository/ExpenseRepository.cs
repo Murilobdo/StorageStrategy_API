@@ -5,9 +5,9 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Data.Repository
 {
-    public class ExpensesRepository : RepositoryBase<ExpensesEntity>, IExpensesRepository
+    public class ExpenseRepository : RepositoryBase<ExpenseEntity>, IExpenseRepository
     {
-        public ExpensesRepository(StorageDbContext context) : base(context)
+        public ExpenseRepository(StorageDbContext context) : base(context)
         {
         }
 
@@ -21,12 +21,12 @@ namespace StorageStrategy.Data.Repository
             _context.ExpensesType.Remove(expensesType);
         }
 
-        public override async Task<ExpensesEntity> GetById(int id)
+        public override async Task<ExpenseEntity> GetById(int id)
         {
             return await _context.Expenses.FirstOrDefaultAsync(p => p.ExpenseId == id);
         }
 
-        public Task<ExpensesEntity> GetExpensesByIdAsync(int expensesId, int companyId)
+        public Task<ExpenseEntity> GetExpensesByIdAsync(int expensesId, int companyId)
         {
             return _context.Expenses.FirstOrDefaultAsync(p => p.CompanyId== companyId && p.ExpenseId == expensesId);
         }
@@ -46,7 +46,7 @@ namespace StorageStrategy.Data.Repository
             return _context.ExpensesType.Where(p => p.CompanyId == companyId).ToList();
         }
 
-        public async Task<List<ExpensesEntity>> ToList(int companyId)
+        public async Task<List<ExpenseEntity>> ToList(int companyId)
         {
             return await _context.Expenses.Where(p => p.CompanyId == companyId).ToListAsync();
         }

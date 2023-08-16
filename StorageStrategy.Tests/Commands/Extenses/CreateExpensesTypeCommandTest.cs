@@ -13,7 +13,7 @@ namespace StorageStrategy.Tests.Commands.Extenses
         [Fact]
         public void Sucesso_ao_criar_uma_categoria_de_despesa()
         {
-            CreateExpensesTypeCommand command = new(1, "Description");
+            CreateExpenseTypeCommand command = new(1, "Description");
 
             Assert.True(command.IsValid());
         }
@@ -21,7 +21,7 @@ namespace StorageStrategy.Tests.Commands.Extenses
         [Fact]
         public void Erro_ao_criar_uma_categoria_de_despesa_sem_companyId()
         {
-            CreateExpensesTypeCommand command = new(0, "Description");
+            CreateExpenseTypeCommand command = new(0, "Description");
 
             Assert.True(MensagemDeErroExistente(command.GetErros(), "O Id da empresa e obrigatório"));
         }
@@ -29,7 +29,7 @@ namespace StorageStrategy.Tests.Commands.Extenses
         [Fact]
         public void Erro_ao_criar_uma_categoria_de_despesa_sem_descricao()
         {
-            CreateExpensesTypeCommand command = new(1, string.Empty);
+            CreateExpenseTypeCommand command = new(1, string.Empty);
 
             Assert.True(MensagemDeErroExistente(command.GetErros(), "A Descrição e obrigatória"));
         }

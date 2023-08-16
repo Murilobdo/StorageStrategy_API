@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using StorageStrategy.Data.Context;
 using StorageStrategy.Data.Repository;
 using StorageStrategy.Domain.Repository;
+using StorageStrategy.Utils.Middleware;
 using StorageStrategy.Utils.Services;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -37,10 +38,11 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.UseCors("CorsStorage");
+app.UseCors("Allow");
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware(typeof(ExceptionErrorMiddleware));
 
 app.MapControllers();
 
@@ -70,7 +72,7 @@ void ConfigureDependencyInjection()
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
     builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
     builder.Services.AddScoped<ICommandRepository, CommandRepository>();
-    builder.Services.AddScoped<IExpensesRepository, ExpensesRepository>();
+    builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
     builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
     builder.Services.AddScoped<IReportRepository, ReportRepository>();
 }

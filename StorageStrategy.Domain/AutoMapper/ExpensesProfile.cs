@@ -8,11 +8,11 @@ namespace StorageStrategy.Domain.AutoMapper
     {
         public ExpensesProfile()
         {
-            CreateMap<CreateExpensesCommand, ExpensesEntity>()
+            CreateMap<CreateExpenseCommand, ExpenseEntity>()
                 .ForMember(p => p.Company, op => op.Ignore())
                 .ForMember(p => p.ExpensesType, op => op.Ignore());
 
-            CreateMap<ExpensesEntity, ExpensesCommandBase>();
+            CreateMap<ExpenseEntity, ExpenseCommandBase>();
         }
     }
 }

@@ -8,6 +8,7 @@ using StorageStrategy.Models;
 namespace StorageStrategy.Domain.Handlers
 {
     public class ReportHandler : HandlerBase,
+        IRequestHandler<ReadCommandsBetweenDatesCommand, Result>,
         IRequestHandler<ReadCommandsByMounthCommand, Result>
     {
         private IReportRepository _repo;
@@ -21,7 +22,7 @@ namespace StorageStrategy.Domain.Handlers
             _repoCategory = repoCategory;
         }
 
-        public async Task<Result> Handle(ReadCommandsByMounthCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(ReadCommandsBetweenDatesCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid())
                 return CreateError(request.GetErros(), "Dados invalidos");
@@ -29,6 +30,21 @@ namespace StorageStrategy.Domain.Handlers
             var commands = await _repo.ReadCommandsByDateAsync(request.CompanyId, request.InitialDate, request.FinalDate, request.EmployeeId);
 
             return CreateResponse(new {
+                Commands = commands,
+                TotalCost = commands.Sum(p => p.TotalCost),
+                TotalPrice = commands.Sum(p => p.TotalPrice),
+            }, "Busca realizada !");
+        }
+
+        public async Task<Result> Handle(ReadCommandsByMounthCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.IsValid())
+                return CreateError(request.GetErros(), "Dados invalidos");
+
+            var commands = await _repo.ReadCommandsByMounthAsync(request.CompanyId, request.Month, request.EmployeeId);
+
+            return CreateResponse(new
+            {
                 Commands = commands,
                 TotalCost = commands.Sum(p => p.TotalCost),
                 TotalPrice = commands.Sum(p => p.TotalPrice),

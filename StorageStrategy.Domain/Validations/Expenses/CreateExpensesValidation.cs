@@ -8,6 +8,7 @@
             ValidationDescription();
             ValidationDate();
             ValidationExpensesTypeId();
+            ValidationExpenseValue();
         }
     }
 }

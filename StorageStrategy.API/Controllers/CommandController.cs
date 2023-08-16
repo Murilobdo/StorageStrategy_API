@@ -29,23 +29,17 @@ namespace StorageStrategy.API.Controllers
             [FromQuery] int companyId,
             [FromQuery] bool haveEndDate
         ) {
-            try
-            {
-                companyId = User.GetCompanyId();
-                var command = await repo.ToListAsync(companyId, haveEndDate);
-                List<CreateCommandCommand> result = new();
+           
+            companyId = User.GetCompanyId();
+            var command = await repo.ToListAsync(companyId, haveEndDate);
+            List<CreateCommandCommand> result = new();
 
-                command.ForEach(category =>
-                {
-                    result.Add(_mapper.Map<CreateCommandCommand>(category));
-                });
-
-                return Ok(new Result(result, "Busca realizada"));
-            }
-            catch (Exception ex)
+            command.ForEach(category =>
             {
-                return BadRequest(ex.Message);
-            }
+                result.Add(_mapper.Map<CreateCommandCommand>(category));
+            });
+
+            return Ok(new Result(result, "Busca realizada"));
         }
 
         [HttpGet("getcommand")]
@@ -54,77 +48,42 @@ namespace StorageStrategy.API.Controllers
             [FromQuery] int companyId,
             [FromQuery] int commandId
         ) {
-            try
-            {
-                companyId = User.GetCompanyId();
-                var entity = await repo.GetCommandByIdAsync(commandId, companyId);
-                var command = _mapper.Map<CreateCommandCommand>(entity);
-                return Ok(new Result(command, "Busca realizada"));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            companyId = User.GetCompanyId();
+            var entity = await repo.GetCommandByIdAsync(commandId, companyId);
+            var command = _mapper.Map<CreateCommandCommand>(entity);
+            return Ok(new Result(command, "Busca realizada"));
         }
 
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateCommandCommand command)
         {
-            try
-            {
-                command.CompanyId = User.GetCompanyId();
-                var result = await _mediator.Send(command);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            command.CompanyId = User.GetCompanyId();
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPost("finish-command")]
         public async Task<IActionResult> FinishCommand([FromBody] FinishCommandCommand command)
         {
-            try
-            {
-                command.CompanyId = User.GetCompanyId();
-                var result = await _mediator.Send(command);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            command.CompanyId = User.GetCompanyId();
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPut("add-product-command")]
         public async Task<IActionResult> AddProductCommand([FromBody] AddProductCommandCommand command)
         {
-            try
-            {
-                command.CompanyId = User.GetCompanyId();
-                var result = await _mediator.Send(command);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            command.CompanyId = User.GetCompanyId();
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPut("update")]
         public async Task<IActionResult> Update([FromBody] UpdateCommandCommand command)
         {
-            try
-            {
-                command.CompanyId = User.GetCompanyId();
-                var result = await _mediator.Send(command);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            command.CompanyId = User.GetCompanyId();
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
     }
 }

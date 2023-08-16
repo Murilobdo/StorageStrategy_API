@@ -3,7 +3,7 @@ using StorageStrategy.Domain.Commands.Expenses;
 
 namespace StorageStrategy.Domain.Validations.Expenses
 {
-    public class ExpensesValidationBase : AbstractValidator<ExpensesCommandBase>
+    public class ExpensesValidationBase : AbstractValidator<ExpenseCommandBase>
     {
         protected void ValidationId() => RuleFor(p => p.ExpenseId)
             .GreaterThan(0)
@@ -24,5 +24,9 @@ namespace StorageStrategy.Domain.Validations.Expenses
         protected void ValidationDescription() => RuleFor(p => p.Description)
             .NotEmpty()
             .WithMessage("A Descrição e obrigatória");
+
+        protected void ValidationExpenseValue() => RuleFor(p => p.ExpenseValue)
+           .GreaterThan(0)
+           .WithMessage("O Valor da despesa deve ser maior do que 0");
     }
 }

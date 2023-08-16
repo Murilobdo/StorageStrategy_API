@@ -26,85 +26,51 @@ namespace StorageStrategy.API.Controllers
         [HttpGet("list")]
         public async Task<IActionResult> ToList([FromServices] IProductRepository repo, int companyId)
         {
-            try
+            List<CreateProductCommand> listProduct = new();
+           
+            companyId = User.GetCompanyId();
+            var products = await repo.ToList(companyId);
+
+            products.ForEach(category =>
             {
-                companyId = User.GetCompanyId();
-                var products = await repo.ToList(companyId);
-                List<CreateProductCommand> listProduct = new();
+                listProduct.Add(_mapper.Map<CreateProductCommand>(category));
+            });
 
-                products.ForEach(category =>
-                {
-                    listProduct.Add(_mapper.Map<CreateProductCommand>(category));
-                });
-
-
-                return Ok(new Result(listProduct, "Busca realizada"));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return Ok(new Result(listProduct, "Busca realizada"));
+           
         }
 
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateProductCommand command)
         {
-            try
-            {
-                command.CompanyId = User.GetCompanyId();
-                var result = await _mediator.Send(command);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            command.CompanyId = User.GetCompanyId();
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPost("ImportExcel")]
         public async Task<IActionResult> ImportExcel(
             [FromBody] ImportProductCommand command)
         {
-            try
-            {
-                command.CompanyId = User.GetCompanyId();
-                var result = await _mediator.Send(command);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            command.CompanyId = User.GetCompanyId();
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPut("update")]
         public async Task<IActionResult> Update([FromBody] UpdateProductCommand command)
         {
-            try
-            {
-                command.CompanyId = User.GetCompanyId();
-                var result = await _mediator.Send(command);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            command.CompanyId = User.GetCompanyId();
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpDelete("delete/{productId:int}")]
         public async Task<IActionResult> Delete([FromRoute] int productId)
         {
-            try
-            {
-                DeleteProductCommand command = new(productId, User.GetCompanyId());
-                var result = await _mediator.Send(command);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            DeleteProductCommand command = new(productId, User.GetCompanyId());
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
     }
 }
