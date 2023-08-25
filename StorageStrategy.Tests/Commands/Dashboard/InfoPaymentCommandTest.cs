@@ -3,33 +3,33 @@ using Xunit;
 
 namespace StorageStrategy.Tests.Commands.Dashboard
 {
-    public class EntryAndExitForDayCommandTest : CommandBaseTest
+    public class InfoPaymentCommandTest : CommandBaseTest
     {
-        public EntryAndExitForDayCommandTest()
+        public InfoPaymentCommandTest()
         {
 
         }
 
         [Fact]
-        public void Sucesso_ao_criar_EntryAndExitForDayCommand()
+        public void Sucesso_ao_criar_InfoPaymentCommandTest()
         {
-            EntryAndExitForDayCommand command = new(1, 1);
+            InfoPaymentCommand command = new(1, 1);
 
             Assert.True(command.IsValid());
         }
 
         [Fact]
-        public void Erro_ao_criar_EntryAndExitForDayCommand_sem_companyId()
+        public void Erro_ao_criar_InfoPaymentCommandTest_sem_companyId()
         {
-            EntryAndExitForDayCommand command = new(0, 1);
+            InfoPaymentCommand command = new(0, 1);
 
             Assert.True(MensagemDeErroExistente(command.GetErros(), "O Id da Empresa e obrigatório"));
         }
 
         [Fact]
-        public void Erro_ao_criar_EntryAndExitForDayCommand_sem_mes()
+        public void Erro_ao_criar_InfoPaymentCommandTest_sem_mes()
         {
-            EntryAndExitForDayCommand command = new(1, 0);
+            InfoPaymentCommand command = new(1, 0);
 
             Assert.True(MensagemDeErroExistente(command.GetErros(), "O Mês e obrigatório"));
         }

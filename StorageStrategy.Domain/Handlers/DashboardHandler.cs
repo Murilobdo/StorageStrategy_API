@@ -11,7 +11,8 @@ namespace StorageStrategy.Domain.Handlers
 {
     public class DashboardHandler : HandlerBase,
         IRequestHandler<EntryAndExitOfMonthCommand, Result>,
-        IRequestHandler<EntryAndExitForDayCommand, Result>
+        IRequestHandler<EntryAndExitForDayCommand, Result>,
+        IRequestHandler<InfoPaymentCommand, Result>
     {
         private readonly ICommandRepository _repoCommand;
         private readonly IMapper _mapper;
@@ -43,10 +44,10 @@ namespace StorageStrategy.Domain.Handlers
             if (!request.IsValid())
                 return CreateError(request.GetErros(), "Dados inválidos");
 
-            var command = await _repoCommand.ReadCommandsForPeriodAsync(request.CompanyId, request.Date.Month);
+            var command = await _repoCommand.ReadCommandsForPeriodAsync(request.CompanyId, request.Month);
 
             var result = new List<EntryAndExitForDayCommand>();
-            var initialDate = new DateTime(request.Date.Year, request.Date.Month, 1);
+            var initialDate = new DateTime(DateTime.Now.Year, request.Month, 1);
 
             do
             {
@@ -55,16 +56,21 @@ namespace StorageStrategy.Domain.Handlers
                 result.Add(new EntryAndExitForDayCommand
                 {
                     CompanyId = request.CompanyId,
-                    Date = request.Date,
                     DayOfMonth = initialDate.Day,
+                    Month = request.Month,
                     MoneyOut = commandItens.Sum(p => p.Cost),
                     MoneyIn = commandItens.Sum(p => p.Price)
                 });
 
                 initialDate = initialDate.AddDays(1);
-            } while (initialDate.Month == request.Date.Month);
+            } while (initialDate.Month == request.Month);
 
             return CreateResponse(result.OrderBy(p => p.DayOfMonth), "Busca realizada");
+        }
+
+        public Task<Result> Handle(InfoPaymentCommand request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -21,7 +21,7 @@ namespace StorageStrategy.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("GetCommands")]
+        [HttpPost("GetCommands")]
         public async Task<IActionResult> GetCommands(
             [FromServices] IReportRepository repo, 
             [FromBody] ReadCommandsBetweenDatesCommand command
@@ -31,7 +31,7 @@ namespace StorageStrategy.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("GetCommandsByMounth")]
+        [HttpPost("GetCommandsByMounth")]
         public async Task<IActionResult> GetCommandsByMounth(
             [FromServices] IReportRepository repo, 
             [FromBody] ReadCommandsByMounthCommand command
@@ -41,7 +41,7 @@ namespace StorageStrategy.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("GetPaymentsOfCommands")]
+        [HttpPost("GetPaymentsOfCommands")]
         public async Task<IActionResult> GetPaymentsOfCommands(
             [FromServices] IReportRepository repo,
             [FromBody] ReadPaymentCommandCommand command

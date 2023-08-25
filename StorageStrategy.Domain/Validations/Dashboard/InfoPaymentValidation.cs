@@ -1,11 +1,16 @@
 ﻿using FluentValidation;
 using StorageStrategy.Domain.Commands.Dashboard;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace StorageStrategy.Domain.Validations.Dashboard
 {
-    public class EntryAndExitForDayValidation : AbstractValidator<EntryAndExitForDayCommand>
+    public class InfoPaymentValidation : AbstractValidator<InfoPaymentCommand>
     {
-        public EntryAndExitForDayValidation()
+        public InfoPaymentValidation()
         {
             RuleFor(p => p.CompanyId)
                 .GreaterThan(0)

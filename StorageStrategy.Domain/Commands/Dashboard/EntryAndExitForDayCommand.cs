@@ -10,25 +10,20 @@ namespace StorageStrategy.Domain.Commands.Dashboard
         
         }
 
-        public EntryAndExitForDayCommand(int companyId, DateTime date)
+        public EntryAndExitForDayCommand(int companyId, int month)
         {
             CompanyId = companyId;
-            Date = date;
+            Month = month;
         }
 
         public int CompanyId { get; set; }
-
-        public DateTime Date { get; set; }
-
         public int DayOfMonth { get; set; }
-
+        public int Month { get; set; }
         public decimal MoneyIn { get; set; }
-
         public decimal MoneyOut { get; set; }
 
         public List<Error> GetErros() => new EntryAndExitForDayValidation().Validate(this)
           .Errors.Select(p => new Error(p.PropertyName, p.ErrorMessage)).ToList();
-
         public bool IsValid() => new EntryAndExitForDayValidation().Validate(this).IsValid;
     }
 }
