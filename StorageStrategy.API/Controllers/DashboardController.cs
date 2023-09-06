@@ -44,5 +44,21 @@ namespace StorageStrategy.API.Controllers
             var response = await _mediator.Send(command);
             return Ok(response);
         }
+
+        [HttpPost("sales-per-employee")]
+        public async Task<IActionResult> SalesPerEmployee([FromBody] SalesPerEmployeeCommand command)
+        {
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
+        [HttpPost("total-cost-price-per-day")]
+        public async Task<IActionResult> TotalCostPricePerDay([FromBody] TotalCostPricePerDayCommand command)
+        {
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
     }
 }
