@@ -32,5 +32,10 @@ namespace StorageStrategy.Domain.Validations.Product
         protected void ValidationQtd() => RuleFor(p => p.Qtd)
             .GreaterThan(0)
             .WithMessage("A quantidade deve ser maior do que 0");
+
+        protected void ValidationTaxing() => RuleFor(p => p.Taxing)
+            .GreaterThanOrEqualTo(0)
+            .WithMessage("O imposto deve ser pelo menos 0");
+
     }
 }

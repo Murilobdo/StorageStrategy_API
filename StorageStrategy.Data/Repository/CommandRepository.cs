@@ -34,6 +34,7 @@ namespace StorageStrategy.Data.Repository
         {
             var result = await _context.Command
                 .AsNoTracking()
+                .Where(p => p.CompanyId == companyId)
                 .Where(p => p.FinalDate != null && p.FinalDate.Value.Day == day)
                 .SelectMany(p => p.Items)
                 .ToListAsync();
@@ -47,6 +48,7 @@ namespace StorageStrategy.Data.Repository
                             .AsNoTracking()
                             .Where(p => p.FinalDate != null)
                             .Where(p => p.InitialDate.Month == initialMonth)
+                            .Where(p => p.CompanyId == companyId)
                             .AsQueryable();
 
             if (finalMounth > 0)

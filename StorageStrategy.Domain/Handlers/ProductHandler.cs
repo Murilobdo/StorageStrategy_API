@@ -59,11 +59,6 @@ namespace StorageStrategy.Domain.Handlers
             if (product is null)
                 return CreateError("Produto não encontrado para a atualização.");
 
-            var category = await _repoCategory.GetByIdAsync(request.CategoryId, request.CompanyId);
-
-            if (category is null)
-                return CreateError("Categoria não encontrada");
-
             product = _mapper.Map<ProductEntity>(request);
 
             _repo.Update(product);
@@ -93,9 +88,9 @@ namespace StorageStrategy.Domain.Handlers
             try
             {
                 await _repo.CreateTranscationAsync();
-                    await CreateCategorys(request);
+                await CreateCategorys(request);
 
-                    var products = await CreateProducts(request);
+                var products = await CreateProducts(request);
                 
                 await _repo.CommitAsync();
                 return CreateResponse(products, "Produtos importados com sucesso.");
@@ -116,11 +111,6 @@ namespace StorageStrategy.Domain.Handlers
 
                 if (await _repo.FindByName(product.Name, request.CompanyId) is null)
                 {
-                    if(product.Name == "HD Externo")
-                    {
-                        
-                    }
-
                     products.Add(new ProductEntity(
                         name: product.Name,
                         cost: ConvertMoney(product.Cost),
@@ -128,7 +118,8 @@ namespace StorageStrategy.Domain.Handlers
                         qtd: Convert.ToInt32(product.Qtd),
                         stockAlert: Convert.ToInt32(product.StockAlert),
                         categoryId: category.CategoryId,
-                        companyId: request.CompanyId
+                        companyId: request.CompanyId,
+                        taxing: product.Taxing
                     ));
                 }
             }

@@ -2,7 +2,7 @@
 {
     public class Result
     {
-        public object Data { get; set; } = new();
+        public object Response { get; set; } = new();
         public string Message { get; set; } = string.Empty;
         public string ErrorMessage { get; set; } = string.Empty;
         public List<Error> Errors { get; set; }
@@ -10,7 +10,7 @@
 
         public Result(object data, string message)
         {
-            Data = data;
+            Response = data;
             Message = message;
             Errors = new List<Error>();
         }

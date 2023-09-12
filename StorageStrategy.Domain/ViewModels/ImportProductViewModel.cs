@@ -9,6 +9,7 @@ namespace StorageStrategy.Domain.ViewModels
         string Price,
         string Qtd,
         string StockAlert,
-        int CompanyId
+        int CompanyId,
+        decimal Taxing
     );
 }

@@ -69,7 +69,7 @@ namespace StorageStrategy.API.Controllers
                 if (!result.Success)
                     logs.AddRange(result.Errors);
 
-                category.CategoryId = ((CategoryEntity)result.Data).CategoryId;
+                category.CategoryId = ((CategoryEntity)result.Response).CategoryId;
             }
 
             if (logs.Count == 0)

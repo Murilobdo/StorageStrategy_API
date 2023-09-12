@@ -1,14 +1,14 @@
 ﻿
 namespace StorageStrategy.Domain.Commands.Products
 {
-    public record class ProductCommandBase : CommandBase
+    public record ProductCommandBase : CommandBase
     {
         public ProductCommandBase()
         {
 
         }
 
-        public ProductCommandBase(int productId, string name, decimal cost, decimal price, int qtd, bool isActive, int categoryId, int companyId)
+        public ProductCommandBase(int productId, string name, decimal cost, decimal price, int qtd, bool isActive, int categoryId, int companyId, decimal taxing)
         {
             ProductId = productId;
             Name = name;
@@ -18,6 +18,7 @@ namespace StorageStrategy.Domain.Commands.Products
             IsActive = isActive;
             CategoryId = categoryId;
             CompanyId = companyId;
+            Taxing = taxing;
         }
 
         public int ProductId { get; set; }
@@ -29,5 +30,6 @@ namespace StorageStrategy.Domain.Commands.Products
         public bool IsActive { get; set; }
         public int CategoryId { get; set; }
         public int CompanyId { get; set; }
+        public decimal Taxing { get; set; }
     }
 }
