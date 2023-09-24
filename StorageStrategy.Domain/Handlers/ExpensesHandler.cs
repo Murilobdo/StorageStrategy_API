@@ -75,7 +75,7 @@ namespace StorageStrategy.Domain.Handlers
             if (!request.IsValid())
                 return CreateError(request.GetErros(), "Dados invalidos");
 
-            var expenseType = await _repo.GetExpensesTypeByDescriptionAsync(request.Description, request.CompanyId);
+            var expenseType = await _repo.GetExpensesTypeByIdAsync(request.ExpenseTypeId, request.CompanyId);
 
             _repo.DeleteExpenseType(expenseType);
             await _repo.SaveAsync();

@@ -9,9 +9,6 @@ namespace StorageStrategy.Data.Mappings
         public void Configure(EntityTypeBuilder<ExpenseEntity> builder)
         {
             builder.HasKey(p => p.ExpenseId);
-
-            builder.Property(p => p.ExpenseValue)
-                .HasPrecision(4);
         }
     }
 }

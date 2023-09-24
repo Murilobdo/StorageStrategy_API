@@ -13,7 +13,7 @@ namespace StorageStrategy.Domain.Commands.Products
             Price = price;
             Qtd = qtd;
             StockAlert = stockAlert;
-            IsActive = isActive;
+            IsActive = qtd > 0;
             Taxing = taxing;
             CategoryId = categoryId;
             CompanyId = companyId;

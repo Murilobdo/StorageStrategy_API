@@ -15,7 +15,7 @@ namespace StorageStrategy.Domain.Commands.Products
             Cost = cost;
             Price = price;
             Qtd = qtd;
-            IsActive = isActive;
+            IsActive = qtd > 0;
             CategoryId = categoryId;
             CompanyId = companyId;
             Taxing = taxing;
