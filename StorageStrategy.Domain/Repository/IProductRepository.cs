@@ -8,5 +8,7 @@ namespace StorageStrategy.Domain.Repository
         Task<List<ProductEntity>> ToList(int companyId);
         Task<ProductEntity> GetByIdAsync(int categoryId, int companyId);
         Task AddRange(List<ProductEntity> products);
+        Task<decimal> ReadTotalPriceInStokByCompany(int companyId);
+        Task<int> QuantityInStockByCompany(int companyId);
     }
 }

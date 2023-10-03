@@ -15,17 +15,30 @@ namespace StorageStrategy.Domain.Handlers
         IRequestHandler<EntryAndExitForDayCommand, Result>,
         IRequestHandler<InfoPaymentCommand, Result>,
         IRequestHandler<TotalCostPricePerDayCommand, Result>,
-        IRequestHandler<SalesPerEmployeeCommand, Result>
+        IRequestHandler<SalesPerEmployeeCommand, Result>,
+        IRequestHandler<InfoCardCommand, Result>,
+        IRequestHandler<TotalSalesPerCategoryProductCommand, Result>,
+        IRequestHandler<DRECommand, Result>
     {
+        
         private readonly ICommandRepository _repoCommand;
         private readonly IEmployeeRepository _repoEmployee;
         private readonly IMapper _mapper;
+        private readonly IProductRepository _repoProduct;
+        private readonly IExpenseRepository _repoExpenses;
 
-        public DashboardHandler(ICommandRepository repoCommand, IMapper mapper, IEmployeeRepository repoEmployee)
+        public DashboardHandler(
+            ICommandRepository repoCommand, 
+            IMapper mapper, 
+            IEmployeeRepository repoEmployee, 
+            IProductRepository repoProduct,
+            IExpenseRepository repoExpenses)
         {
             _repoCommand = repoCommand;
             _mapper = mapper;
             _repoEmployee = repoEmployee;
+            _repoProduct = repoProduct;
+            _repoExpenses = repoExpenses;
         }
 
         public async Task<Result> Handle(EntryAndExitOfMonthCommand request, CancellationToken cancellationToken)
@@ -135,6 +148,48 @@ namespace StorageStrategy.Domain.Handlers
             }
 
             return CreateResponse(response.OrderBy(p => p.TotalPrice), "Busca realizada");
+        }
+
+        public async Task<Result> Handle(TotalSalesPerCategoryProductCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.IsValid())
+                return CreateError(request.GetErros(), "Dados inválidos");
+
+            var commands = await _repoCommand.ReadCommandsForPeriodWithItensAsync(request.CompanyId, request.Month);
+
+            request.TotalSalesPerCategory = Calc.TotalSalesPerCategory(commands);
+
+            return CreateResponse(request.TotalSalesPerCategory, "Busca realizada !");
+        }
+
+        public async Task<Result> Handle(InfoCardCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.IsValid())
+                return CreateResponse(request.GetErros(), "Dados Inválidos !");
+
+            request.TotalPriceInStok = await _repoProduct.ReadTotalPriceInStokByCompany(request.CompanyId);
+            request.QtdProducts = await _repoProduct.QuantityInStockByCompany(request.CompanyId);
+            request.TotalSales = await _repoCommand.ReadTotalSalesByCompany(request.CompanyId, request.Month);
+
+            return CreateResponse(request, "Busca realizada !");
+        }
+
+        public async Task<Result> Handle(DRECommand request, CancellationToken cancellationToken)
+        {
+            if (!request.IsValid())
+                return CreateResponse(request.GetErros(), "Dados Inválidos !");
+
+            var commands = await _repoCommand.ReadCommandsForPeriodWithItensAsync(request.CompanyId, request.Month);
+            var expenses = await _repoExpenses.ReadTotalExpensesByMonth(request.CompanyId, request.Month);
+
+            request.ReceitaBruta = commands.Sum(p => p.TotalPrice);
+            request.DeducoesAbatimentos = Calc.TotalDeImpostos(commands);
+            request.ReceitaLiquida = request.ReceitaBruta - request.DeducoesAbatimentos;
+            request.CPV = Calc.CustoProdutoVendido(commands);
+            request.LucroBruto = request.ReceitaLiquida - request.CPV;
+
+
+            return CreateResponse(request, "Busca realizada !");
         }
     }
 }

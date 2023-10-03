@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorageStrategy.Domain.Commands.Dashboard;
 using StorageStrategy.Utils.Extensions;
+using StorageStrategy.Models.ViewModels;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace StorageStrategy.API.Controllers
 {
@@ -55,6 +57,30 @@ namespace StorageStrategy.API.Controllers
 
         [HttpPost("total-cost-price-per-day")]
         public async Task<IActionResult> TotalCostPricePerDay([FromBody] TotalCostPricePerDayCommand command)
+        {
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
+        [HttpPost("total-sales-per-cateogory-product")]
+        public async Task<IActionResult> TotalSalesPerCategoryProduct([FromBody] TotalSalesPerCategoryProductCommand command)
+        {
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
+        [HttpPost("info-card")]
+        public async Task<IActionResult> InfoCards([FromBody] InfoCardCommand command)
+        {
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
+        [HttpPost("DRE")]
+        public async Task<IActionResult> DemonstrativoResultadoExercicio([FromBody] DRECommand command)
         {
             command.CompanyId = User.GetCompanyId();
             var response = await _mediator.Send(command);

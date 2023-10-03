@@ -10,5 +10,7 @@ namespace StorageStrategy.Domain.Repository
         Task RemoveCommandItemsAsync(List<CommandItemEntity> items);
         Task<List<CommandEntity>> ReadCommandsForPeriodAsync(int companyId, int initialMonth, int finalMounth = 0);
         Task<List<CommandItemEntity>> ReadCommandsForDaysAsync(int companyId, int day);
+        Task<List<CommandEntity>> ReadCommandsForPeriodWithItensAsync(int companyId, int month);
+        Task<decimal> ReadTotalSalesByCompany(int companyId, int month);
     }
 }

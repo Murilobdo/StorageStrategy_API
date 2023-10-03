@@ -2,7 +2,6 @@ using AutoMapper;
 using MediatR;
 using StorageStrategy.Domain.Commands.Report;
 using StorageStrategy.Domain.Repository;
-using StorageStrategy.Domain.ViewModels;
 using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Handlers

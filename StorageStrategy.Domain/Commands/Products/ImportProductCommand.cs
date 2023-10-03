@@ -1,5 +1,5 @@
 using MediatR;
-using StorageStrategy.Domain.ViewModels;
+using StorageStrategy.Models.ViewModels;
 using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Commands.Products

@@ -1,6 +1,6 @@
 using StorageStrategy.Models;
 
-namespace StorageStrategy.Domain.ViewModels
+namespace StorageStrategy.Models.ViewModels
 {
     public record class ReportCommandViewModel(
         string Name,
