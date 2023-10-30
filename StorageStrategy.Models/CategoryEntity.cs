@@ -20,5 +20,12 @@ namespace StorageStrategy.Models
             Name = name;
             CompanyId = companyId;
         }
+
+        public CategoryEntity(int categoryId, string name, int companyId)
+        {
+            Name = name;
+            CompanyId = companyId;
+            CategoryId = categoryId;
+        }
     }
 }

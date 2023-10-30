@@ -75,7 +75,7 @@ namespace StorageStrategy.Tests.Commands.Product
         [Fact]
         public void Erro_ao_atualizar_um_produto_sem_companyId()
         {
-            UpdateProductCommand updateProduct = new(1, "Sucesso Produto", 10, 20, 5, 10, true, 1, 1, 0);
+            UpdateProductCommand updateProduct = new(1, "Sucesso Produto", 10, 20, 5, 10, true, 1, 0, 1);
 
             Assert.True(MensagemDeErroExistente(updateProduct.GetErros(), "O Id da empresa e obrigatório"));
         }

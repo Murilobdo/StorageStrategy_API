@@ -28,14 +28,14 @@ namespace StorageStrategy.Domain.Handlers
             var category = await _repo.FindByName(request.Name, request.CompanyId);
 
             if (category is not null)
-                return CreateError($"Ja existe uma categoria com o nome {category.Name}.");
+                return CreateError("Ja existe uma categoria com esse nome");
 
             category = _mapper.Map<CategoryEntity>(request);
 
             await _repo.AddAsync(category);
             await _repo.SaveAsync();
 
-            return CreateResponse(category, "Categoria cadastrada com sucesso.");
+            return CreateResponse(category, "Categoria cadastrada com sucesso");
         }
 
         public async Task<Result> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
@@ -43,17 +43,17 @@ namespace StorageStrategy.Domain.Handlers
             if (!request.IsValid())
                 return CreateError(request.GetErros(), "Dados invalidos");
 
-            var category = await _repo.GetByIdAsync(request.CategoryId, request.CompanyId);
+            var category = await _repo.GetById(request.CategoryId);
 
             if (category is null)
-                return CreateError("Categoria não encontrada para edição.");
+                return CreateError("Categoria não encontrada para edição");
 
             category = _mapper.Map<CategoryEntity>(request);
 
             _repo.Update(category);
             await _repo.SaveAsync();
 
-            return CreateResponse(category, "Categoria atualizada com sucesso.");
+            return CreateResponse(category, "Categoria atualizada com sucesso");
         }
 
         public async Task<Result> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
@@ -61,15 +61,15 @@ namespace StorageStrategy.Domain.Handlers
             if (!request.IsValid())
                 return CreateError(request.GetErros(), "Dados invalidos");
 
-            var category = await _repo.GetByIdAsync(request.CategoryId, request.CompanyId);
+            var category = await _repo.GetById(request.CategoryId);
 
             if (category is null)
-                return CreateError("Categoria não encontrada para exclusão.");
+                return CreateError("Categoria não encontrada para exclusão");
 
             _repo.Delete(category);
             await _repo.SaveAsync();
 
-            return CreateResponse(category, "Categoria excluida com sucesso.");
+            return CreateResponse(category, "Categoria excluida com sucesso");
         }
     }
 }

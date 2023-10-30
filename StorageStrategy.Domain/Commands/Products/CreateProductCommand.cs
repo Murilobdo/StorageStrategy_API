@@ -25,6 +25,6 @@ namespace StorageStrategy.Domain.Commands.Products
 
         public bool IsValid() => new CreateProductValidation().Validate(this).IsValid;
         public List<Error> GetErros() => new CreateProductValidation().Validate(this)
-            .Errors.Select(p => new Error(p.PropertyName, p.ErrorMessage)).ToList();
+            .Errors.Select(p => new Error(p.ErrorMessage)).ToList();
     }
 }

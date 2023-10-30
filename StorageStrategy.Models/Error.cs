@@ -5,7 +5,7 @@
         public string PropertyName { get; set; }
         public string ErrorMessage { get; set; }
 
-        public Error(string propertyName, string errorMessage)
+        public Error(string errorMessage, string propertyName = "")
         {
             PropertyName = propertyName;
             ErrorMessage = errorMessage;

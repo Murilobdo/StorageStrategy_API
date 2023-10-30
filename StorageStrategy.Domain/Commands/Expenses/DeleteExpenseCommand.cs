@@ -19,6 +19,6 @@ namespace StorageStrategy.Domain.Commands.Expenses
 
         public bool IsValid() => new DeleteExpensesValidation().Validate(this).IsValid;
         public List<Error> GetErros() => new DeleteExpensesValidation().Validate(this)
-            .Errors.Select(p => new Error(p.PropertyName, p.ErrorMessage)).ToList();
+            .Errors.Select(p => new Error(p.ErrorMessage)).ToList();
     }
 }

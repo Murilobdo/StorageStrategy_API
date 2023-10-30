@@ -1,11 +1,13 @@
-﻿namespace StorageStrategy.Models
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace StorageStrategy.Models
 {
     public class Result
     {
         public object Response { get; set; } = new();
         public string Message { get; set; } = string.Empty;
         public string ErrorMessage { get; set; } = string.Empty;
-        public List<Error> Errors { get; set; }
+        public List<Error> Errors { get; set; } = new();
         public bool Success => Errors.Count == 0;
 
         public Result(object data, string message)
@@ -21,18 +23,13 @@
             Errors = new List<Error>();
         }
 
-        public Result()
-        {
-
-        }
-
         public Result(List<Error> errors, string errorMessage)
         {
             Errors = errors;
             ErrorMessage= errorMessage;
         }
 
-        public void AddError(Error error)
+        public Result(Error error)
         {
             Errors.Add(error);
         }

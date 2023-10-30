@@ -16,7 +16,7 @@ namespace StorageStrategy.Domain.Commands.Command
         public PaymentEnum Payment { get; set; }
 
         public List<Error> GetErros() => new FinishCommandValidation().Validate(this)
-            .Errors.Select(p => new Error(p.PropertyName, p.ErrorMessage)).ToList();
+            .Errors.Select(p => new Error(p.ErrorMessage)).ToList();
 
         public bool IsValid() => new FinishCommandValidation().Validate(this).IsValid;
     }

@@ -18,9 +18,7 @@ namespace StorageStrategy.Domain.Handlers
 
         public Result CreateError(string errorMessage)
         {
-            var errors = new List<Models.Error>();
-            errors.Add(new Models.Error("", errorMessage));
-            return new Result(errors, errorMessage);
+            return new Result(new Models.Error(errorMessage));
         }
 
         public Result CreateError(List<Models.Error> errors, string errorMessage)

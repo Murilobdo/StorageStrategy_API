@@ -34,7 +34,7 @@ namespace StorageStrategy.Domain.Handlers
             if (product is not null)
                 return CreateError($"Ja existe um produto com esse nome {product.Name}");
  
-            var category = await _repoCategory.GetByIdAsync(request.CategoryId, request.CompanyId);
+            var category = await _repoCategory.GetById(request.CategoryId);
 
             if (category is null)
             { 
