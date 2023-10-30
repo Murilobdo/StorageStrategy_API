@@ -11,9 +11,9 @@ namespace StorageStrategy.Domain.Validations.Dashboard
                 .GreaterThan(0)
                 .WithMessage("O Id da Empresa e obrigatório");
 
-            RuleFor(p => p.Date)
-                .NotNull()
-                .WithMessage("A Data e obrigatória");
+            RuleFor(p => p.Month)
+                .GreaterThan(0)
+                .WithMessage("O Mês e obrigatório");
         }
     }
 }

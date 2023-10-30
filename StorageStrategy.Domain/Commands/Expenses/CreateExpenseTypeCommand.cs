@@ -4,10 +4,10 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Commands.Expenses
 {
-    public record class CreateExpensesTypeCommand : ExpensesTypeCommandBase, IValidation
+    public record class CreateExpenseTypeCommand : ExpensesTypeCommandBase, IValidation
     {
 
-        public CreateExpensesTypeCommand(int companyId, string description)
+        public CreateExpenseTypeCommand(int companyId, string description)
         {
             CompanyId = companyId;
             Description = description;

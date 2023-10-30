@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorageStrategy.Domain.Commands.Dashboard;
 using StorageStrategy.Utils.Extensions;
+using StorageStrategy.Models.ViewModels;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace StorageStrategy.API.Controllers
 {
@@ -24,31 +26,65 @@ namespace StorageStrategy.API.Controllers
         [HttpPost("entry-and-exit-month")]
         public async Task<IActionResult> EntryAndExitOfMonth([FromBody] EntryAndExitOfMonthCommand command)
         {
-            try
-            {
-                command.CompanyId = User.GetCompanyId();
-                var response = await _mediator.Send(command);
-                return Ok(response);    
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);    
         }
 
         [HttpPost("entry-and-exit-for-day")]
         public async Task<IActionResult> EntryAndExitForDay([FromBody] EntryAndExitForDayCommand command)
         {
-            try
-            {
-                command.CompanyId = User.GetCompanyId();
-                var response = await _mediator.Send(command);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
+        [HttpPost("info-payment")]
+        public async Task<IActionResult> InfoPayment([FromBody] InfoPaymentCommand command)
+        {
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
+        [HttpPost("sales-per-employee")]
+        public async Task<IActionResult> SalesPerEmployee([FromBody] SalesPerEmployeeCommand command)
+        {
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
+        [HttpPost("total-cost-price-per-day")]
+        public async Task<IActionResult> TotalCostPricePerDay([FromBody] TotalCostPricePerDayCommand command)
+        {
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
+        [HttpPost("total-sales-per-cateogory-product")]
+        public async Task<IActionResult> TotalSalesPerCategoryProduct([FromBody] TotalSalesPerCategoryProductCommand command)
+        {
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
+        [HttpPost("info-card")]
+        public async Task<IActionResult> InfoCards([FromBody] InfoCardCommand command)
+        {
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
+        [HttpPost("DRE")]
+        public async Task<IActionResult> DemonstrativoResultadoExercicio([FromBody] DRECommand command)
+        {
+            command.CompanyId = User.GetCompanyId();
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
     }
 }

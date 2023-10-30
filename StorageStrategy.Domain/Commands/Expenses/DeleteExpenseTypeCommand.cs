@@ -4,10 +4,10 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Commands.Expenses
 {
-    public record class DeleteExpensesTypeCommand : ExpensesTypeCommandBase, IValidation
+    public record class DeleteExpenseTypeCommand : ExpensesTypeCommandBase, IValidation
     {
 
-        public DeleteExpensesTypeCommand(int expenseTypeId, int companyId)
+        public DeleteExpenseTypeCommand(int expenseTypeId, int companyId)
         {
             ExpenseTypeId = expenseTypeId;
             CompanyId = companyId;

@@ -4,6 +4,8 @@ using MediatR;
 using StorageStrategy.Domain.Commands.Company;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
+using StorageStrategy.Utils.Helpers;
+using System.ComponentModel.Design;
 
 namespace StorageStrategy.Domain.Handlers
 {
@@ -33,6 +35,9 @@ namespace StorageStrategy.Domain.Handlers
             await _repository.SaveAsync();
 
             await CreateUserCompanyAdmin(request.AdminUserName, request.AdminUserEmail, request.Password, company.CompanyId);
+            await _repository.CreateCompanyExpenseCategorys(InitialData.GetExpensesCategories(company.CompanyId));
+            
+            await _repository.SaveAsync();
 
             return CreateResponse(company, "Empresa cadastrada com sucesso.");
         }

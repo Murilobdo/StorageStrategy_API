@@ -2,14 +2,14 @@
 
 namespace StorageStrategy.Domain.Commands.Expenses
 {
-    public record class ExpensesCommandBase : CommandBase
+    public record class ExpenseCommandBase : CommandBase
     {
-        public ExpensesCommandBase()
+        public ExpenseCommandBase()
         {
 
         }
 
-        public ExpensesCommandBase(int expenseId, int companyId, string description, int expensesTypeId, DateTime createAt)
+        public ExpenseCommandBase(int expenseId, int companyId, string description, int expensesTypeId, DateTime createAt)
         {
             ExpenseId = expenseId;
             CompanyId = companyId;
@@ -19,13 +19,10 @@ namespace StorageStrategy.Domain.Commands.Expenses
         }
 
         public int ExpenseId { get; set; }
-
         public int CompanyId { get; set; }
-
         public string Description { get; set; } = string.Empty;
-
+        public decimal ExpenseValue { get; set; }
         public int ExpensesTypeId { get; set; }
-
         public DateTime CreateAt { get; set; }
     }
 }

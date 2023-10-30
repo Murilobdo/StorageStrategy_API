@@ -159,11 +159,11 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 1,
-                            CreateAt = new DateTime(2023, 7, 5, 19, 47, 15, 575, DateTimeKind.Local).AddTicks(7964),
+                            CreateAt = new DateTime(2023, 9, 24, 16, 31, 0, 97, DateTimeKind.Local).AddTicks(9692),
                             Description = "Admin",
                             IsActive = true,
                             Name = "Admin Company",
-                            Validate = new DateTime(2033, 7, 5, 19, 47, 15, 575, DateTimeKind.Local).AddTicks(7982)
+                            Validate = new DateTime(2033, 9, 24, 16, 31, 0, 97, DateTimeKind.Local).AddTicks(9707)
                         });
                 });
 
@@ -214,15 +214,15 @@ namespace StorageStrategy.Data.Migrations
                             EmployeeId = 1,
                             Comission = 0,
                             CompanyId = 1,
-                            Email = "murilobdo@admin.com.br",
+                            Email = "murilobdo@admin.com",
                             IsActive = true,
                             JobRole = "Developer",
                             Name = "Murilo Bernardes (Admin)",
-                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$cPKqotj4IgYM6lk7GyylRw$iI5cTDirQMO18egBisojUQbhPf5OX+zS+C+STNMxg3k"
+                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$Sn2CZpzPCkgOPPWw28JMQA$XkzaO5d6BJ11FFeEzBi0qZLDIJ5AH2EgQpe6ZO4fUwA"
                         });
                 });
 
-            modelBuilder.Entity("StorageStrategy.Models.ExpensesEntity", b =>
+            modelBuilder.Entity("StorageStrategy.Models.ExpenseEntity", b =>
                 {
                     b.Property<int>("ExpenseId")
                         .ValueGeneratedOnAdd()
@@ -239,6 +239,9 @@ namespace StorageStrategy.Data.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ExpenseValue")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ExpensesTypeId")
                         .HasColumnType("int");
@@ -310,6 +313,9 @@ namespace StorageStrategy.Data.Migrations
                     b.Property<int>("StockAlert")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Taxing")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("ProductId");
 
                     b.HasIndex("CategoryId");
@@ -379,7 +385,7 @@ namespace StorageStrategy.Data.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("StorageStrategy.Models.ExpensesEntity", b =>
+            modelBuilder.Entity("StorageStrategy.Models.ExpenseEntity", b =>
                 {
                     b.HasOne("StorageStrategy.Models.CompanyEntity", "Company")
                         .WithMany("Expenses")

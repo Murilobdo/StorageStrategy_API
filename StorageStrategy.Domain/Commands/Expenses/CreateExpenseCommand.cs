@@ -4,19 +4,20 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Commands.Expenses
 {
-    public record class CreateExpensesCommand : ExpensesCommandBase, IValidation
+    public record class CreateExpenseCommand : ExpenseCommandBase, IValidation
     {
-        public CreateExpensesCommand()
+        public CreateExpenseCommand()
         {
 
         }
 
-        public CreateExpensesCommand(int companyId, string description, int expensesTypeId, DateTime createAt)
+        public CreateExpenseCommand(int companyId, string description, int expensesTypeId, DateTime createAt, decimal expenseValue)
         {
             CompanyId = companyId;
             Description = description;
             ExpensesTypeId = expensesTypeId;
             CreateAt = createAt;
+            ExpenseValue = expenseValue;
         }
 
         public bool IsValid() => new CreateExpensesValidation().Validate(this).IsValid;

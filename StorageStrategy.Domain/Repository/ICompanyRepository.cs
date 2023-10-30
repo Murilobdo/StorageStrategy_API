@@ -9,6 +9,7 @@ namespace StorageStrategy.Domain.Repository
 {
     public interface ICompanyRepository : IRepositoryBase<CompanyEntity>
     {
+        Task CreateCompanyExpenseCategorys(List<ExpensesTypeEntity> expensesTypeEntities);
         Task<List<CompanyEntity>> ToList();
     }
 }

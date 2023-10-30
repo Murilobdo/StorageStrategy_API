@@ -27,68 +27,40 @@ namespace StorageStrategy.API.Controllers
         [HttpGet("list")]
         public async Task<IActionResult> ToList([FromServices] IEmployeeRepository repo, int companyId)
         {
-            try
-            {
-                companyId = User.GetCompanyId();
-                var employees = await repo.ToList(companyId);
-                List<CreateEmployeeCommand> result = new();
+            companyId = User.GetCompanyId();
+            var employees = await repo.ToList(companyId);
+            List<CreateEmployeeCommand> result = new();
 
-                employees.ForEach(category =>
-                {
-                    result.Add(_mapper.Map<CreateEmployeeCommand>(category));
-                });
-
-                return Ok(new Result(result, "Busca realizada"));
-            }
-            catch (Exception ex)
+            employees.ForEach(category =>
             {
-                return BadRequest(ex.Message);
-            }
+                result.Add(_mapper.Map<CreateEmployeeCommand>(category));
+            });
+
+            return Ok(new Result(result, "Busca realizada"));
         }
 
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateEmployeeCommand command)
         {
-            try
-            {
-                command.CompanyId = User.GetCompanyId();
-                var result = await _mediator.Send(command);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            command.CompanyId = User.GetCompanyId();
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPut("update")]
         public async Task<IActionResult> Update([FromBody] UpdateEmployeeCommand command)
         {
-            try
-            {
-                command.CompanyId = User.GetCompanyId();
-                var result = await _mediator.Send(command);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            command.CompanyId = User.GetCompanyId();
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpDelete("delete/{employeeId:int}")]
         public async Task<IActionResult> Delete([FromRoute]int employeeId)
         {
-            try
-            {
-                DeleteEmployeeCommand command = new(employeeId, User.GetCompanyId());
-                var result = await _mediator.Send(command);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            DeleteEmployeeCommand command = new(employeeId, User.GetCompanyId());
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
     }
 }

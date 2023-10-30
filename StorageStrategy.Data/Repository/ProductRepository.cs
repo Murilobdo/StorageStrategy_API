@@ -37,6 +37,22 @@ namespace StorageStrategy.Data.Repository
             return result;
         }
 
+        public async Task<int> QuantityInStockByCompany(int companyId)
+        {
+            int result = await _context.Product
+                                    .Where(p => p.CompanyId == companyId)
+                                    .SumAsync(p => p.Qtd);
+            return result;
+        }
+
+        public async Task<decimal> ReadTotalPriceInStokByCompany(int companyId)
+        {
+            decimal result = await _context.Product
+                                    .Where(p => p.CompanyId == companyId)
+                                    .SumAsync(p => p.Price * p.Qtd);
+            return result;
+        }
+
         public async Task<List<ProductEntity>> ToList(int companyId)
         {
             return await _context.Product.Where(p => p.CompanyId == companyId).ToListAsync();

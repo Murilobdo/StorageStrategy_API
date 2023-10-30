@@ -1,6 +1,6 @@
 using StorageStrategy.Models;
 
-namespace StorageStrategy.Domain.ViewModels
+namespace StorageStrategy.Models.ViewModels
 {
     public record class ImportProductViewModel(
         string Name,
@@ -9,6 +9,7 @@ namespace StorageStrategy.Domain.ViewModels
         string Price,
         string Qtd,
         string StockAlert,
-        int CompanyId
+        int CompanyId,
+        decimal Taxing
     );
 }

@@ -5,7 +5,7 @@ namespace StorageStrategy.Domain.Commands.Products
 {
     public record class UpdateProductCommand : ProductCommandBase, IValidation
     {
-        public UpdateProductCommand(int productId, string name, decimal cost, decimal price, int qtd, int stockAlert, bool isActive, int categoryId, int companyId)
+        public UpdateProductCommand(int productId, string name, decimal cost, decimal price, int qtd, int stockAlert, bool isActive, int categoryId, int companyId, int taxing)
         {
             ProductId = productId;
             Name = name;
@@ -13,7 +13,8 @@ namespace StorageStrategy.Domain.Commands.Products
             Price = price;
             Qtd = qtd;
             StockAlert = stockAlert;
-            IsActive = isActive;
+            IsActive = qtd > 0;
+            Taxing = taxing;
             CategoryId = categoryId;
             CompanyId = companyId;
         }

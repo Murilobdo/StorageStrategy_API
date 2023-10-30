@@ -1,24 +1,25 @@
-using System.Data;
-using FluentValidation;
+﻿using FluentValidation;
 using StorageStrategy.Domain.Commands.Report;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace StorageStrategy.Domain.Validations.Report
 {
-    public class ReadCommandsByMounthValidation : AbstractValidator<ReadCommandsByMounthCommand>
+    public class ReadCommandsByMounthValidation : AbstractValidator<FilterDashboard>
     {
         public ReadCommandsByMounthValidation()
         {
             RuleFor(p => p.CompanyId)
                 .GreaterThan(0)
-                .WithMessage("O Id da empresa e obrigatório");
+                .WithMessage("O Id da Empresa e obrigatório");
 
-            RuleFor(p => p.InitialDate)
-                .NotEmpty()
-                .WithMessage("A data inicial e obrigatória");
-            
-            RuleFor(p => p.FinalDate)
-                .NotEmpty()
-                .WithMessage("A data final e obrigatória");
+            RuleFor(p => p.Month)
+                .GreaterThan(0)
+                .WithMessage("O Mês e obrigatório");
+
         }
     }
 }

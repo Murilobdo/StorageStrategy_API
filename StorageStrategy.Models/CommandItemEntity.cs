@@ -11,7 +11,7 @@
         public decimal Price { get; set; }
         public int Qtd { get; set; }
         public virtual ProductEntity Product { get; set; }
-
+        public decimal TaxingProduct { get => Product.Taxing; }
         public CommandItemEntity()
         {
 

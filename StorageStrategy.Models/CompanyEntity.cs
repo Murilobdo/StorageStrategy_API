@@ -12,7 +12,7 @@
         public List<CategoryEntity> Categorys { get; set; } = new();
         public List<EmployeeEntity> Employees { get; set; } = new();
         public List<CommandEntity> Commands { get; set; } = new();
-        public List<ExpensesEntity> Expenses { get; set; } = new();
+        public List<ExpenseEntity> Expenses { get; set; } = new();
 
         public CompanyEntity(int companyId, string name, string description, DateTime createAt, DateTime validate)
         {

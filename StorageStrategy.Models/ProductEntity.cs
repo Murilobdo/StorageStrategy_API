@@ -15,6 +15,7 @@ namespace StorageStrategy.Models
         public int CategoryId { get; set; }
         public virtual CompanyEntity Company { get; set; }
         public int CompanyId { get; set; }
+        public decimal Taxing { get; set; }
 
         public ProductEntity()
         {
@@ -32,7 +33,7 @@ namespace StorageStrategy.Models
             CategoryId = categoryId;
         }
 
-        public ProductEntity(string name, decimal cost, decimal price, int qtd, int stockAlert, int categoryId, int companyId)
+        public ProductEntity(string name, decimal cost, decimal price, int qtd, int stockAlert, int categoryId, int companyId, decimal taxing)
         {
             Name = name;
             Cost = cost;
@@ -42,6 +43,7 @@ namespace StorageStrategy.Models
             CategoryId = categoryId;
             CompanyId = companyId;
             IsActive = true;
+            Taxing = taxing;
         }
 
     }

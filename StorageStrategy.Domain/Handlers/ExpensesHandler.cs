@@ -7,28 +7,28 @@ using StorageStrategy.Models;
 namespace StorageStrategy.Domain.Handlers
 {
     public class ExpensesHandler : HandlerBase,
-        IRequestHandler<CreateExpensesCommand, Result>,
-        IRequestHandler<DeleteExpensesCommand, Result>,
-        IRequestHandler<CreateExpensesTypeCommand, Result>,
-        IRequestHandler<DeleteExpensesTypeCommand, Result>
+        IRequestHandler<CreateExpenseCommand, Result>,
+        IRequestHandler<DeleteExpenseCommand, Result>,
+        IRequestHandler<CreateExpenseTypeCommand, Result>,
+        IRequestHandler<DeleteExpenseTypeCommand, Result>
     {
-        private readonly IExpensesRepository _repo;
+        private readonly IExpenseRepository _repo;
         private readonly IMapper _mapper;
 
 
-        public ExpensesHandler(IExpensesRepository repo, IMapper mapper)
+        public ExpensesHandler(IExpenseRepository repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
         }
 
 
-        public async Task<Result> Handle(CreateExpensesCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(CreateExpenseCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid())
                 return CreateError(request.GetErros(), "Dados invalidos");
 
-            var expenses = _mapper.Map<ExpensesEntity>(request);
+            var expenses = _mapper.Map<ExpenseEntity>(request);
 
             await _repo.AddAsync(expenses);
             await _repo.SaveAsync();
@@ -36,7 +36,7 @@ namespace StorageStrategy.Domain.Handlers
             return CreateResponse(expenses, "Despesa cadastrada com sucesso.");
         }
 
-        public async Task<Result> Handle(DeleteExpensesCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(DeleteExpenseCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid())
                 return CreateError(request.GetErros(), "Dados invalidos");
@@ -52,7 +52,7 @@ namespace StorageStrategy.Domain.Handlers
             return CreateResponse(expenses, "Despesa excluida com sucesso.");
         }
 
-        public async Task<Result> Handle(CreateExpensesTypeCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(CreateExpenseTypeCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid())
                 return CreateError(request.GetErros(), "Dados invalidos");
@@ -70,12 +70,12 @@ namespace StorageStrategy.Domain.Handlers
             return CreateResponse(expenseType, "Categoria de Despesa cadastrada com sucesso.");
         }
 
-        public async Task<Result> Handle(DeleteExpensesTypeCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(DeleteExpenseTypeCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid())
                 return CreateError(request.GetErros(), "Dados invalidos");
 
-            var expenseType = await _repo.GetExpensesTypeByDescriptionAsync(request.Description, request.CompanyId);
+            var expenseType = await _repo.GetExpensesTypeByIdAsync(request.ExpenseTypeId, request.CompanyId);
 
             _repo.DeleteExpenseType(expenseType);
             await _repo.SaveAsync();

@@ -34,6 +34,7 @@ namespace StorageStrategy.Data.Repository
         {
             var result = await _context.Command
                 .AsNoTracking()
+                .Where(p => p.CompanyId == companyId)
                 .Where(p => p.FinalDate != null && p.FinalDate.Value.Day == day)
                 .SelectMany(p => p.Items)
                 .ToListAsync();
@@ -47,6 +48,7 @@ namespace StorageStrategy.Data.Repository
                             .AsNoTracking()
                             .Where(p => p.FinalDate != null)
                             .Where(p => p.InitialDate.Month == initialMonth)
+                            .Where(p => p.CompanyId == companyId)
                             .AsQueryable();
 
             if (finalMounth > 0)
@@ -54,7 +56,32 @@ namespace StorageStrategy.Data.Repository
                             
             return await query.ToListAsync();
         }
- 
+
+        public async Task<List<CommandEntity>> ReadCommandsForPeriodWithItensAsync(int companyId, int month)
+        {
+            var commands = await _context.Command
+                .Include(p => p.Items)
+                    .ThenInclude(p => p.Product)
+                        .ThenInclude(p => p.Category)
+                .AsNoTracking()
+                .Where(p => p.FinalDate != null)
+                .Where(p => p.InitialDate.Month == month)
+                .Where(p => p.CompanyId == companyId)
+                .ToListAsync();
+
+            return commands;
+        }
+
+        public async Task<decimal> ReadTotalSalesByCompany(int companyId, int month)
+        {
+            decimal result = await _context.Command
+                                .Where(p => p.CompanyId == companyId)
+                                .Where(p => p.FinalDate.Value != null && p.FinalDate.Value.Month == month)
+                                .SumAsync(p => p.TotalPrice);
+
+            return result;
+        }
+
         public async Task RemoveCommandItemsAsync(List<CommandItemEntity> items)
         {
             _context.CommandItems.RemoveRange(items);

@@ -22,7 +22,7 @@ namespace StorageStrategy.Data.Context
         public DbSet<EmployeeEntity> Employee { get; set; }
         public DbSet<CommandEntity> Command { get; set; }
         public DbSet<CommandItemEntity> CommandItems { get; set; }
-        public DbSet<ExpensesEntity> Expenses { get; set; }
+        public DbSet<ExpenseEntity> Expenses { get; set; }
         public DbSet<ExpensesTypeEntity> ExpensesType { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -55,7 +55,7 @@ namespace StorageStrategy.Data.Context
             modelBuilder.ApplyConfiguration(new EmployeeMapping());
             modelBuilder.ApplyConfiguration(new CommandMapping());
             modelBuilder.ApplyConfiguration(new CommandItemMapping());
-            modelBuilder.ApplyConfiguration(new ExpensesMappgin());
+            modelBuilder.ApplyConfiguration(new ExpenseMappgin());
             modelBuilder.ApplyConfiguration(new ExpensesTypeMappgin());
 
             base.OnModelCreating(modelBuilder);

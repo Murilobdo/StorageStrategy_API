@@ -12,10 +12,14 @@ namespace StorageStrategy.Data.Repository
 
         }
 
+        public async Task CreateCompanyExpenseCategorys(List<ExpensesTypeEntity> expensesTypes)
+        {
+            await _context.ExpensesType.AddRangeAsync(expensesTypes);
+        }
+
         public override async Task<CompanyEntity> GetById(int companyId)
         {
             return await _context.Company.FirstOrDefaultAsync(company => company.CompanyId == companyId);
-
         }
 
         public async Task<List<CompanyEntity>> ToList()
