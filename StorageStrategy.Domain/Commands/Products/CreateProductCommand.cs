@@ -5,9 +5,17 @@ namespace StorageStrategy.Domain.Commands.Products
 {
     public record class CreateProductCommand : ProductCommandBase, IValidation
     {
-        public CreateProductCommand(int productId, string name, decimal cost, decimal price, int qtd, int stockAlert, bool isActive, int categoryId, int companyId, decimal taxing)
-        {
-            ProductId = productId;
+        public CreateProductCommand(
+            string name, 
+            decimal cost, 
+            decimal price, 
+            int qtd, 
+            int stockAlert, 
+            bool isActive, 
+            int categoryId, 
+            int companyId, 
+            decimal taxing
+        ) {
             Name = name;
             Cost = cost;
             Price = price;
