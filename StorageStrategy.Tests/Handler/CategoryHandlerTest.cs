@@ -5,6 +5,7 @@ using StorageStrategy.Domain.AutoMapper;
 using StorageStrategy.Domain.Commands.Category;
 using StorageStrategy.Domain.Handlers;
 using StorageStrategy.Tests.FakeRepository;
+using System.Threading;
 using Xunit;
 
 namespace StorageStrategy.Tests.Handler
@@ -18,6 +19,7 @@ namespace StorageStrategy.Tests.Handler
 
         public CategoryHandlerTest()
         {
+            _cancellationToken = new CancellationToken();
             _mapper = new MapperConfiguration(config =>
             {
                 config.AddProfile(new CategoryProfile());

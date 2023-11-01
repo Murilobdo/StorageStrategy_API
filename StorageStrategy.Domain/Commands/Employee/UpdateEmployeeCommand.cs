@@ -16,6 +16,14 @@ namespace StorageStrategy.Domain.Commands.Employee
             string email, string password, bool isActive, int companyId) : 
             base(employeeId, name, comission, jobRole, email, password, isActive, companyId)
         {
+            EmployeeId = employeeId;
+            Name = name;
+            Comission = comission;
+            JobRole = jobRole;
+            Email = email;
+            Password = password;
+            IsActive = isActive;
+            CompanyId = companyId;
         }
 
         public bool IsValid() => new UpdateEmployeeValidation().Validate(this).IsValid;

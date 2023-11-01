@@ -75,8 +75,7 @@ namespace StorageStrategy.Domain.Handlers
             await _repoCommand.SaveAsync();
 
             return CreateResponse(command, "Comanda finalizada com sucesso.");
-
-        }
+        }   
 
         public async Task<Result> Handle(AddProductCommandCommand request, CancellationToken cancellationToken)
         {

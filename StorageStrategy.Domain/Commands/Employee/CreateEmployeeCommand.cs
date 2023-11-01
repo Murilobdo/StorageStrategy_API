@@ -11,10 +11,16 @@ namespace StorageStrategy.Domain.Commands.Employee
 
         }
 
-        public CreateEmployeeCommand(int employeeId, string name, int comission, string jobRole, 
-            string email, string password, bool isActive, int companyId) : 
-            base(employeeId, name, comission, jobRole, email, password, isActive, companyId)
+        public CreateEmployeeCommand(string name, int comission, string jobRole, 
+            string email, string password, bool isActive, int companyId) 
         {
+            Name = name;
+            Comission = comission;
+            JobRole = jobRole;
+            Email = email;
+            Password = password;
+            IsActive = isActive;
+            CompanyId = companyId;
         }
 
         public bool IsValid() => new CreateEmployeeValidation().Validate(this).IsValid;

@@ -11,5 +11,30 @@
         public string PasswordHash { get; set; } = string.Empty;
         public int CompanyId { get; set; }
         public virtual CompanyEntity Company { get; set; }
+
+        public EmployeeEntity(
+            int employeeId, 
+            string name, 
+            string email, 
+            int comission, 
+            string jobRole, 
+            bool isActive, 
+            string passwordHash, 
+            int companyId
+        ) {
+            EmployeeId = employeeId;
+            Name = name;
+            Email = email;
+            Comission = comission;
+            JobRole = jobRole;
+            IsActive = isActive;
+            PasswordHash = passwordHash;
+            CompanyId = companyId;
+        }
+
+        public EmployeeEntity()
+        {
+            
+        }
     }
 }
