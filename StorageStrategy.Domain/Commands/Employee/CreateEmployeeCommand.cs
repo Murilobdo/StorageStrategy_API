@@ -11,7 +11,7 @@ namespace StorageStrategy.Domain.Commands.Employee
 
         }
 
-        public CreateEmployeeCommand(string name, int comission, string jobRole, 
+        public CreateEmployeeCommand(string name, int comission, EmployeeRole jobRole, 
             string email, string password, bool isActive, int companyId) 
         {
             Name = name;

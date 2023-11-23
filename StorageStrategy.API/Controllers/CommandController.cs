@@ -11,7 +11,7 @@ namespace StorageStrategy.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(Roles = "Manager,Employee,Admin")]
     public class CommandController : Controller
     {
         private readonly IMediator _mediator;

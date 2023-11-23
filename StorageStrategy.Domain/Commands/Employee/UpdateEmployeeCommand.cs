@@ -12,7 +12,7 @@ namespace StorageStrategy.Domain.Commands.Employee
 
         }
 
-        public UpdateEmployeeCommand(int employeeId, string name, int comission, string jobRole, 
+        public UpdateEmployeeCommand(int employeeId, string name, int comission, EmployeeRole jobRole, 
             string email, string password, bool isActive, int companyId) : 
             base(employeeId, name, comission, jobRole, email, password, isActive, companyId)
         {

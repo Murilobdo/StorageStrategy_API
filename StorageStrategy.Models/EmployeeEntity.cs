@@ -6,7 +6,7 @@
         public string Name { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public int Comission { get; set; }
-        public string JobRole { get; set; } = string.Empty;
+        public EmployeeRole JobRole { get; set; }
         public bool IsActive { get; set; }
         public string PasswordHash { get; set; } = string.Empty;
         public int CompanyId { get; set; }
@@ -16,8 +16,8 @@
             int employeeId, 
             string name, 
             string email, 
-            int comission, 
-            string jobRole, 
+            int comission,
+            EmployeeRole jobRole, 
             bool isActive, 
             string passwordHash, 
             int companyId

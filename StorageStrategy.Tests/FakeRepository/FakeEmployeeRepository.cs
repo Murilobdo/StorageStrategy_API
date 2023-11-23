@@ -19,14 +19,14 @@ namespace StorageStrategy.Tests.FakeRepository
         {
             employees = new()
             {
-                new EmployeeEntity(1, "Employee 1", "employee@email.com", 10, "Gerente", true, "H4SH3S4NH4", 1),
-                new EmployeeEntity(1, "Employee 2", "employee@email.com", 5, "Funcionario", true, "H4SH3S4NH4", 1),
-                new EmployeeEntity(1, "Employee 3", "employee@email.com", 8, "Funcionario", true, "H4SH3S4NH4", 1),
-                new EmployeeEntity(1, "Employee 4", "employee@email.com", 3, "Funcionario", true, "H4SH3S4NH4", 1)
+                new EmployeeEntity(1, "Employee 1", "employee@email.com", 10, EmployeeRole.Manager, true, "H4SH3S4NH4", 1),
+                new EmployeeEntity(1, "Employee 2", "employee@email.com", 5, EmployeeRole.Employee, true, "H4SH3S4NH4", 1),
+                new EmployeeEntity(1, "Employee 3", "employee@email.com", 8, EmployeeRole.Employee, true, "H4SH3S4NH4", 1),
+                new EmployeeEntity(1, "Employee 4", "employee@email.com", 3, EmployeeRole.Employee, true, "H4SH3S4NH4", 1)
             };
 
-            CreateEmployeeCommand = new(name: "Funcionario", comission: 5, jobRole: "Gerente", email: "funcionario@email.com", password: "hash", isActive: true, companyId: 1);
-            UpdateEmployeeCommand = new(employeeId: 1, name: "Funcionario", comission: 5, jobRole: "Gerente", email: "funcionario@email.com", password: "hash", isActive: true, companyId: 1);
+            CreateEmployeeCommand = new(name: "Funcionario", comission: 5, jobRole: EmployeeRole.Employee, email: "funcionario@email.com", password: "hash", isActive: true, companyId: 1);
+            UpdateEmployeeCommand = new(employeeId: 1, name: "Funcionario", comission: 5, jobRole: EmployeeRole.Employee, email: "funcionario@email.com", password: "hash", isActive: true, companyId: 1);
             DeleteEmployeeCommand = new(employeeId: 1, companyId: 1);
         }
 

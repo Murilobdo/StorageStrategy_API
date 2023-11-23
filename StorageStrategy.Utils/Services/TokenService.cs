@@ -18,7 +18,7 @@ namespace StorageStrategy.Utils.Services
                 Subject = new ClaimsIdentity(new []
                 {
                     new Claim(ClaimTypes.Name, emploeyee.Name.ToString()),
-                    new Claim(ClaimTypes.Role, emploeyee.JobRole.ToString()),
+                    new Claim(ClaimTypes.Role, Enum.GetName(emploeyee.JobRole)),
                     new Claim("EmployeeId", emploeyee.EmployeeId.ToString()),
                     new Claim("CompanyId", emploeyee.CompanyId.ToString()),
                 }),

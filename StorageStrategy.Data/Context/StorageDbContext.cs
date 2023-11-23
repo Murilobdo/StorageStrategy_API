@@ -43,7 +43,7 @@ namespace StorageStrategy.Data.Context
                 Name = "Murilo Bernardes (Admin)",
                 Email = "murilobdo@admin.com",
                 PasswordHash = Argon2.Hash("fib"),
-                JobRole = "Developer",
+                JobRole = EmployeeRole.Admin,
                 CompanyId = adminCompany.CompanyId,
                 Comission = 0,
                 IsActive = true

@@ -159,11 +159,11 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 1,
-                            CreateAt = new DateTime(2023, 9, 24, 16, 31, 0, 97, DateTimeKind.Local).AddTicks(9692),
+                            CreateAt = new DateTime(2023, 11, 22, 20, 19, 14, 824, DateTimeKind.Local).AddTicks(2660),
                             Description = "Admin",
                             IsActive = true,
                             Name = "Admin Company",
-                            Validate = new DateTime(2033, 9, 24, 16, 31, 0, 97, DateTimeKind.Local).AddTicks(9707)
+                            Validate = new DateTime(2033, 11, 22, 20, 19, 14, 824, DateTimeKind.Local).AddTicks(2673)
                         });
                 });
 
@@ -188,10 +188,9 @@ namespace StorageStrategy.Data.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<string>("JobRole")
-                        .IsRequired()
+                    b.Property<int>("JobRole")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -216,9 +215,9 @@ namespace StorageStrategy.Data.Migrations
                             CompanyId = 1,
                             Email = "murilobdo@admin.com",
                             IsActive = true,
-                            JobRole = "Developer",
+                            JobRole = 7,
                             Name = "Murilo Bernardes (Admin)",
-                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$Sn2CZpzPCkgOPPWw28JMQA$XkzaO5d6BJ11FFeEzBi0qZLDIJ5AH2EgQpe6ZO4fUwA"
+                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$QM2qarRh03znC3TUt70yuA$SpQhQ0ewony1nRD21lUF2DF+UTK2sNxjIPOn/d9TX6I"
                         });
                 });
 
