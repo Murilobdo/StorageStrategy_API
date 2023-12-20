@@ -56,7 +56,7 @@ namespace StorageStrategy.Utils.Helpers
         public static decimal TotalDeImpostos(List<CommandEntity> commands)
         {
             var itens = commands.SelectMany(p => p.Items);
-            var result = itens.Sum(p => p.TaxingProduct);
+            var result = itens.Sum(p => p.Taxing);
             return result;
         }
 

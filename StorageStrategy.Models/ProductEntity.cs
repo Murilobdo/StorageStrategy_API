@@ -32,6 +32,7 @@ namespace StorageStrategy.Models
             IsActive = true;
             CategoryId = categoryId;
             CompanyId = companyId;
+            Taxing = taxing;
         }
 
         public ProductEntity(string name, decimal cost, decimal price, int qtd, int stockAlert, int categoryId, int companyId, decimal taxing)

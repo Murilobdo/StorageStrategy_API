@@ -39,6 +39,11 @@ namespace StorageStrategy.Domain.Handlers
             var command = _mapper.Map<CommandEntity>(request);
             command.InitialDate = DateTime.Now;
 
+            var result = await HasProductsInStock(request.Items, request.CompanyId);
+
+            if (!result.Success)
+                return CreateError(result.Errors[0].ErrorMessage);
+
             var commandItems = request.Items.Select(p => _mapper.Map<CommandItemEntity>(p)).ToList();
 
             if (command.Name == "Consumidor")
@@ -50,12 +55,32 @@ namespace StorageStrategy.Domain.Handlers
             await _repoCommand.AddAsync(command);
             await _repoCommand.SaveAsync();
 
+            foreach (var commandItem in commandItems)
+            {
+                var product = await _repoProduct.GetByIdAsync(commandItem.ProductId, request.CompanyId);
+                product.Qtd -= commandItem.Qtd;
+                _repoProduct.Update(product);
+            }
 
             commandItems.ForEach(p => p.CommandId = command.CommandId);
             await _repoCommand.AddItemsAsync(commandItems);
             await _repoCommand.SaveAsync();
 
             return CreateResponse(command, "Comanda cadastrada com sucesso.");
+        }
+
+        private async Task<Result> HasProductsInStock(List<CommandItemBase> items, int companyId)
+        {
+            foreach (var itemCommand in items)
+            {
+                var product = await _repoProduct.GetByIdAsync(itemCommand.ProductId, companyId);
+                if (itemCommand.Qtd > product.Qtd)
+                {
+                    return new Result(new Error($"Quantidade indisponivel em estoque [{product.Name.Trim()}]"));
+                }
+            }
+
+            return new Result(string.Empty);
         }
 
         public async Task<Result> Handle(FinishCommandCommand request, CancellationToken cancellationToken)
@@ -94,6 +119,13 @@ namespace StorageStrategy.Domain.Handlers
 
             await _repoCommand.AddItemsAsync(commandItems);
             await _repoCommand.SaveAsync();
+
+            foreach (var commandItem in commandItems)
+            {
+                var product = await _repoProduct.GetByIdAsync(commandItem.ProductId, request.CompanyId);
+                product.Qtd -= commandItem.Qtd;
+                _repoProduct.Update(product);
+            }
 
             command.TotalPrice = commandItems.Sum(p => p.Price * p.Qtd);
             command.TotalCost = commandItems.Sum(p => p.Cost * p.Qtd);

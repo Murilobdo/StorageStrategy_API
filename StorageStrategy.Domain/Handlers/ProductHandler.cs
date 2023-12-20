@@ -57,13 +57,16 @@ namespace StorageStrategy.Domain.Handlers
             if (product is null)
                 return CreateError("Produto não encontrado para a atualização");
 
-            if (request.Name == product.Name)
+            var sameNameProduct = await _repo.FindByName(request.Name, request.CompanyId);
+
+            if (sameNameProduct is not null && sameNameProduct.ProductId != product.ProductId)
                 return CreateError("Ja existe um produto com esse nome");
 
             if (await _repoCategory.GetById(request.CategoryId) is null)
                 return CreateError("Categoria não encontrada");
 
             product = _mapper.Map<ProductEntity>(request);
+            _repo.Clear();
             _repo.Update(product);
             await _repo.SaveAsync();
 

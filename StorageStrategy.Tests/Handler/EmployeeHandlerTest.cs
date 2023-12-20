@@ -11,101 +11,101 @@ namespace StorageStrategy.Tests.Handler
 {
     public class EmployeeHandlerTest : HandlerBaseTest
     {
-    private EmployeeHandler _handler;
-    private FakeEmployeeRepository _repo;
-    private IMapper _mapper;
-    private CancellationToken _cancellationToken;
+        private EmployeeHandler _handler;
+        private FakeEmployeeRepository _repo;
+        private IMapper _mapper;
+        private CancellationToken _cancellationToken;
 
 
-    public EmployeeHandlerTest()
-    {
-        _cancellationToken = new CancellationToken();
-        _repo = new FakeEmployeeRepository();
-
-        _mapper = new MapperConfiguration(config =>
+        public EmployeeHandlerTest()
         {
-            config.AddProfile(new EmployeeProfile());
-        }).CreateMapper();
+            _cancellationToken = new CancellationToken();
+            _repo = new FakeEmployeeRepository();
 
-        _handler = new EmployeeHandler(
-                    _repo,
-                    _mapper
-                );
-    }
+            _mapper = new MapperConfiguration(config =>
+            {
+                config.AddProfile(new EmployeeProfile());
+            }).CreateMapper();
 
-    #region CREATE EMPLOYEE
-    [Fact(DisplayName = "Sucesso ao Criar um Funcionario")]
-    public async Task Sucesso_ao_criar_um_funcionario()
-    {
-        CreateEmployeeCommand create = _repo.CreateEmployeeCommand;
+            _handler = new EmployeeHandler(
+                _repo,
+                _mapper
+            );
+        }
 
-        var result = await _handler.Handle(create, _cancellationToken);
+        #region CREATE EMPLOYEE
+        [Fact(DisplayName = "Sucesso ao Criar um Funcionario")]
+        public async Task Sucesso_ao_criar_um_funcionario()
+        {
+            CreateEmployeeCommand create = _repo.CreateEmployeeCommand;
 
-        Assert.True(result.Success);
-    }
+            var result = await _handler.Handle(create, _cancellationToken);
 
-    [Fact(DisplayName = "Erro ao Criar um Funcionario Com Nome Existente")]
-    public async Task Erro_ao_criar_um_funcionario_com_nome_existente()
-    {
-        CreateEmployeeCommand create = _repo.CreateEmployeeCommand;
+            Assert.True(result.Success);
+        }
 
-        create.Email = _repo.employees[0].Email;
+        [Fact(DisplayName = "Erro ao Criar um Funcionario Com Nome Existente")]
+        public async Task Erro_ao_criar_um_funcionario_com_nome_existente()
+        {
+            CreateEmployeeCommand create = _repo.CreateEmployeeCommand;
 
-        var result = await _handler.Handle(create, _cancellationToken);
+            create.Email = _repo.employees[0].Email;
 
-        Assert.False(IsValid(result, "Ja existe um funcionário com esse nome"));
-    }
-    #endregion
+            var result = await _handler.Handle(create, _cancellationToken);
 
-    #region UPDATE EMPLOYEE
-    [Fact(DisplayName = "Sucesso ao Atualizar um Funcionario")]
-    public async Task Sucesso_ao_atualizar_um_funcionario()
-    {
-        UpdateEmployeeCommand create = _repo.UpdateEmployeeCommand;
+            Assert.False(IsValid(result, "Ja existe um funcionário com esse nome"));
+        }
+        #endregion
 
-        var result = await _handler.Handle(create, _cancellationToken);
+        #region UPDATE EMPLOYEE
+        [Fact(DisplayName = "Sucesso ao Atualizar um Funcionario")]
+        public async Task Sucesso_ao_atualizar_um_funcionario()
+        {
+            UpdateEmployeeCommand create = _repo.UpdateEmployeeCommand;
 
-        Assert.True(result.Success);
-    }
+            var result = await _handler.Handle(create, _cancellationToken);
 
-    [Fact(DisplayName = "Erro ao Atualizar um Funcionario Inexistente")]
-    public async Task Erro_ao_atualizar_um_funcionario_inexistente()
-    {
-        CreateEmployeeCommand create = _repo.CreateEmployeeCommand;
+            Assert.True(result.Success);
+        }
 
-        create.CompanyId = 999;
-        create.EmployeeId = 888;
+        [Fact(DisplayName = "Erro ao Atualizar um Funcionario Inexistente")]
+        public async Task Erro_ao_atualizar_um_funcionario_inexistente()
+        {
+            CreateEmployeeCommand create = _repo.CreateEmployeeCommand;
 
-        var result = await _handler.Handle(create, _cancellationToken);
+            create.CompanyId = 999;
+            create.EmployeeId = 888;
 
-        Assert.False(IsValid(result, "Funcionario não encontrado para a atualização"));
-    }
-    #endregion
+            var result = await _handler.Handle(create, _cancellationToken);
 
-    #region DELETE EMPLOYEE
-    [Fact(DisplayName = "Sucesso ao Deletar um Funcionario")]
-    public async Task Sucesso_ao_deletar_um_funcionario()
-    {
-        DeleteEmployeeCommand create = _repo.DeleteEmployeeCommand;
+            Assert.False(IsValid(result, "Funcionario não encontrado para a atualização"));
+        }
+        #endregion
 
-        var result = await _handler.Handle(create, _cancellationToken);
+        #region DELETE EMPLOYEE
+        [Fact(DisplayName = "Sucesso ao Deletar um Funcionario")]
+        public async Task Sucesso_ao_deletar_um_funcionario()
+        {
+            DeleteEmployeeCommand create = _repo.DeleteEmployeeCommand;
 
-        Assert.True(result.Success);
-    }
+            var result = await _handler.Handle(create, _cancellationToken);
 
-    [Fact(DisplayName = "Erro ao Atualizar um Funcionario Com Nome Existente")]
-    public async Task Erro_ao_deletar_um_funcionario_existente()
-    {
-        CreateEmployeeCommand create = _repo.CreateEmployeeCommand;
+            Assert.True(result.Success);
+        }
 
-        create.CompanyId = 999;
-        create.EmployeeId = 888;
+        [Fact(DisplayName = "Erro ao Atualizar um Funcionario Com Nome Existente")]
+        public async Task Erro_ao_deletar_um_funcionario_existente()
+        {
+            CreateEmployeeCommand create = _repo.CreateEmployeeCommand;
 
-        var result = await _handler.Handle(create, _cancellationToken);
+            create.CompanyId = 999;
+            create.EmployeeId = 888;
 
-        Assert.False(IsValid(result, "Funcionario não encontrado para a exclusão"));
-    }
-    #endregion
+            var result = await _handler.Handle(create, _cancellationToken);
+
+            Assert.False(IsValid(result, "Funcionario não encontrado para a exclusão"));
+        }
+        #endregion
 
     }
 

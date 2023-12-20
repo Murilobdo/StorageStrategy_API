@@ -57,7 +57,7 @@ namespace StorageStrategy.Tests.Handler
             Assert.False(IsValid(result, "Ja existe um produto com esse nome"));
         }
 
-        [Fact(DisplayName = "Erro Ao Criar Um Produto Com Sem Categoria")]
+        [Fact(DisplayName = "Erro Ao Criar Um Produto Sem Categoria")]
         public async Task Erro_ao_criar_um_produto_sem_cateogira()
         {
             CreateProductCommand create = _repo.CreateProductCommand;
@@ -99,7 +99,7 @@ namespace StorageStrategy.Tests.Handler
         {
             UpdateProductCommand update = _repo.UpdateProductCommand;
 
-            update.Name = _repo.products[0].Name;
+            update.Name = _repo.products[1].Name;
 
             var result = await _handler.Handle(update, _cancellationToken);
 

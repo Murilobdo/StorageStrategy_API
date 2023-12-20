@@ -26,5 +26,27 @@ namespace StorageStrategy.Models
             InitialDate = DateTime.Now;
         }
 
+        public CommandEntity(
+            int commandId, 
+            int employeeId, 
+            string name, 
+            decimal totalCost,
+            decimal totalPrice, 
+            PaymentEnum? payment, 
+            DateTime initialDate, 
+            DateTime? finalDate, 
+            int companyId
+        ) {
+            CommandId = commandId;
+            EmployeeId = employeeId;
+            Name = name;
+            TotalCost = totalCost;
+            TotalPrice = totalPrice;
+            Payment = payment;
+            InitialDate = initialDate;
+            FinalDate = finalDate;
+            CompanyId = companyId;
+            Items = new List<CommandItemEntity>();
+        }
     }
 }

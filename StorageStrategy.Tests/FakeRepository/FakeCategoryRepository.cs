@@ -31,6 +31,10 @@ namespace StorageStrategy.Tests.FakeRepository
             return Task.CompletedTask;
         }
 
+        public void Clear()
+        {
+        }
+
         public Task CommitAsync()
         {
             return Task.CompletedTask;
