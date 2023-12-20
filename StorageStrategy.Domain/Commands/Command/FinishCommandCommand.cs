@@ -5,10 +5,11 @@ namespace StorageStrategy.Domain.Commands.Command
 {
     public record class FinishCommandCommand : CommandBase, IValidation
     {
-        public FinishCommandCommand(int commandId, PaymentEnum payment)
+        public FinishCommandCommand(int commandId, PaymentEnum payment, int companyId)
         {
             CommandId = commandId;
             Payment = payment;
+            CompanyId = companyId;
         }
 
         public int CommandId { get; set; }

@@ -52,6 +52,8 @@ namespace StorageStrategy.Domain.Handlers
             command.TotalPrice = commandItems.Sum(p => p.Price * p.Qtd);
             command.TotalCost = commandItems.Sum(p => p.Cost * p.Qtd);
 
+            await _repoCommand.CreateTranscationAsync();
+
             await _repoCommand.AddAsync(command);
             await _repoCommand.SaveAsync();
 
@@ -65,6 +67,8 @@ namespace StorageStrategy.Domain.Handlers
             commandItems.ForEach(p => p.CommandId = command.CommandId);
             await _repoCommand.AddItemsAsync(commandItems);
             await _repoCommand.SaveAsync();
+
+            await _repoCommand.CommitAsync();
 
             return CreateResponse(command, "Comanda cadastrada com sucesso.");
         }
@@ -109,8 +113,15 @@ namespace StorageStrategy.Domain.Handlers
 
             var command = await _repoCommand.GetCommandByIdAsync(request.CommandId, request.CompanyId);
 
-            if (command is null)
+            if (command is null)  
                 return CreateError("Comanda não encontrada");
+
+            var result = await HasProductsInStock(request.Items, request.CompanyId);
+
+            if (!result.Success)
+                return CreateError(result.Errors[0].ErrorMessage);
+
+            await _repoCommand.CreateTranscationAsync();
 
             await _repoCommand.RemoveCommandItemsAsync(command.Items);
 
@@ -132,6 +143,8 @@ namespace StorageStrategy.Domain.Handlers
 
             _repoCommand.Update(command);
             await _repoCommand.SaveAsync();
+
+            await _repoCommand.CommitAsync();
 
             return CreateResponse(command, "Comanda atualizada com sucesso.");
         }

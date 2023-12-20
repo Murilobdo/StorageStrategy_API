@@ -20,6 +20,7 @@ namespace StorageStrategy.Tests.Faktory.command
         }
 
         protected abstract void CriarComanda();
+
         protected abstract void AdicionarItens();
     }
 }

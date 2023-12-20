@@ -1,5 +1,6 @@
 ﻿using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
+using StorageStrategy.Tests.Factory.Entity;
 using StorageStrategy.Tests.Faktory;
 using StorageStrategy.Tests.Faktory.Entity;
 using System;
@@ -17,11 +18,12 @@ namespace StorageStrategy.Tests.FakeRepository
 
         public readonly List<CommandItemEntity> items;
 
-        public FakeCommandRepository(FakeProductRepository _repoProduct)
+        public FakeCommandRepository()
         {
             commands = new List<CommandEntity>()
             {
-                new CreateCommandEntityWithItemsFactory().command
+                new CreateCommandEntityWithItemsFactory().command,
+                new CreateCommandEntityWithoutItemFactory().command
             };
         }
 
@@ -32,6 +34,20 @@ namespace StorageStrategy.Tests.FakeRepository
 
         public Task AddItemsAsync(IEnumerable<CommandItemEntity> items)
         {
+            if(items.Count() > 0)
+            {
+                int commandId = items.First().CommandId;
+
+                foreach (var command in commands)
+                {
+                    if (commandId == command.CommandId)
+                        command.Items.AddRange(items);
+                }
+
+            }
+
+
+            commands[1].Items.AddRange(items);
             return Task.CompletedTask;
         }
 
@@ -111,6 +127,16 @@ namespace StorageStrategy.Tests.FakeRepository
 
         public Task RemoveCommandItemsAsync(List<CommandItemEntity> items)
         {
+            if(items.Count > 0)
+            {
+                int commandId = items[0].CommandId;
+                foreach (var command in commands)
+                {
+                    if (commandId == command.CommandId)
+                        command.Items = new List<CommandItemEntity>();
+                }
+            }
+
             return Task.CompletedTask;
         }
 
