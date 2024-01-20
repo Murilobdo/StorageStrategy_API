@@ -85,5 +85,13 @@ namespace StorageStrategy.API.Controllers
             var result = await _mediator.Send(command);
             return Ok(result);
         }
+
+        [HttpDelete("delete")]
+        public async Task<IActionResult> Delete([FromQuery]int commandId, [FromServices]ICommandRepository repo)
+        {
+            DeleteCommandCommand command = new(commandId, User.GetCompanyId());
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
     }
 }

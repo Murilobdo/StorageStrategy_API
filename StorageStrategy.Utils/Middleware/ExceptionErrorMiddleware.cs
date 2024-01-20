@@ -18,7 +18,7 @@ namespace StorageStrategy.Utils.Middleware
             {
                 await next(context);
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
                 await HandleExceptionAsync(context, ex);
             }

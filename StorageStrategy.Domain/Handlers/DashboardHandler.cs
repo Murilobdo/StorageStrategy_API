@@ -65,11 +65,9 @@ namespace StorageStrategy.Domain.Handlers
             if (!request.IsValid())
                 return CreateError(request.GetErros(), "Dados inválidos");
 
-            var commands = await _repoCommand.ReadCommandsForPeriodAsync(request.CompanyId, request.Month);
-
             do
             {
-                var commandItens = await _repoCommand.ReadCommandsForDaysAsync(request.CompanyId, initialDate.Day);
+                var commandItens = await _repoCommand.ReadCommandsForDaysAsync(request.CompanyId, initialDate.Day, initialDate.Month);
 
                 result.Add(new EntryAndExitForDayCommand
                 {
@@ -96,11 +94,11 @@ namespace StorageStrategy.Domain.Handlers
 
             var commands = await _repoCommand.ReadCommandsForPeriodAsync(request.CompanyId, request.Month);
 
-            request.TotalPix = Calc.TotalPriceForPayment(commands, PaymentEnum.Pix);
-            request.TotalDebit = Calc.TotalPriceForPayment(commands, PaymentEnum.Debit);
-            request.TotalCredit = Calc.TotalPriceForPayment(commands, PaymentEnum.Credit);
-            request.TotalCash = Calc.TotalPriceForPayment(commands, PaymentEnum.Cash);
-            request.Total = commands.Sum(p => p.TotalPrice);
+            request.TotalPix = Calc.CountSalesPayment(commands, PaymentEnum.Pix);
+            request.TotalDebit = Calc.CountSalesPayment(commands, PaymentEnum.Debit);
+            request.TotalCredit = Calc.CountSalesPayment(commands, PaymentEnum.Credit);
+            request.TotalCash = Calc.CountSalesPayment(commands, PaymentEnum.Cash);
+            request.Total = commands.Count;
 
             return CreateResponse(request, "Busca realizada");
 

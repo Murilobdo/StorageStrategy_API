@@ -9,16 +9,20 @@ namespace StorageStrategy.Domain.Handlers
     public class CommandHandler : HandlerBase,
         IRequestHandler<CreateCommandCommand, Result>,
         IRequestHandler<FinishCommandCommand, Result>,
-        IRequestHandler<AddProductCommandCommand, Result>
+        IRequestHandler<AddProductCommandCommand, Result>,
+        IRequestHandler<DeleteCommandCommand, Result>
     {
-
         private IProductRepository _repoProduct;
         private ICommandRepository _repoCommand;
         private IEmployeeRepository _repoEmployee;
         private IMapper _mapper;
 
-        public CommandHandler(IProductRepository repoProduct, ICommandRepository repoCommand, 
-            IEmployeeRepository employeeRepository, IMapper mapper)
+        public CommandHandler(
+            IProductRepository repoProduct, 
+            ICommandRepository repoCommand, 
+            IEmployeeRepository employeeRepository, 
+            IMapper mapper
+        )
         {
             _repoProduct = repoProduct;
             _mapper = mapper;
@@ -52,8 +56,6 @@ namespace StorageStrategy.Domain.Handlers
             command.TotalPrice = commandItems.Sum(p => p.Price * p.Qtd);
             command.TotalCost = commandItems.Sum(p => p.Cost * p.Qtd);
 
-            await _repoCommand.CreateTranscationAsync();
-
             await _repoCommand.AddAsync(command);
             await _repoCommand.SaveAsync();
 
@@ -63,12 +65,8 @@ namespace StorageStrategy.Domain.Handlers
                 product.Qtd -= commandItem.Qtd;
                 _repoProduct.Update(product);
             }
-
-            commandItems.ForEach(p => p.CommandId = command.CommandId);
-            await _repoCommand.AddItemsAsync(commandItems);
+            
             await _repoCommand.SaveAsync();
-
-            await _repoCommand.CommitAsync();
 
             return CreateResponse(command, "Comanda cadastrada com sucesso.");
         }
@@ -123,6 +121,7 @@ namespace StorageStrategy.Domain.Handlers
 
             await _repoCommand.CreateTranscationAsync();
 
+            await ReturnProductsToStock(command.Items, request.CompanyId);
             await _repoCommand.RemoveCommandItemsAsync(command.Items);
 
             var commandItems = request.Items.Select(p => _mapper.Map<CommandItemEntity>(p)).ToList();
@@ -143,10 +142,37 @@ namespace StorageStrategy.Domain.Handlers
 
             _repoCommand.Update(command);
             await _repoCommand.SaveAsync();
-
             await _repoCommand.CommitAsync();
 
             return CreateResponse(command, "Comanda atualizada com sucesso.");
+        }
+
+        private async Task ReturnProductsToStock(List<CommandItemEntity> items, int companyId)
+        {
+            foreach (var itemCommand in items)
+            {
+                var product = await _repoProduct.GetByIdAsync(itemCommand.ProductId, companyId);
+                product.Qtd += itemCommand.Qtd;
+                _repoProduct.Update(product);
+            }
+
+            await _repoCommand.SaveAsync();
+        }
+
+        public async Task<Result> Handle(DeleteCommandCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.IsValid())
+                return CreateError(request.GetErros(), "Dados invalidos");
+
+            var command = await _repoCommand.GetCommandByIdAsync(request.CommandId, request.CompanyId);
+
+            if (command.Items.Count > 0)
+                return CreateError("Não é possivel excluir uma comanda com produtos");
+
+            _repoCommand.Delete(command);
+            await _repoCommand.SaveAsync();
+
+            return CreateResponse(command, "Comanda removida com sucesso!");
         }
     }
 }

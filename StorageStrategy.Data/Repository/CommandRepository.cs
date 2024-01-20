@@ -31,12 +31,12 @@ namespace StorageStrategy.Data.Repository
                .FirstOrDefaultAsync(p => p.CompanyId == companyId && p.CommandId == commandId);
         }
 
-        public async Task<List<CommandItemEntity>> ReadCommandsForDaysAsync(int companyId, int day)
+        public async Task<List<CommandItemEntity>> ReadCommandsForDaysAsync(int companyId, int day, int month)
         {
             var result = await _context.Command
                 .AsNoTracking()
                 .Where(p => p.CompanyId == companyId)
-                .Where(p => p.FinalDate != null && p.FinalDate.Value.Day == day)
+                .Where(p => p.FinalDate != null && p.FinalDate.Value.Day == day && p.FinalDate.Value.Month == month)
                 .SelectMany(p => p.Items)
                 .ToListAsync();
 
@@ -85,6 +85,7 @@ namespace StorageStrategy.Data.Repository
 
         public async Task RemoveCommandItemsAsync(List<CommandItemEntity> items)
         {
+            _context.ChangeTracker.Clear();
             _context.CommandItems.RemoveRange(items);
             await _context.SaveChangesAsync();
         }

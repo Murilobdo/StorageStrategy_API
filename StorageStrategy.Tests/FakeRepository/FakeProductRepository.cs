@@ -116,6 +116,11 @@ namespace StorageStrategy.Tests.FakeRepository
             return Task.FromResult(products.Where(p => p.CompanyId == companyId).ToList());
         }
 
+        public Task<List<ProductEntity>> ToList(int companyId, bool active)
+        {
+            return Task.FromResult(products);
+        }
+
         public void Update(ProductEntity model)
         {
         }

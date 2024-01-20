@@ -24,12 +24,13 @@ namespace StorageStrategy.API.Controllers
         }
 
         [HttpGet("list")]
-        public async Task<IActionResult> ToList([FromServices] IProductRepository repo, int companyId)
+        public async Task<IActionResult> ToList([FromServices] IProductRepository repo, int companyId, bool active)
         {
             List<CreateProductCommand> listProduct = new();
            
             companyId = User.GetCompanyId();
-            var products = await repo.ToList(companyId);
+
+            var products = await repo.ToList(companyId, active);
 
             products.ForEach(category =>
             {
@@ -37,7 +38,6 @@ namespace StorageStrategy.API.Controllers
             });
 
             return Ok(new Result(listProduct, "Busca realizada"));
-           
         }
 
         [HttpGet("CreateStockProduct")]

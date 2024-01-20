@@ -17,11 +17,11 @@ namespace StorageStrategy.Domain.Commands.Dashboard
 
         public int CompanyId { get; set; }
         public int Month { get; set; }
-        public decimal Total { get; set; }
-        public decimal TotalPix { get; set; }
-        public decimal TotalCredit { get; set; }
-        public decimal TotalDebit { get; set; }
-        public decimal TotalCash { get; set; }
+        public int Total { get; set; }
+        public int TotalPix { get; set; }
+        public int TotalCredit { get; set; }
+        public int TotalDebit { get; set; }
+        public int TotalCash { get; set; }
 
         public List<Error> GetErros() => new InfoPaymentValidation().Validate(this)
            .Errors.Select(p => new Error(p.ErrorMessage)).ToList();
