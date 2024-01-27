@@ -49,7 +49,8 @@ namespace StorageStrategy.Utils.Helpers
 
             return salesPerCategory
                 .OrderByDescending(p => p.TotalPrice)
-                .Take(10).ToList();
+                .Take(10)
+                .ToList();
         }
 
         public static decimal TotalDeImpostos(List<CommandEntity> commands)
