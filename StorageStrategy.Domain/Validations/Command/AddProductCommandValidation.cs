@@ -9,7 +9,7 @@ namespace StorageStrategy.Domain.Validations.Command
         {
             ValidateCommandId();
             ValidateCompanyId();
-            //ValidateItems();
+            ValidateItems();
         }
 
         protected void ValidateCommandId() => RuleFor(p => p.CommandId)

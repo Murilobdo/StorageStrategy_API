@@ -4,14 +4,24 @@ namespace StorageStrategy.Domain.Commands.Command
 {
     public record class CommandCommandBase : CommandBase
     {
-        public CommandCommandBase(int commandId, int companyId, string name, int employeeId, List<CommandItemBase> items, PaymentEnum payment)
-        {
+        public CommandCommandBase(
+            int commandId, 
+            int companyId, 
+            string name, 
+            int employeeId, 
+            decimal discount,
+            decimal increase,
+            List<CommandItemBase> items, 
+            PaymentEnum payment
+        ) {
             CommandId = commandId;
             CompanyId = companyId;
             Name = name;
             EmployeeId = employeeId;
             Items = items;
             Payment = payment;
+            Discount = discount;
+            Increase = increase;
         }
         public CommandCommandBase()
         {
@@ -26,5 +36,7 @@ namespace StorageStrategy.Domain.Commands.Command
         public DateTime? FinalDate { get; set; }
         public List<CommandItemBase> Items { get; set; } = new();
         public PaymentEnum? Payment { get; set; }
+        public decimal Discount { get; set; }
+        public decimal Increase { get; set; }
     }
 }

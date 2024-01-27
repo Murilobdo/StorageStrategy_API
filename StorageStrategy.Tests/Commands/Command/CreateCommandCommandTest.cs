@@ -15,7 +15,15 @@ namespace StorageStrategy.Tests.Commands.Coommand
         [Fact]
         public void Sucesso_ao_criar_uma_comanda()
         {
-            CreateCommandCommand createCommand = new(1, "Comanda Teste", 1, GetCommandItems(), PaymentEnum.Pix);
+            CreateCommandCommand createCommand = new(
+                companyId:1, 
+                name:"Comanda Teste", 
+                employeeId:1, 
+                discount: 0,
+                increase:0,
+                items:GetCommandItems(), 
+                payment:PaymentEnum.Pix
+            );
 
             Assert.True(createCommand.IsValid());
         }
@@ -23,7 +31,15 @@ namespace StorageStrategy.Tests.Commands.Coommand
         [Fact]
         public void Erro_ao_criar_uma_comanda_sem_companyId()
         {
-            CreateCommandCommand createCommand = new(0, "Comanda Teste", 1, GetCommandItems(), PaymentEnum.Pix);
+            CreateCommandCommand createCommand = new(
+                companyId: 0,
+                name: "Comanda Teste",
+                employeeId: 1,
+                discount: 0,
+                increase: 0,
+                items: GetCommandItems(),
+                payment: PaymentEnum.Pix
+            );
 
             Assert.True(MensagemDeErroExistente(createCommand.GetErros(), "O Id da empresa e obrigatório"));
         }
@@ -31,7 +47,15 @@ namespace StorageStrategy.Tests.Commands.Coommand
         [Fact]
         public void Erro_ao_criar_uma_comanda_sem_employeeId()
         {
-            CreateCommandCommand createCommand = new(1, "Comanda Teste", 0, GetCommandItems(), PaymentEnum.Pix);
+            CreateCommandCommand createCommand = new(
+                companyId: 1,
+                name: "Comanda Teste",
+                employeeId: 0,
+                discount: 0,
+                increase: 0,
+                items: GetCommandItems(),
+                payment: PaymentEnum.Pix
+            );
 
             Assert.True(MensagemDeErroExistente(createCommand.GetErros(), "O funcionário e obrigatório"));
         }
@@ -39,9 +63,49 @@ namespace StorageStrategy.Tests.Commands.Coommand
         [Fact]
         public void Erro_ao_criar_uma_comanda_sem_itens()
         {
-            CreateCommandCommand createCommand = new(1, "Comanda Teste", 1, new List<CommandItemBase>(), PaymentEnum.Pix);
+            CreateCommandCommand createCommand = new(
+                companyId: 1,
+                name: "Comanda Teste",
+                employeeId: 1,
+                discount: 0,
+                increase: 0,
+                items: new List<CommandItemBase>(),
+                payment: PaymentEnum.Pix
+            );
 
             Assert.True(MensagemDeErroExistente(createCommand.GetErros(), "Essa comanda não possui produtos"));
+        }
+
+        [Fact]
+        public void Erro_ao_criar_uma_comanda_com_desconto_negativo()
+        {
+            CreateCommandCommand createCommand = new(
+                companyId: 1,
+                name: "Comanda Teste",
+                employeeId: 1,
+                discount: -30,
+                increase: 0,
+                items: GetCommandItems(),
+                payment: PaymentEnum.Pix
+            );
+
+            Assert.True(MensagemDeErroExistente(createCommand.GetErros(), "O desconto não pode ser negativo"));
+        }
+
+        [Fact]
+        public void Erro_ao_criar_uma_comanda_com_acrescimo_negativo()
+        {
+            CreateCommandCommand createCommand = new(
+                companyId: 1,
+                name: "Comanda Teste",
+                employeeId: 1,
+                discount: 0,
+                increase: -30,
+                items: GetCommandItems(),
+                payment: PaymentEnum.Pix
+            );
+
+            Assert.True(MensagemDeErroExistente(createCommand.GetErros(), "O acréscimo não pode ser negativo"));
         }
 
         private List<CommandItemBase> GetCommandItems() 

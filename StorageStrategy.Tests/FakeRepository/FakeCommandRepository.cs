@@ -43,7 +43,6 @@ namespace StorageStrategy.Tests.FakeRepository
                     if (commandId == command.CommandId)
                         command.Items.AddRange(items);
                 }
-
             }
 
 
@@ -79,15 +78,15 @@ namespace StorageStrategy.Tests.FakeRepository
             return Task.FromResult(commands.FirstOrDefault(p => p.CommandId == commandId  && p.CompanyId == companyId));
         }
 
-        public Task<List<CommandItemEntity>> ReadCommandsForDaysAsync(int companyId, int day)
+        public Task<List<CommandItemEntity>> ReadCommandsForDaysAsync(int companyId, int day, int month)
         {
-            var commandItems = commands
+            var result =  commands
                 .Where(p => p.CompanyId == companyId)
-                .Where(p => p.FinalDate != null && p.FinalDate.Value.Day == day)
+                .Where(p => p.FinalDate != null && p.FinalDate.Value.Day == day && p.FinalDate.Value.Month == month)
                 .SelectMany(p => p.Items)
                 .ToList();
 
-            return Task.FromResult(commandItems);
+            return Task.FromResult(result);
         }
 
         public Task<List<CommandEntity>> ReadCommandsForPeriodAsync(int companyId, int initialMonth, int finalMounth = 0)

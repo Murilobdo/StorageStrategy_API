@@ -8,11 +8,20 @@ namespace StorageStrategy.Domain.Commands.Command
 {
     public record class CreateCommandCommand : CommandCommandBase, IValidation
     {
-        public CreateCommandCommand(int companyId, string name, int employeeId, List<CommandItemBase> items, PaymentEnum? payment)
-        {
+        public CreateCommandCommand(
+            int companyId, 
+            string name, 
+            int employeeId, 
+            decimal discount,
+            decimal increase,
+            List<CommandItemBase> items, 
+            PaymentEnum? payment
+        ) {
             CompanyId = companyId;
             Name = name;
             EmployeeId = employeeId;
+            Discount = discount;
+            Increase = increase;
             Items = items;
             Payment = payment;
         }

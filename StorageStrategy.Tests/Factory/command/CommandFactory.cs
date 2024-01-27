@@ -15,6 +15,7 @@ namespace StorageStrategy.Tests.Faktory.command
 
         public CommandFactory()
         {
+            items = new();
             CriarComanda();
             AdicionarItens();
         }

@@ -45,7 +45,9 @@ namespace StorageStrategy.Tests.Faktory.command
                 companyId: 1,
                 name: "Gurinevers",
                 employeeId: _employees[0].EmployeeId,
-                items = new List<CommandItemBase>(),
+                discount: 0,
+                increase:0,
+                items: base.items,
                 payment: PaymentEnum.Pix
             );
         }
