@@ -20,6 +20,8 @@ namespace StorageStrategy.Models
         public DateTime? FinalDate { get; set; }
         public CompanyEntity Company { get; set; }
         public int CompanyId { get; set; }
+        public decimal Discount { get; set; }
+        public decimal Increase { get; set; }
 
         public CommandEntity()
         {
