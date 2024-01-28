@@ -15,9 +15,7 @@ namespace StorageStrategy.Domain.Commands.Dashboard
         public decimal ReceitaLiquida { get; set; }
         public decimal CPV { get; set; }
         public decimal LucroBruto { get; set; }
-        public decimal DespesasVendas { get; set; }
         public decimal DespesasAdministrativas { get; set; }
-        public decimal DespesasFinanceiras { get; set; }
         public decimal ResultadoLiquido { get; set; }
 
         public List<Error> GetErros() => new DREValidation().Validate(this)

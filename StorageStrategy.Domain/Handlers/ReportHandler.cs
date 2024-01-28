@@ -33,7 +33,7 @@ namespace StorageStrategy.Domain.Handlers
             return CreateResponse(new {
                 Commands = commands,
                 TotalCost = commands.Sum(p => p.TotalCost),
-                TotalPrice = commands.Sum(p => p.TotalPrice),
+                TotalPrice = commands.Sum(p => p.TotalPrice - p.Discount + p.Increase),
             }, "Busca realizada !");
         }
 

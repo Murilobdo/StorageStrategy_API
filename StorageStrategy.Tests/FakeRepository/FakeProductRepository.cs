@@ -85,6 +85,7 @@ namespace StorageStrategy.Tests.FakeRepository
             return Task.FromResult(totalQtd);
         }
 
+
         public Task<decimal> ReadTotalPriceInStokByCompany(int companyId)
         {
             var totalPrice = products.Where(p => p.CompanyId == companyId)

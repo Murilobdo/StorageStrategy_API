@@ -110,7 +110,13 @@ namespace StorageStrategy.Tests.Handler
         [Fact(DisplayName = "Sucesso ao Finalizar uma Comanda")]
         public async Task Sucesso_ao_finalizar_uma_comanda()
         {
-            FinishCommandCommand command = new(commandId: _repoCommand.commands[0].CommandId, payment: PaymentEnum.Cash, companyId: 1);
+            FinishCommandCommand command = new(
+                commandId: _repoCommand.commands[0].CommandId, 
+                payment: PaymentEnum.Cash, 
+                companyId: 1,
+                discount: 0,
+                increase: 0
+            );
 
             var result = await _handler.Handle(command, _cancellationToken);
 
@@ -120,7 +126,13 @@ namespace StorageStrategy.Tests.Handler
         [Fact(DisplayName = "Sucesso ao Validar o Metodo de Pagamento")]
         public async Task Sucesso_ao_validar_o_metodo_de_pagamento()
         {
-            FinishCommandCommand command = new(commandId: _repoCommand.commands[0].CommandId, payment: PaymentEnum.Cash, companyId: 1);
+            FinishCommandCommand command = new(
+                commandId: _repoCommand.commands[0].CommandId, 
+                payment: PaymentEnum.Cash, 
+                companyId: 1,
+                discount: 0,
+                increase: 0
+            );
 
             var result = await _handler.Handle(command, _cancellationToken);
             var commandEntity = (CommandEntity) result.Response;
@@ -131,7 +143,13 @@ namespace StorageStrategy.Tests.Handler
         [Fact(DisplayName = "Sucesso ao validar a Data do Pagamento da Comanda")]
         public async Task Sucesso_ao_validar_a_data_do_pagamento_da_comanda()
         {
-            FinishCommandCommand command = new(commandId: _repoCommand.commands[0].CommandId, payment: PaymentEnum.Cash, companyId: 1);
+            FinishCommandCommand command = new(
+                commandId: _repoCommand.commands[0].CommandId, 
+                payment: PaymentEnum.Cash, 
+                companyId: 1,
+                discount: 0,
+                increase: 0
+            );
 
             var result = await _handler.Handle(command, _cancellationToken);
             var commandEntity = (CommandEntity)result.Response;
@@ -142,7 +160,13 @@ namespace StorageStrategy.Tests.Handler
         [Fact(DisplayName = "Erro ao Finalizar uma Comanda Inexistente")]
         public async Task Erro_ao_finalizar_uma_comanda_inexistente()
         {
-            FinishCommandCommand command = new(commandId: 80, payment: PaymentEnum.Cash, companyId: 1);
+            FinishCommandCommand command = new(
+                commandId: 80, 
+                payment: PaymentEnum.Cash, 
+                companyId: 1,
+                discount: 0,
+                increase: 0
+            );
 
             var result = await _handler.Handle(command, _cancellationToken);
 

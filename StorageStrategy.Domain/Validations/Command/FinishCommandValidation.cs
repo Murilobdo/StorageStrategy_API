@@ -10,6 +10,8 @@ namespace StorageStrategy.Domain.Validations.Command
             ValidateCommandId();
             ValidatePayment();
             ValidateCompanyId();
+            ValidateDiscount();
+            ValidateIncrease();
         }
 
         protected void ValidateCommandId() => RuleFor(p => p.CommandId)
@@ -23,5 +25,13 @@ namespace StorageStrategy.Domain.Validations.Command
         protected void ValidatePayment() => RuleFor(p => p.Payment)
             .IsInEnum()
             .WithMessage("O tipo de pagamento e obrigatório");
+
+        protected void ValidateDiscount() => RuleFor(p => p.Discount)
+            .GreaterThanOrEqualTo(0)
+            .WithMessage("O desconto não pode ser menor que zero");
+
+        protected void ValidateIncrease() => RuleFor(p => p.Increase)
+            .GreaterThanOrEqualTo(0)
+            .WithMessage("O acréscimo não pode ser menor que zero");
     }
 }

@@ -10,6 +10,5 @@ namespace StorageStrategy.Domain.Repository
         Task AddRange(List<ProductEntity> products);
         Task<decimal> ReadTotalPriceInStokByCompany(int companyId);
         Task<int> QuantityInStockByCompany(int companyId);
-        Task<decimal> ReadSalesOfTheDay(int companyId, int month, int day);
     }
 }

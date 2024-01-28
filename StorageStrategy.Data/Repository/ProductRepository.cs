@@ -45,17 +45,6 @@ namespace StorageStrategy.Data.Repository
             return result;
         }
 
-        public async Task<decimal> ReadSalesOfTheDay(int companyId, int month, int day)
-        {
-            var result = await _context.Command
-                .AsNoTracking()
-                .Where(p => p.CompanyId == companyId)
-                .Where(p => p.FinalDate != null && p.FinalDate.Value.Day == day && p.FinalDate.Value.Month == month)
-                .SumAsync(p => (p.TotalPrice - p.Discount + p.Increase));
-
-            return result;
-        }
-
         public async Task<decimal> ReadTotalPriceInStokByCompany(int companyId)
         {
             decimal result = await _context.Product

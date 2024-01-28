@@ -201,12 +201,13 @@ namespace StorageStrategy.Domain.Handlers
             var commands = await _repoCommand.ReadCommandsForPeriodWithItensAsync(request.CompanyId, request.Month);
             var expenses = await _repoExpenses.ReadTotalExpensesByMonth(request.CompanyId, request.Month);
 
-            request.ReceitaBruta = commands.Sum(p => p.TotalPrice);
+            request.ReceitaBruta = commands.Sum(p => p.TotalPrice - p.Discount + p.Increase);
             request.DeducoesAbatimentos = Calc.TotalDeImpostos(commands);
             request.ReceitaLiquida = request.ReceitaBruta - request.DeducoesAbatimentos;
             request.CPV = Calc.CustoProdutoVendido(commands);
             request.LucroBruto = request.ReceitaLiquida - request.CPV;
-
+            request.DespesasAdministrativas = expenses.Sum(p => p.ExpenseValue);
+            request.ResultadoLiquido = request.LucroBruto - request.DespesasAdministrativas;
 
             return CreateResponse(request, "Busca realizada !");
         }
