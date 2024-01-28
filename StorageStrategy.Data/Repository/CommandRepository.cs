@@ -46,11 +46,13 @@ namespace StorageStrategy.Data.Repository
         public async Task<List<CommandEntity>> ReadCommandsForPeriodAsync(int companyId, int initialMonth, int finalMounth = 0)
         {
             var query =  _context.Command
-                            .AsNoTracking()
-                            .Where(p => p.FinalDate != null)
-                            .Where(p => p.InitialDate.Month == initialMonth)
-                            .Where(p => p.CompanyId == companyId)
-                            .AsQueryable();
+                .AsNoTracking()
+                .Include(p => p.Items)
+                .Where(p => p.FinalDate != null)
+                .Where(p => p.InitialDate.Month == initialMonth)
+                .Where(p => p.CompanyId == companyId)
+                .OrderBy(p => p.InitialDate.Day)
+                .AsQueryable();
 
             if (finalMounth > 0)
                 query = query.Where(p => p.FinalDate.Value.Month == finalMounth);
@@ -78,7 +80,7 @@ namespace StorageStrategy.Data.Repository
             decimal result = await _context.Command
                                 .Where(p => p.CompanyId == companyId)
                                 .Where(p => p.FinalDate.Value != null && p.FinalDate.Value.Month == month)
-                                .SumAsync(p => p.TotalPrice);
+                                .SumAsync(p => (p.TotalPrice - p.Discount + p.Increase));
 
             return result;
         }

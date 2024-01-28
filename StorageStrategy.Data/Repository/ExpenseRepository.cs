@@ -46,8 +46,14 @@ namespace StorageStrategy.Data.Repository
             return _context.ExpensesType.Where(p => p.CompanyId == companyId).ToList();
         }
 
-        public Task<List<ExpenseEntity>> ReadTotalExpensesByMonth(int companyId, int month)
+        public async Task<List<ExpenseEntity>> ReadTotalExpensesByMonth(int companyId, int month)
         {
+            return await _context.Expenses
+                .AsNoTracking()
+                .Where(p => p.CompanyId == companyId)
+                .Where(p => p.CreateAt.Month == month)
+                .ToListAsync();
+
             throw new NotImplementedException();
         }
 

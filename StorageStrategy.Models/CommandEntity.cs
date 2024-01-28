@@ -50,5 +50,10 @@ namespace StorageStrategy.Models
             CompanyId = companyId;
             Items = new List<CommandItemEntity>();
         }
+
+        public decimal GetFinalPrice()
+        {
+            return TotalPrice - Discount + Increase;
+        }
     }
 }
