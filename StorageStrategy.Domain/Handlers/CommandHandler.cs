@@ -97,6 +97,8 @@ namespace StorageStrategy.Domain.Handlers
 
             command.FinalDate = DateTime.Now;
             command.Payment = request.Payment;
+            command.Discount = request.Discount;
+            command.Increase = request.Increase;
 
             _repoCommand.Update(command);
             await _repoCommand.SaveAsync();
@@ -141,6 +143,7 @@ namespace StorageStrategy.Domain.Handlers
             command.TotalCost = commandItems.Sum(p => p.Cost * p.Qtd);
 
             _repoCommand.Update(command);
+
             await _repoCommand.SaveAsync();
             await _repoCommand.CommitAsync();
 
