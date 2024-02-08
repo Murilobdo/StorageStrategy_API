@@ -27,8 +27,8 @@ namespace StorageStrategy.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {   
-            base.OnConfiguring(options);
             options.UseSqlServer(_appSettings.Value.Database);
+            base.OnConfiguring(options);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
