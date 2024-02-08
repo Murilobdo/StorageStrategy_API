@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace StorageStrategy.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateDatabase : Migration
+    public partial class CreateDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,7 +20,8 @@ namespace StorageStrategy.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Validate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,10 +55,12 @@ namespace StorageStrategy.Data.Migrations
                 {
                     EmployeeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Comission = table.Column<int>(type: "int", nullable: false),
-                    JobRole = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    JobRole = table.Column<int>(type: "int", maxLength: 100, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -106,7 +107,8 @@ namespace StorageStrategy.Data.Migrations
                     StockAlert = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    CompanyId = table.Column<int>(type: "int", nullable: false)
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    Taxing = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -116,7 +118,7 @@ namespace StorageStrategy.Data.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Category",
                         principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Product_Company_CompanyId",
                         column: x => x.CompanyId,
@@ -163,10 +165,11 @@ namespace StorageStrategy.Data.Migrations
                 {
                     ExpenseId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CompanyId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExpenseValue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ExpensesTypeId = table.Column<int>(type: "int", nullable: false),
-                    CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CompanyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -217,12 +220,13 @@ namespace StorageStrategy.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Company",
-                columns: new[] { "CompanyId", "CreateAt", "Description", "IsActive", "Name" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2023, 2, 27, 20, 24, 53, 869, DateTimeKind.Local).AddTicks(3679), "Bar", true, "Bar do Murps" },
-                    { 2, new DateTime(2023, 2, 27, 20, 24, 53, 869, DateTimeKind.Local).AddTicks(3745), "Tabacaria", true, "Rei do Baco" }
-                });
+                columns: new[] { "CompanyId", "CreateAt", "Description", "IsActive", "Name", "Validate" },
+                values: new object[] { 1, new DateTime(2023, 11, 22, 20, 19, 14, 824, DateTimeKind.Local).AddTicks(2660), "Admin", true, "Admin Company", new DateTime(2033, 11, 22, 20, 19, 14, 824, DateTimeKind.Local).AddTicks(2673) });
+
+            migrationBuilder.InsertData(
+                table: "Employee",
+                columns: new[] { "EmployeeId", "Comission", "CompanyId", "Email", "IsActive", "JobRole", "Name", "PasswordHash" },
+                values: new object[] { 1, 0, 1, "murilobdo@admin.com", true, 7, "Murilo Bernardes (Admin)", "$argon2id$v=19$m=65536,t=3,p=1$QM2qarRh03znC3TUt70yuA$SpQhQ0ewony1nRD21lUF2DF+UTK2sNxjIPOn/d9TX6I" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Category_CompanyId",

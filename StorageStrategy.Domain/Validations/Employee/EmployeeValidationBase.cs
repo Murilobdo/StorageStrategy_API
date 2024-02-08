@@ -10,6 +10,10 @@ namespace StorageStrategy.Domain.Validations.Employee
             .GreaterThan(0)
             .WithMessage("O Id e obrigatório");
 
+        protected void ValidateEmployeeRole() => RuleFor(p => p.JobRole)
+            .IsInEnum()
+            .WithMessage("O Cargo e obrigatório");
+
         protected void ValidationCompanyId() => RuleFor(p => p.CompanyId)
            .GreaterThan(0)
            .WithMessage("O Id da empresa e obrigatório");

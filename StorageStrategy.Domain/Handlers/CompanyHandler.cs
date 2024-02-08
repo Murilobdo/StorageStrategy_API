@@ -51,7 +51,7 @@ namespace StorageStrategy.Domain.Handlers
                 Name = adminUserName,
                 PasswordHash = Argon2.Hash(password),
                 IsActive = true,
-                JobRole = "Gerente",
+                JobRole = EmployeeRole.Manager,
                 Comission = 0
             };
 

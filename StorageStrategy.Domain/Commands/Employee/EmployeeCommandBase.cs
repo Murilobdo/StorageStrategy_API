@@ -11,8 +11,16 @@ namespace StorageStrategy.Domain.Commands.Employee
 
         }
 
-        public EmployeeCommandBase(int employeeId, string name, int comission, string jobRole, string email, string password, bool isActive, int companyId)
-        {
+        public EmployeeCommandBase(
+            int employeeId, 
+            string name, 
+            int comission, 
+            EmployeeRole jobRole, 
+            string email, 
+            string password, 
+            bool isActive, 
+            int companyId
+        ) {
             EmployeeId = employeeId;
             Name = name;
             Comission = comission;
@@ -26,7 +34,7 @@ namespace StorageStrategy.Domain.Commands.Employee
         public int EmployeeId { get; set; }
         public string Name { get; set; } = string.Empty;
         public int Comission { get; set; }
-        public string JobRole { get; set; } = string.Empty;
+        public EmployeeRole JobRole { get; set; }
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public bool IsActive { get; set; }

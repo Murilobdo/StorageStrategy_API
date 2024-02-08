@@ -15,14 +15,20 @@ namespace StorageStrategy.Domain.Handlers
         IRequestHandler<ChangePasswordCommand, Result>
     {
         private readonly IEmployeeRepository _repo;
+        private readonly ICompanyRepository _repoCompany;
         private readonly IMapper _mapper;
         private readonly IOptions<AppSettings> _appSettings;
 
-        public AccountHandler(IEmployeeRepository repo, IMapper mapper, IOptions<AppSettings> appSettings)
-        {
+        public AccountHandler(
+            IEmployeeRepository repo, 
+            ICompanyRepository repoCompany,
+            IMapper mapper, 
+            IOptions<AppSettings> appSettings
+        ) {
             _repo = repo;
             _mapper = mapper;
             _appSettings = appSettings;
+            _repoCompany = repoCompany;
         }
 
         public async Task<Result> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -31,8 +37,14 @@ namespace StorageStrategy.Domain.Handlers
                 return CreateError(request.GetErros(), "Dados invalidos");
 
             EmployeeEntity employee = await _repo.FindByEmail(request.Email);
+            
             if(employee == null)
                 return CreateError("Email ou Senha incorreta");
+
+            CompanyEntity company = await _repoCompany.GetById(employee.CompanyId);
+
+            if(company.Validate <= DateTime.Now)
+                return CreateError($"Sua licenca expirou dia {company.Validate.ToShortDateString()}, entre em contato para renovação");
 
             if(!Argon2.Verify(employee.PasswordHash, request.Password))
                 return CreateError("Email ou Senha incorreta");

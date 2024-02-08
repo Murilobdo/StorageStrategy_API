@@ -32,14 +32,12 @@ namespace StorageStrategy.Domain.Handlers
             var product = await _repo.FindByName(request.Name, request.CompanyId);
                 
             if (product is not null)
-                return CreateError($"Ja existe um produto com esse nome {product.Name}");
+                return CreateError("Ja existe um produto com esse nome");
  
-            var category = await _repoCategory.GetByIdAsync(request.CategoryId, request.CompanyId);
+            var category = await _repoCategory.GetById(request.CategoryId);
 
             if (category is null)
-            { 
                 return CreateError("Categoria não encontrada");
-            } 
 
             product = _mapper.Map<ProductEntity>(request);
 
@@ -57,14 +55,22 @@ namespace StorageStrategy.Domain.Handlers
             var product = await _repo.GetByIdAsync(request.ProductId, request.CompanyId);
 
             if (product is null)
-                return CreateError("Produto não encontrado para a atualização.");
+                return CreateError("Produto não encontrado para a atualização");
+
+            var sameNameProduct = await _repo.FindByName(request.Name, request.CompanyId);
+
+            if (sameNameProduct is not null && sameNameProduct.ProductId != product.ProductId)
+                return CreateError("Ja existe um produto com esse nome");
+
+            if (await _repoCategory.GetById(request.CategoryId) is null)
+                return CreateError("Categoria não encontrada");
 
             product = _mapper.Map<ProductEntity>(request);
-
+            _repo.Clear();
             _repo.Update(product);
             await _repo.SaveAsync();
 
-            return CreateResponse(product, "Produto atualizado com sucesso.");
+            return CreateResponse(product, "Produto atualizado com sucesso");
         }
 
         public async Task<Result> Handle(DeleteProductCommand request, CancellationToken cancellationToken)

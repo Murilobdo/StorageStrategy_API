@@ -65,23 +65,40 @@ namespace StorageStrategy.Domain.Handlers
             if (!request.IsValid())
                 return CreateError(request.GetErros(), "Dados inválidos");
 
-            var commands = await _repoCommand.ReadCommandsForPeriodAsync(request.CompanyId, request.Month);
-
-            do
+            var commands = await _repoCommand.ReadCommandsForPeriodAsync(request.CompanyId, initialDate.Month);
+            
+            for (int day = 0; day < 31; day++)
             {
-                var commandItens = await _repoCommand.ReadCommandsForDaysAsync(request.CompanyId, initialDate.Day);
-
-                result.Add(new EntryAndExitForDayCommand
+                var currentCommand = commands
+                    .Where(p => p.FinalDate.Value.Day == day);
+                
+                if (!currentCommand.Any())
                 {
-                    CompanyId = request.CompanyId,
-                    DayOfMonth = initialDate.Day,
-                    Month = request.Month,
-                    MoneyOut = commandItens.Sum(p => p.Cost),
-                    MoneyIn = commandItens.Sum(p => p.Price)
-                });
-
-                initialDate = initialDate.AddDays(1);
-            } while (initialDate.Month == request.Month);
+                    result.Add(new EntryAndExitForDayCommand
+                    {
+                        CompanyId = request.CompanyId,
+                        DayOfMonth = day,
+                        Month = request.Month,
+                        MoneyOut = 0,
+                        MoneyIn = 0
+                    });
+                }
+                else
+                {
+                    result.Add(new EntryAndExitForDayCommand
+                    {
+                        CompanyId = request.CompanyId,
+                        DayOfMonth = day,
+                        Month = request.Month,
+                        MoneyOut = currentCommand
+                            .Where(p => p.FinalDate.Value.Day == day)
+                            .Sum(p => p.TotalCost),
+                        MoneyIn = currentCommand
+                            .Where(p => p.FinalDate.Value.Day == day)
+                            .Sum(p => p.TotalPrice - p.Discount + p.Increase)
+                    });
+                }
+            }
 
             return CreateResponse(result.OrderBy(p => p.DayOfMonth), "Busca realizada");
         }
@@ -96,11 +113,11 @@ namespace StorageStrategy.Domain.Handlers
 
             var commands = await _repoCommand.ReadCommandsForPeriodAsync(request.CompanyId, request.Month);
 
-            request.TotalPix = Calc.TotalPriceForPayment(commands, PaymentEnum.Pix);
-            request.TotalDebit = Calc.TotalPriceForPayment(commands, PaymentEnum.Debit);
-            request.TotalCredit = Calc.TotalPriceForPayment(commands, PaymentEnum.Credit);
-            request.TotalCash = Calc.TotalPriceForPayment(commands, PaymentEnum.Cash);
-            request.Total = commands.Sum(p => p.TotalPrice);
+            request.TotalPix = Calc.CountSalesPayment(commands, PaymentEnum.Pix);
+            request.TotalDebit = Calc.CountSalesPayment(commands, PaymentEnum.Debit);
+            request.TotalCredit = Calc.CountSalesPayment(commands, PaymentEnum.Credit);
+            request.TotalCash = Calc.CountSalesPayment(commands, PaymentEnum.Cash);
+            request.Total = commands.Count;
 
             return CreateResponse(request, "Busca realizada");
 
@@ -167,8 +184,10 @@ namespace StorageStrategy.Domain.Handlers
             if (!request.IsValid())
                 return CreateResponse(request.GetErros(), "Dados Inválidos !");
 
+            var expensesMonth = await _repoExpenses.ReadTotalExpensesByMonth(request.CompanyId, request.Month);
+
             request.TotalPriceInStok = await _repoProduct.ReadTotalPriceInStokByCompany(request.CompanyId);
-            request.QtdProducts = await _repoProduct.QuantityInStockByCompany(request.CompanyId);
+            request.TotalMonthExpenses = expensesMonth.Sum(p => p.ExpenseValue);
             request.TotalSales = await _repoCommand.ReadTotalSalesByCompany(request.CompanyId, request.Month);
 
             return CreateResponse(request, "Busca realizada !");
@@ -182,12 +201,13 @@ namespace StorageStrategy.Domain.Handlers
             var commands = await _repoCommand.ReadCommandsForPeriodWithItensAsync(request.CompanyId, request.Month);
             var expenses = await _repoExpenses.ReadTotalExpensesByMonth(request.CompanyId, request.Month);
 
-            request.ReceitaBruta = commands.Sum(p => p.TotalPrice);
+            request.ReceitaBruta = commands.Sum(p => p.TotalPrice - p.Discount + p.Increase);
             request.DeducoesAbatimentos = Calc.TotalDeImpostos(commands);
             request.ReceitaLiquida = request.ReceitaBruta - request.DeducoesAbatimentos;
             request.CPV = Calc.CustoProdutoVendido(commands);
             request.LucroBruto = request.ReceitaLiquida - request.CPV;
-
+            request.DespesasAdministrativas = expenses.Sum(p => p.ExpenseValue);
+            request.ResultadoLiquido = request.LucroBruto - request.DespesasAdministrativas;
 
             return CreateResponse(request, "Busca realizada !");
         }

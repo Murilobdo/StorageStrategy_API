@@ -4,15 +4,17 @@ namespace StorageStrategy.Domain.Repository
 {
     public interface IRepositoryBase<TModel> where TModel : class
     {
-        public Task AddAsync(TModel model);
-        public void Update(TModel model);
-        public void Delete(TModel id);
-        public void RemoveRange(TModel model);
-        public Task<TModel> GetById(int id);
-        public void Save();
-        public Task SaveAsync();
-        public Task CreateTranscationAsync();
-        public Task RollbackAsync();
-        public Task CommitAsync();
+        Task AddAsync(TModel model);
+        void Update(TModel model);
+        void Delete(TModel id);
+        void RemoveRange(TModel model);
+        Task<TModel> GetById(int id);
+        void Save();
+        Task SaveAsync();
+        Task CreateTranscationAsync();
+        Task RollbackAsync();
+        Task CommitAsync();
+        void Clear();
+
     }
 }

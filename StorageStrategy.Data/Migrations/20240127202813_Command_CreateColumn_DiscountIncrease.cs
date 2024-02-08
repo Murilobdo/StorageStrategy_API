@@ -6,14 +6,21 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StorageStrategy.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class ExpenseAddValueExpense : Migration
+    public partial class CommandCreateColumnDiscountIncrease : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<decimal>(
-                name: "ExpenseValue",
-                table: "Expenses",
+                name: "Discount",
+                table: "Command",
+                type: "decimal(18,2)",
+                nullable: false,
+                defaultValue: 0m);
+
+            migrationBuilder.AddColumn<decimal>(
+                name: "Increase",
+                table: "Command",
                 type: "decimal(18,2)",
                 nullable: false,
                 defaultValue: 0m);
@@ -23,36 +30,40 @@ namespace StorageStrategy.Data.Migrations
                 keyColumn: "CompanyId",
                 keyValue: 1,
                 columns: new[] { "CreateAt", "Validate" },
-                values: new object[] { new DateTime(2023, 8, 13, 12, 36, 24, 423, DateTimeKind.Local).AddTicks(3412), new DateTime(2033, 8, 13, 12, 36, 24, 423, DateTimeKind.Local).AddTicks(3426) });
+                values: new object[] { new DateTime(2024, 1, 27, 17, 28, 11, 461, DateTimeKind.Local).AddTicks(1989), new DateTime(2034, 1, 27, 17, 28, 11, 461, DateTimeKind.Local).AddTicks(2004) });
 
             migrationBuilder.UpdateData(
                 table: "Employee",
                 keyColumn: "EmployeeId",
                 keyValue: 1,
-                columns: new[] { "Email", "PasswordHash" },
-                values: new object[] { "murilobdo@admin.com", "$argon2id$v=19$m=65536,t=3,p=1$g0A9Ac1SgLWMQSYC+XHnrQ$q7FaM8QP3BiAm2hHzDwHoYumfnWe3HTXf4Ja+5Yt3Kc" });
+                column: "PasswordHash",
+                value: "$argon2id$v=19$m=65536,t=3,p=1$DVo7pa7guHnEXwCHc+Txiw$cBRGTK0XNG0ABEl6tbdmBIpiCWirj4eHd+3Z/6t8KFA");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "ExpenseValue",
-                table: "Expenses");
+                name: "Discount",
+                table: "Command");
+
+            migrationBuilder.DropColumn(
+                name: "Increase",
+                table: "Command");
 
             migrationBuilder.UpdateData(
                 table: "Company",
                 keyColumn: "CompanyId",
                 keyValue: 1,
                 columns: new[] { "CreateAt", "Validate" },
-                values: new object[] { new DateTime(2023, 7, 5, 19, 47, 15, 575, DateTimeKind.Local).AddTicks(7964), new DateTime(2033, 7, 5, 19, 47, 15, 575, DateTimeKind.Local).AddTicks(7982) });
+                values: new object[] { new DateTime(2023, 12, 19, 20, 46, 54, 985, DateTimeKind.Local).AddTicks(5328), new DateTime(2033, 12, 19, 20, 46, 54, 985, DateTimeKind.Local).AddTicks(5342) });
 
             migrationBuilder.UpdateData(
                 table: "Employee",
                 keyColumn: "EmployeeId",
                 keyValue: 1,
-                columns: new[] { "Email", "PasswordHash" },
-                values: new object[] { "murilobdo@admin.com.br", "$argon2id$v=19$m=65536,t=3,p=1$cPKqotj4IgYM6lk7GyylRw$iI5cTDirQMO18egBisojUQbhPf5OX+zS+C+STNMxg3k" });
+                column: "PasswordHash",
+                value: "$argon2id$v=19$m=65536,t=3,p=1$oTVuIZC1J3lDIQfdYm3Kiw$nUoWazZm9rI7VqlfBZCm7vBQuND/c4t1Up7rtqQscpk");
         }
     }
 }

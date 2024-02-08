@@ -12,8 +12,8 @@ using StorageStrategy.Data.Context;
 namespace StorageStrategy.Data.Migrations
 {
     [DbContext(typeof(StorageDbContext))]
-    [Migration("20230908002623_Product_AddTaxing")]
-    partial class ProductAddTaxing
+    [Migration("20231219234655_ItemCommand_AddTaxing")]
+    partial class ItemCommandAddTaxing
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -120,6 +120,9 @@ namespace StorageStrategy.Data.Migrations
                     b.Property<int>("Qtd")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Taxing")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("CommandItemId");
 
                     b.HasIndex("CommandId");
@@ -162,11 +165,11 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 1,
-                            CreateAt = new DateTime(2023, 9, 7, 21, 26, 22, 223, DateTimeKind.Local).AddTicks(2753),
+                            CreateAt = new DateTime(2023, 12, 19, 20, 46, 54, 985, DateTimeKind.Local).AddTicks(5328),
                             Description = "Admin",
                             IsActive = true,
                             Name = "Admin Company",
-                            Validate = new DateTime(2033, 9, 7, 21, 26, 22, 223, DateTimeKind.Local).AddTicks(2768)
+                            Validate = new DateTime(2033, 12, 19, 20, 46, 54, 985, DateTimeKind.Local).AddTicks(5342)
                         });
                 });
 
@@ -191,10 +194,9 @@ namespace StorageStrategy.Data.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<string>("JobRole")
-                        .IsRequired()
+                    b.Property<int>("JobRole")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -219,9 +221,9 @@ namespace StorageStrategy.Data.Migrations
                             CompanyId = 1,
                             Email = "murilobdo@admin.com",
                             IsActive = true,
-                            JobRole = "Developer",
+                            JobRole = 7,
                             Name = "Murilo Bernardes (Admin)",
-                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$Z6q5fq0SDQUUVTsKBvOcvw$GY3faDO/fOUcaKCv9SD/5L2YLzqP1qQu9eC6FcS+ZxQ"
+                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$oTVuIZC1J3lDIQfdYm3Kiw$nUoWazZm9rI7VqlfBZCm7vBQuND/c4t1Up7rtqQscpk"
                         });
                 });
 
@@ -244,8 +246,7 @@ namespace StorageStrategy.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("ExpenseValue")
-                        .HasPrecision(4)
-                        .HasColumnType("decimal(4,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ExpensesTypeId")
                         .HasColumnType("int");

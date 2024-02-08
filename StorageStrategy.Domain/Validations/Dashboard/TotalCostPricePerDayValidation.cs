@@ -17,7 +17,7 @@ namespace StorageStrategy.Domain.Validations.Dashboard
                 .WithMessage("O Id da Empresa e obrigatório");
 
             RuleFor(p => p.Month)
-                .NotNull()
+                .NotEmpty()
                 .WithMessage("O Mês e obrigatório");
 
         }

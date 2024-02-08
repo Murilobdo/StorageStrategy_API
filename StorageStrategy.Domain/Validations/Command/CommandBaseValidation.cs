@@ -20,8 +20,16 @@ namespace StorageStrategy.Domain.Validations.Command
             .WithMessage("O Nome e obrigatório");
 
         protected void ValidationCompanyId() => RuleFor(p => p.CompanyId)
-          .GreaterThan(0)
-          .WithMessage("O Id da empresa e obrigatório");
+            .GreaterThan(0)
+            .WithMessage("O Id da empresa e obrigatório");
+
+        protected void ValidateDiscount() => RuleFor(p => p.Discount)
+            .GreaterThanOrEqualTo(-1)
+            .WithMessage("O desconto não pode ser negativo");
+
+        protected void ValidateIncrease() => RuleFor(p => p.Increase)
+            .GreaterThanOrEqualTo(-1)
+            .WithMessage("O acréscimo não pode ser negativo");
 
         protected void ValidationEmployeeId() => RuleFor(p => p.EmployeeId)
             .GreaterThan(0)

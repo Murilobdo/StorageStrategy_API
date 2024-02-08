@@ -13,7 +13,7 @@ namespace StorageStrategy.Domain.Commands.Dashboard
         public List<TotalSalesCategoryViewModel> TotalSalesPerCategory { get; set; } = new();
 
         public List<Error> GetErros() => new TotalSalesPerCategoryProductValidation().Validate(this)
-           .Errors.Select(p => new Error(p.PropertyName, p.ErrorMessage)).ToList();
+           .Errors.Select(p => new Error(p.ErrorMessage)).ToList();
 
         public bool IsValid() => new TotalSalesPerCategoryProductValidation().Validate(this).IsValid;
     }

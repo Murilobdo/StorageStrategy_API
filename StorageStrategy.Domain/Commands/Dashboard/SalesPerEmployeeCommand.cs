@@ -20,7 +20,7 @@ namespace StorageStrategy.Domain.Commands.Dashboard
         public int Month { get; set; }
 
         public List<Error> GetErros() => new SalesPerEmployeeValidation().Validate(this)
-           .Errors.Select(p => new Error(p.PropertyName, p.ErrorMessage)).ToList();
+           .Errors.Select(p => new Error(p.ErrorMessage)).ToList();
 
         public bool IsValid() => new SalesPerEmployeeValidation().Validate(this).IsValid;
     }

@@ -23,7 +23,7 @@ namespace StorageStrategy.Domain.Commands.Dashboard
         public decimal MoneyOut { get; set; }
 
         public List<Error> GetErros() => new EntryAndExitForDayValidation().Validate(this)
-          .Errors.Select(p => new Error(p.PropertyName, p.ErrorMessage)).ToList();
+          .Errors.Select(p => new Error(p.ErrorMessage)).ToList();
         public bool IsValid() => new EntryAndExitForDayValidation().Validate(this).IsValid;
     }
 }

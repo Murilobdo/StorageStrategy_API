@@ -13,10 +13,10 @@ namespace StorageStrategy.Domain.Commands.Products
             Price = price;
             Qtd = qtd;
             StockAlert = stockAlert;
-            IsActive = qtd > 0;
-            Taxing = taxing;
+            IsActive = isActive;
             CategoryId = categoryId;
             CompanyId = companyId;
+            Taxing = taxing;    
         }
 
         public UpdateProductCommand()
@@ -25,6 +25,6 @@ namespace StorageStrategy.Domain.Commands.Products
 
         public bool IsValid() => new UpdateProductValidation().Validate(this).IsValid;
         public List<Error> GetErros() => new UpdateProductValidation().Validate(this)
-            .Errors.Select(p => new Error(p.PropertyName, p.ErrorMessage)).ToList();
+            .Errors.Select(p => new Error(p.ErrorMessage)).ToList();
     }
 }

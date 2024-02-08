@@ -20,7 +20,7 @@ namespace StorageStrategy.Domain.Commands.Dashboard
         public decimal MoneyOut { get; set; } = decimal.Zero;
 
         public List<Error> GetErros() => new EntryAndExitOfMonthValidation().Validate(this)
-           .Errors.Select(p => new Error(p.PropertyName, p.ErrorMessage)).ToList();
+           .Errors.Select(p => new Error(p.ErrorMessage)).ToList();
 
         public bool IsValid() => new EntryAndExitOfMonthValidation().Validate(this).IsValid;
     }

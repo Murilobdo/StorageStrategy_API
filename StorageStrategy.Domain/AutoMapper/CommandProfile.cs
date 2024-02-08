@@ -10,7 +10,6 @@ namespace StorageStrategy.Domain.AutoMapper
         {
             CreateMap<CreateCommandCommand, CommandEntity>()
                 .ForMember(p => p.Company, opt => opt.Ignore())
-                .ForMember(p => p.Items, opt => opt.Ignore())
                 .ForMember(p => p.Employee, opt => opt.Ignore());
 
             CreateMap<CommandEntity, CreateCommandCommand>()

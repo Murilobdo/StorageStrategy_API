@@ -11,7 +11,7 @@ namespace StorageStrategy.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(Roles = "Manager,Employee,Admin")]
     public class CommandController : Controller
     {
         private readonly IMediator _mediator;
@@ -82,6 +82,14 @@ namespace StorageStrategy.API.Controllers
         public async Task<IActionResult> Update([FromBody] UpdateCommandCommand command)
         {
             command.CompanyId = User.GetCompanyId();
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpDelete("delete")]
+        public async Task<IActionResult> Delete([FromQuery]int commandId, [FromServices]ICommandRepository repo)
+        {
+            DeleteCommandCommand command = new(commandId, User.GetCompanyId());
             var result = await _mediator.Send(command);
             return Ok(result);
         }

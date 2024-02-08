@@ -19,7 +19,7 @@ namespace StorageStrategy.Domain.Commands.Command
         }
 
         public List<Error> GetErros() => new CreateCommandValidation().Validate(this)
-            .Errors.Select(p => new Error(p.PropertyName, p.ErrorMessage)).ToList();
+            .Errors.Select(p => new Error(p.ErrorMessage)).ToList();
 
         public bool IsValid() => new CreateCommandValidation().Validate(this).IsValid;
     }

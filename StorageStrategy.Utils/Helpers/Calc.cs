@@ -10,11 +10,11 @@ namespace StorageStrategy.Utils.Helpers
 {
     public static class Calc
     {
-        public static decimal TotalPriceForPayment(List<CommandEntity> commands, PaymentEnum paymentEnum)
+        public static int CountSalesPayment(List<CommandEntity> commands, PaymentEnum paymentEnum)
         {
-            decimal totalPrice = commands
+            int totalPrice = commands
                 .Where(p => p.Payment.Value == paymentEnum)
-                .Sum(p => p.TotalPrice);
+                .Count();
 
             return totalPrice; 
         }
@@ -35,7 +35,6 @@ namespace StorageStrategy.Utils.Helpers
             if(commands.Count == 0)
                 return new List<TotalSalesCategoryViewModel>();
 
-
             var categorys = commands.SelectMany(p => p.Items).Select(p => p.Product.Category.Name).Distinct();
             var itensComman = commands.SelectMany(p => p.Items);
 
@@ -50,13 +49,14 @@ namespace StorageStrategy.Utils.Helpers
 
             return salesPerCategory
                 .OrderByDescending(p => p.TotalPrice)
-                .Take(10).ToList();
+                .Take(10)
+                .ToList();
         }
 
         public static decimal TotalDeImpostos(List<CommandEntity> commands)
         {
             var itens = commands.SelectMany(p => p.Items);
-            var result = itens.Sum(p => p.TaxingProduct);
+            var result = itens.Sum(p => p.Taxing);
             return result;
         }
 

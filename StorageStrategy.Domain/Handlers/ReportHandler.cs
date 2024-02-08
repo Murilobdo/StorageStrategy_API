@@ -28,12 +28,12 @@ namespace StorageStrategy.Domain.Handlers
             if (!request.IsValid())
                 return CreateError(request.GetErros(), "Dados invalidos");
 
-            var commands = await _repo.ReadCommandsByDateAsync(request.CompanyId, request.InitialDate, request.FinalDate, request.EmployeeId);
+            var commands = await _repo.ReadCommandsByDateAsync(request.CompanyId, request.InitialDate, request.FinalDate.AddDays(1), request.EmployeeId);
 
             return CreateResponse(new {
                 Commands = commands,
                 TotalCost = commands.Sum(p => p.TotalCost),
-                TotalPrice = commands.Sum(p => p.TotalPrice),
+                TotalPrice = commands.Sum(p => p.TotalPrice - p.Discount + p.Increase),
             }, "Busca realizada !");
         }
 

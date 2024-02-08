@@ -19,6 +19,7 @@ namespace StorageStrategy.Domain.Validations.Product
             ValidationCost();
             ValidationPrice();
             ValidationQtd();
+            ValidationTaxing();
         }
     }
 }

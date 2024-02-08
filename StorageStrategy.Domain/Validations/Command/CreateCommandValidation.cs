@@ -14,6 +14,8 @@ namespace StorageStrategy.Domain.Validations.Command
             ValidationEmployeeId();
             ValidationName();
             ValidationProducts();
+            ValidateDiscount();
+            ValidateIncrease();
         }
     }
 }

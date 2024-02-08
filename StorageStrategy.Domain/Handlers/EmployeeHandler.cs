@@ -30,7 +30,7 @@ namespace StorageStrategy.Domain.Handlers
             var employee = await _repo.FindByName(request.Name, request.CompanyId);
 
             if (employee is not null)
-                return CreateError("Ja existe um funcionário com esse nome.");
+                return CreateError("Ja existe um funcionário com esse nome");
 
             employee = _mapper.Map<EmployeeEntity>(request);
             employee.PasswordHash = Argon2.Hash(request.Password);
@@ -49,14 +49,14 @@ namespace StorageStrategy.Domain.Handlers
             var employee = await _repo.GetByIdAsync(request.EmployeeId, request.CompanyId);
 
             if (employee is null)
-                return CreateError("Funcionario não encontrado para a atualização.");
+                return CreateError("Funcionario não encontrado para a atualização");
 
             employee = _mapper.Map<EmployeeEntity>(request);
 
             _repo.Update(employee);
             await _repo.SaveAsync();
 
-            return CreateResponse(employee, "Funcionario atualizado com sucesso.");
+            return CreateResponse(employee, "Funcionario atualizado com sucesso");
         }
 
         public async Task<Result> Handle(DeleteEmployeeCommand request, CancellationToken cancellationToken)
@@ -67,14 +67,14 @@ namespace StorageStrategy.Domain.Handlers
             var employee = await _repo.GetByIdAsync(request.EmployeeId, request.CompanyId);
 
             if (employee is null)
-                return CreateError("Funcionario não encontrado para a exclusão.");
+                return CreateError("Funcionario não encontrado para a exclusão");
 
             employee = _mapper.Map<EmployeeEntity>(request);
 
             _repo.Delete(employee);
             await _repo.SaveAsync();
 
-            return CreateResponse(employee, "Funcionario excluido com sucesso.");
+            return CreateResponse(employee, "Funcionario excluido com sucesso");
         }
     }
 }

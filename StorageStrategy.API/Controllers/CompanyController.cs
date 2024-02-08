@@ -6,12 +6,13 @@ using StorageStrategy.Domain.Commands.Company;
 using StorageStrategy.Domain.Commands.Login;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
+using StorageStrategy.Utils.Extensions;
 
 namespace StorageStrategy.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize]
+    [Authorize(Roles = "Admin, Employee")]
     public class CompanyController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -37,10 +38,10 @@ namespace StorageStrategy.API.Controllers
             return Ok(new Result(result, "Busca realizada"));
         }
 
-        [HttpGet("GetById/{companyId:int}")]
-        public async Task<IActionResult> GetById([FromServices] ICompanyRepository repo, [FromRoute] int companyId)
+        [HttpGet("GetById")]
+        public async Task<IActionResult> GetById([FromServices] ICompanyRepository repo)
         {
-            var company = await repo.GetById(companyId);
+            var company = await repo.GetById(User.GetCompanyId());
             return Ok(new Result(company, "Busca realizada"));
         }
 

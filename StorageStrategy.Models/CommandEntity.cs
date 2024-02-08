@@ -20,11 +20,40 @@ namespace StorageStrategy.Models
         public DateTime? FinalDate { get; set; }
         public CompanyEntity Company { get; set; }
         public int CompanyId { get; set; }
+        public decimal Discount { get; set; }
+        public decimal Increase { get; set; }
 
         public CommandEntity()
         {
             InitialDate = DateTime.Now;
         }
 
+        public CommandEntity(
+            int commandId, 
+            int employeeId, 
+            string name, 
+            decimal totalCost,
+            decimal totalPrice, 
+            PaymentEnum? payment, 
+            DateTime initialDate, 
+            DateTime? finalDate, 
+            int companyId
+        ) {
+            CommandId = commandId;
+            EmployeeId = employeeId;
+            Name = name;
+            TotalCost = totalCost;
+            TotalPrice = totalPrice;
+            Payment = payment;
+            InitialDate = initialDate;
+            FinalDate = finalDate;
+            CompanyId = companyId;
+            Items = new List<CommandItemEntity>();
+        }
+
+        public decimal GetFinalPrice()
+        {
+            return TotalPrice - Discount + Increase;
+        }
     }
 }

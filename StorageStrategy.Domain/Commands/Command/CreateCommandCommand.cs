@@ -8,17 +8,26 @@ namespace StorageStrategy.Domain.Commands.Command
 {
     public record class CreateCommandCommand : CommandCommandBase, IValidation
     {
-        public CreateCommandCommand(int companyId, string name, int employeeId, List<CommandItemBase> items, PaymentEnum? payment)
-        {
+        public CreateCommandCommand(
+            int companyId, 
+            string name, 
+            int employeeId, 
+            decimal discount,
+            decimal increase,
+            List<CommandItemBase> items, 
+            PaymentEnum? payment
+        ) {
             CompanyId = companyId;
             Name = name;
             EmployeeId = employeeId;
+            Discount = discount;
+            Increase = increase;
             Items = items;
             Payment = payment;
         }
 
         public List<Error> GetErros() => new CreateCommandValidation().Validate(this)
-            .Errors.Select(p => new Error(p.PropertyName, p.ErrorMessage)).ToList();
+            .Errors.Select(p => new Error(p.ErrorMessage)).ToList();
 
         public bool IsValid() => new CreateCommandValidation().Validate(this).IsValid;
     }

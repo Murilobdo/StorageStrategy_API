@@ -21,10 +21,12 @@ namespace StorageStrategy.Data.Repository
             var query = _context.Command
                 .AsNoTracking()
                 .Include(p => p.Items)
+                    .ThenInclude(p => p.Product)
                 .Include(p => p.Employee)
                 .Where(p => p.InitialDate >= initialDate)
                 .Where(p => p.CompanyId == companyId)
                 .Where(p => p.FinalDate != null && p.FinalDate.Value <= finalDate)
+                .OrderByDescending(p => p.InitialDate)
                 .AsQueryable();
 
             if (employeeId > 0)

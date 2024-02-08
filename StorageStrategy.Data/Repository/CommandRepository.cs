@@ -27,15 +27,16 @@ namespace StorageStrategy.Data.Repository
         {
             return await _context.Command
                .Include(p => p.Items)
+                    .ThenInclude(p => p.Product)
                .FirstOrDefaultAsync(p => p.CompanyId == companyId && p.CommandId == commandId);
         }
 
-        public async Task<List<CommandItemEntity>> ReadCommandsForDaysAsync(int companyId, int day)
+        public async Task<List<CommandItemEntity>> ReadCommandsForDaysAsync(int companyId, int day, int month)
         {
             var result = await _context.Command
                 .AsNoTracking()
                 .Where(p => p.CompanyId == companyId)
-                .Where(p => p.FinalDate != null && p.FinalDate.Value.Day == day)
+                .Where(p => p.FinalDate != null && p.FinalDate.Value.Day == day && p.FinalDate.Value.Month == month)
                 .SelectMany(p => p.Items)
                 .ToListAsync();
 
@@ -45,11 +46,13 @@ namespace StorageStrategy.Data.Repository
         public async Task<List<CommandEntity>> ReadCommandsForPeriodAsync(int companyId, int initialMonth, int finalMounth = 0)
         {
             var query =  _context.Command
-                            .AsNoTracking()
-                            .Where(p => p.FinalDate != null)
-                            .Where(p => p.InitialDate.Month == initialMonth)
-                            .Where(p => p.CompanyId == companyId)
-                            .AsQueryable();
+                .AsNoTracking()
+                .Include(p => p.Items)
+                .Where(p => p.FinalDate != null)
+                .Where(p => p.InitialDate.Month == initialMonth)
+                .Where(p => p.CompanyId == companyId)
+                .OrderBy(p => p.InitialDate.Day)
+                .AsQueryable();
 
             if (finalMounth > 0)
                 query = query.Where(p => p.FinalDate.Value.Month == finalMounth);
@@ -77,13 +80,14 @@ namespace StorageStrategy.Data.Repository
             decimal result = await _context.Command
                                 .Where(p => p.CompanyId == companyId)
                                 .Where(p => p.FinalDate.Value != null && p.FinalDate.Value.Month == month)
-                                .SumAsync(p => p.TotalPrice);
+                                .SumAsync(p => (p.TotalPrice - p.Discount + p.Increase));
 
             return result;
         }
 
         public async Task RemoveCommandItemsAsync(List<CommandItemEntity> items)
         {
+            _context.ChangeTracker.Clear();
             _context.CommandItems.RemoveRange(items);
             await _context.SaveChangesAsync();
         }

@@ -10,6 +10,7 @@
             ValidationJobRole();
             ValidationPassword();
             ValidationEmail();
+            ValidateEmployeeRole();
         }
     }
 }
