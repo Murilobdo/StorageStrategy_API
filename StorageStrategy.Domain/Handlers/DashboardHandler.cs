@@ -67,7 +67,7 @@ namespace StorageStrategy.Domain.Handlers
 
             var commands = await _repoCommand.ReadCommandsForPeriodAsync(request.CompanyId, initialDate.Month);
             
-            for (int day = 0; day < 31; day++)
+            for (int day = 1; day <= 31; day++)
             {
                 var currentCommand = commands
                     .Where(p => p.FinalDate.Value.Day == day);

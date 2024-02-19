@@ -10,11 +10,12 @@ namespace StorageStrategy.Models
     {
         public int CommandId { get; set; }
         public int EmployeeId { get; set; }
-        public virtual EmployeeEntity Employee { get; set; }
+        public EmployeeEntity Employee { get; set; }
         public string Name { get; set; } = string.Empty;
-        public virtual List<CommandItemEntity> Items { get; set; } = new();
+        public List<CommandItemEntity> Items { get; set; } = new();
         public decimal TotalCost { get; set; } = 0;
         public decimal TotalPrice { get; set; } = 0;
+        public decimal TotalTaxing { get; set; } = 0;
         public PaymentEnum? Payment { get; set; }
         public DateTime InitialDate { get; set; }
         public DateTime? FinalDate { get; set; }

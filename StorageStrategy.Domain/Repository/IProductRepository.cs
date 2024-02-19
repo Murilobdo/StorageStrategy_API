@@ -6,6 +6,7 @@ namespace StorageStrategy.Domain.Repository
     {
         Task<ProductEntity> FindByName(string name, int companyId);
         Task<List<ProductEntity>> ToList(int companyId, bool active);
+        Task<List<ProductEntity>> ToList(int companyId);
         Task<ProductEntity> GetByIdAsync(int productId, int companyId);
         Task AddRange(List<ProductEntity> products);
         Task<decimal> ReadTotalPriceInStokByCompany(int companyId);

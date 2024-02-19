@@ -11,9 +11,9 @@ namespace StorageStrategy.Models
         public int Qtd { get; set; }
         public int StockAlert { get; set; }
         public bool IsActive { get; set; }
-        public virtual CategoryEntity Category { get; set; }
+        public CategoryEntity Category { get; set; }
         public int CategoryId { get; set; }
-        public virtual CompanyEntity Company { get; set; }
+        public CompanyEntity Company { get; set; }
         public int CompanyId { get; set; }
         public decimal Taxing { get; set; }
 
