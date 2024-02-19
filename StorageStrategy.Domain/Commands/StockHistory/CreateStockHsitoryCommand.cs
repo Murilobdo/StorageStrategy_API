@@ -8,7 +8,7 @@ namespace StorageStrategy.Domain.Commands.StockHistory
     public class CreateStockHsitoryCommand : IValidation
     {
         public int CompanyId { get; set; }
-        public List<StockHistoryItem> Products { get; set; } = new();
+        public List<StockHistoryItemEntity> Products { get; set; } = new();
 
         public List<Error> GetErros()
         {

@@ -13,6 +13,7 @@
         public List<EmployeeEntity> Employees { get; set; } = new();
         public List<CommandEntity> Commands { get; set; } = new();
         public List<ExpenseEntity> Expenses { get; set; } = new();
+        public List<StockHistoryEntity> StockHistory { get; set; } = new();
 
         public CompanyEntity(int companyId, string name, string description, DateTime createAt, DateTime validate)
         {

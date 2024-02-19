@@ -14,9 +14,9 @@ namespace StorageStrategy.Tests.Commands.StockHistory
             _command = new CreateStockHsitoryCommand
             {
                 CompanyId = 1,
-                Products = new List<StockHistoryItem>
+                Products = new List<StockHistoryItemEntity>
                 {
-                    new StockHistoryItem
+                    new StockHistoryItemEntity
                     {
                         ProductId = 1,
                         Quantity = 10,
@@ -42,7 +42,7 @@ namespace StorageStrategy.Tests.Commands.StockHistory
         [Fact(DisplayName = "Erro ao Tentar Abastecer o Estoque sem Produtos")]
         public void Erro_ao_tentar_abastecer_sem_produtos()
         {
-            _command.Products = new List<StockHistoryItem>();
+            _command.Products = new List<StockHistoryItemEntity>();
             Assert.True(MensagemDeErroExistente(_command.GetErros(), "Selecione pelo menos um produto"));
         }
     }

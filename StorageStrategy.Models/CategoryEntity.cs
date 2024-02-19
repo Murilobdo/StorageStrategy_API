@@ -7,7 +7,7 @@ namespace StorageStrategy.Models
         public string Name { get; set; } = string.Empty;
         public bool IsActive { get; set; }
         public List<ProductEntity> Products { get; set; } = new();
-        public virtual CompanyEntity Company { get; set; }
+        public CompanyEntity Company { get; set; }
         public int CompanyId { get; set; }
 
         public CategoryEntity()

@@ -57,7 +57,6 @@ namespace StorageStrategy.API.Controllers
             return Ok(new Result(listProduct, "Busca realizada"));
         }
 
-
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateProductCommand command)
         {
@@ -90,5 +89,6 @@ namespace StorageStrategy.API.Controllers
             var result = await _mediator.Send(command);
             return Ok(result);
         }
+
     }
 }

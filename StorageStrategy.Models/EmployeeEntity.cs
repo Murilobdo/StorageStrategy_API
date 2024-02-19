@@ -10,7 +10,7 @@
         public bool IsActive { get; set; }
         public string PasswordHash { get; set; } = string.Empty;
         public int CompanyId { get; set; }
-        public virtual CompanyEntity Company { get; set; }
+        public CompanyEntity Company { get; set; }
 
         public EmployeeEntity(
             int employeeId, 

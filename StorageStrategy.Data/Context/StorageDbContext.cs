@@ -24,6 +24,8 @@ namespace StorageStrategy.Data.Context
         public DbSet<CommandItemEntity> CommandItems { get; set; }
         public DbSet<ExpenseEntity> Expenses { get; set; }
         public DbSet<ExpensesTypeEntity> ExpensesType { get; set; }
+        public DbSet<StockHistoryEntity> StockHistory { get; set; }
+        public DbSet<StockHistoryItemEntity> StockHistoryItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {   
@@ -57,6 +59,8 @@ namespace StorageStrategy.Data.Context
             modelBuilder.ApplyConfiguration(new CommandItemMapping());
             modelBuilder.ApplyConfiguration(new ExpenseMappgin());
             modelBuilder.ApplyConfiguration(new ExpensesTypeMappgin());
+            modelBuilder.ApplyConfiguration(new StockHistoryMapping());
+            modelBuilder.ApplyConfiguration(new StockHistoryItemMapping());
 
             base.OnModelCreating(modelBuilder);
         }
