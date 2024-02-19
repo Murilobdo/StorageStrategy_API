@@ -55,6 +55,7 @@ namespace StorageStrategy.Domain.Handlers
 
             command.TotalPrice = commandItems.Sum(p => p.Price * p.Qtd);
             command.TotalCost = commandItems.Sum(p => p.Cost * p.Qtd);
+            command.TotalTaxing = commandItems.Sum(p => p.Taxing * p.Qtd);
 
             await _repoCommand.AddAsync(command);
             await _repoCommand.SaveAsync();

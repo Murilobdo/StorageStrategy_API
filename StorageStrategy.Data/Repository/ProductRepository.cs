@@ -63,5 +63,14 @@ namespace StorageStrategy.Data.Repository
 
             return await query.ToListAsync();
         }
+
+        public Task<List<ProductEntity>> ToList(int companyId)
+        {
+            var result = _context.Product
+                .Where(p => p.CompanyId == companyId)
+                .ToListAsync();
+
+            return result;
+        }
     }
 }

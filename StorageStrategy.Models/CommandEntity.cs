@@ -15,6 +15,7 @@ namespace StorageStrategy.Models
         public virtual List<CommandItemEntity> Items { get; set; } = new();
         public decimal TotalCost { get; set; } = 0;
         public decimal TotalPrice { get; set; } = 0;
+        public decimal TotalTaxing { get; set; } = 0;
         public PaymentEnum? Payment { get; set; }
         public DateTime InitialDate { get; set; }
         public DateTime? FinalDate { get; set; }

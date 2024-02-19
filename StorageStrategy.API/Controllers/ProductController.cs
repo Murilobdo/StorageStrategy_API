@@ -40,11 +40,21 @@ namespace StorageStrategy.API.Controllers
             return Ok(new Result(listProduct, "Busca realizada"));
         }
 
-        [HttpGet("CreateStockProduct")]
-        [Authorize(Roles = "Employee")]
-        public async Task<IActionResult> CreateStockProduct([FromServices] IProductRepository repo, int companyId)
+        [HttpGet]
+        public async Task<IActionResult> ToList([FromServices] IProductRepository repo)
         {
-            return null;
+            List<CreateProductCommand> listProduct = new();
+
+            int companyId = User.GetCompanyId();
+
+            var products = await repo.ToList(companyId);
+
+            products.ForEach(category =>
+            {
+                listProduct.Add(_mapper.Map<CreateProductCommand>(category));
+            });
+
+            return Ok(new Result(listProduct, "Busca realizada"));
         }
 
 
