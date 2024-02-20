@@ -11,5 +11,7 @@ namespace StorageStrategy.Domain.Repository
         Task AddRange(List<ProductEntity> products);
         Task<decimal> ReadTotalPriceInStokByCompany(int companyId);
         Task<int> QuantityInStockByCompany(int companyId);
+        Task<List<ProductEntity>> GetProductsByIds(int companyId, IEnumerable<int> productsIds);
+        Task AddStockHistory(StockHistoryEntity stockHistory);
     }
 }

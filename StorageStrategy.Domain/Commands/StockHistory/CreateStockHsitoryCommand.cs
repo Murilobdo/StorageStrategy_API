@@ -1,11 +1,13 @@
 ﻿
 using FluentValidation;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using StorageStrategy.Domain.Validations.StockHsitory;
 using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Commands.StockHistory
 {
-    public class CreateStockHsitoryCommand : IValidation
+    public class CreateStockHsitoryCommand : IValidation, IRequest<Result>
     {
         public int CompanyId { get; set; }
         public List<StockHistoryItemEntity> Products { get; set; } = new();

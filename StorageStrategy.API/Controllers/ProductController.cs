@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorageStrategy.Domain.Commands.Products;
+using StorageStrategy.Domain.Commands.StockHistory;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
 using StorageStrategy.Utils.Extensions;
@@ -90,5 +91,12 @@ namespace StorageStrategy.API.Controllers
             return Ok(result);
         }
 
+        [HttpPut("update-stock")]
+        public async Task<IActionResult> UpdateStock([FromBody] CreateStockHsitoryCommand command)
+        {
+            command.CompanyId = User.GetCompanyId();
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
     }
 }

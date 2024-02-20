@@ -20,6 +20,11 @@ namespace StorageStrategy.Data.Repository
             await _context.SaveChangesAsync();
         }
 
+        public async Task AddStockHistory(StockHistoryEntity stockHistory)
+        {
+            await _context.StockHistory.AddAsync(stockHistory);
+        }
+
         public async Task<ProductEntity> FindByName(string name, int companyId)
         {
             return await _context.Product.FirstOrDefaultAsync(p => p.Name.ToLower().Trim() == name.ToLower().Trim() && p.CompanyId == companyId);
@@ -35,6 +40,14 @@ namespace StorageStrategy.Data.Repository
             var result = await _context.Product.FirstOrDefaultAsync(p => p.ProductId == productId && p.CompanyId == companyId);
             _context.ChangeTracker.Clear();
             return result;
+        }
+
+        public async Task<List<ProductEntity>> GetProductsByIds(int companyId, IEnumerable<int> productsIds)
+        {
+            return await _context.Product
+                .Where(p => p.CompanyId == companyId)
+                .Where(p => productsIds.Any(id => id == p.ProductId))
+                .ToListAsync();
         }
 
         public async Task<int> QuantityInStockByCompany(int companyId)
