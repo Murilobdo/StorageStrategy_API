@@ -34,6 +34,11 @@ namespace StorageStrategy.Data.Mappings
                 .WithOne(p => p.Company)
                 .HasForeignKey(p => p.CompanyId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(p => p.StockHistory)
+                .WithOne(p => p.Company)
+                .HasForeignKey(p => p.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

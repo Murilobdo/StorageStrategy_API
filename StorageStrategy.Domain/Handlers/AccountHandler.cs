@@ -46,7 +46,7 @@ namespace StorageStrategy.Domain.Handlers
             if(company.Validate <= DateTime.Now)
                 return CreateError($"Sua licenca expirou dia {company.Validate.ToShortDateString()}, entre em contato para renovação");
 
-            if(!Argon2.Verify(employee.PasswordHash, request.Password))
+            if (!Argon2.Verify(employee.PasswordHash, request.Password))
                 return CreateError("Email ou Senha incorreta");
 
             TokenService tokenService = new TokenService();

@@ -11,7 +11,7 @@ namespace StorageStrategy.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "Manager,Admin")]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -41,16 +41,10 @@ namespace StorageStrategy.API.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateCategoryCommand command)
         {
-            try
-            {
-                command.CompanyId = User.GetCompanyId();
-                var result = await _mediator.Send(command);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            command.CompanyId = User.GetCompanyId();
+            var result = await _mediator.Send(command);
+            return Ok(result);
+         
         }
 
         [HttpPost("AddRangeCategory")]

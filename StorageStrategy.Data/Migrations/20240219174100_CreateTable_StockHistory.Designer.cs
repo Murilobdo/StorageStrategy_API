@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StorageStrategy.Data.Context;
 
@@ -11,9 +12,11 @@ using StorageStrategy.Data.Context;
 namespace StorageStrategy.Data.Migrations
 {
     [DbContext(typeof(StorageDbContext))]
-    partial class StorageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240219174100_CreateTable_StockHistory")]
+    partial class CreateTableStockHistory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,11 +174,11 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 1,
-                            CreateAt = new DateTime(2024, 2, 19, 18, 54, 48, 627, DateTimeKind.Local).AddTicks(5791),
+                            CreateAt = new DateTime(2024, 2, 19, 14, 40, 58, 403, DateTimeKind.Local).AddTicks(4821),
                             Description = "Admin",
                             IsActive = true,
                             Name = "Admin Company",
-                            Validate = new DateTime(2034, 2, 19, 18, 54, 48, 627, DateTimeKind.Local).AddTicks(5805)
+                            Validate = new DateTime(2034, 2, 19, 14, 40, 58, 403, DateTimeKind.Local).AddTicks(4836)
                         });
                 });
 
@@ -229,7 +232,7 @@ namespace StorageStrategy.Data.Migrations
                             IsActive = true,
                             JobRole = 7,
                             Name = "Murilo Bernardes (Admin)",
-                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$i6HmxsHEIynDrrJOIoQKZg$wmLlPAo3N9xgT25IS8WtWdz0rtzmt4ktTpO8CidYhBo"
+                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$L6SuoPg5MX3WjTyDG6riyQ$VjAOVTYeU9AYihYGaqKnsnQNPeM3nHPj5d0P2d0SQS0"
                         });
                 });
 
@@ -365,19 +368,13 @@ namespace StorageStrategy.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockHistoryItemId"));
 
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("StockHistoryId")
+                    b.Property<int?>("StockHistoryEntityStockHistoryId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Taxing")
@@ -385,7 +382,7 @@ namespace StorageStrategy.Data.Migrations
 
                     b.HasKey("StockHistoryItemId");
 
-                    b.HasIndex("StockHistoryId");
+                    b.HasIndex("StockHistoryEntityStockHistoryId");
 
                     b.ToTable("StockHistoryItems");
                 });
@@ -512,13 +509,9 @@ namespace StorageStrategy.Data.Migrations
 
             modelBuilder.Entity("StorageStrategy.Models.StockHistoryItemEntity", b =>
                 {
-                    b.HasOne("StorageStrategy.Models.StockHistoryEntity", "StockHistory")
+                    b.HasOne("StorageStrategy.Models.StockHistoryEntity", null)
                         .WithMany("Products")
-                        .HasForeignKey("StockHistoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("StockHistory");
+                        .HasForeignKey("StockHistoryEntityStockHistoryId");
                 });
 
             modelBuilder.Entity("StorageStrategy.Models.CategoryEntity", b =>

@@ -44,6 +44,11 @@ namespace StorageStrategy.Tests.FakeRepository
             return Task.CompletedTask;
         }
 
+        public Task AddStockHistory(StockHistoryEntity stockHistory)
+        {
+            return Task.CompletedTask;
+        }
+
         public void Clear()
         {
             
@@ -75,6 +80,15 @@ namespace StorageStrategy.Tests.FakeRepository
         public Task<ProductEntity> GetByIdAsync(int productId, int companyId)
         {
             return Task.FromResult(products.FirstOrDefault(p => p.ProductId == productId && p.CompanyId == companyId));
+        }
+
+        public Task<List<ProductEntity>> GetProductsByIds(int companyId, IEnumerable<int> productsIds)
+        {
+            var result = products.Where(p => p.CompanyId == companyId)
+                .Where(p => productsIds.Any(id => id == p.ProductId))
+                .ToList();
+
+            return Task.FromResult(result);
         }
 
         public Task<int> QuantityInStockByCompany(int companyId)

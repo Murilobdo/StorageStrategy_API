@@ -11,15 +11,31 @@ namespace StorageStrategy.Models
         public int Qtd { get; set; }
         public int StockAlert { get; set; }
         public bool IsActive { get; set; }
-        public virtual CategoryEntity Category { get; set; }
+        public CategoryEntity Category { get; set; }
         public int CategoryId { get; set; }
-        public virtual CompanyEntity Company { get; set; }
+        public CompanyEntity Company { get; set; }
         public int CompanyId { get; set; }
         public decimal Taxing { get; set; }
 
         public ProductEntity()
         {
 
+        }
+
+        public ProductEntity(int productId, string name, decimal cost, decimal price, int qtd, int stockAlert, bool isActive, CategoryEntity category, int categoryId, CompanyEntity company, int companyId, decimal taxing)
+        {
+            ProductId = productId;
+            Name = name;
+            Cost = cost;
+            Price = price;
+            Qtd = qtd;
+            StockAlert = stockAlert;
+            IsActive = isActive;
+            Category = category;
+            CategoryId = categoryId;
+            Company = company;
+            CompanyId = companyId;
+            Taxing = taxing;
         }
 
         public ProductEntity(int productId, string name, decimal cost, decimal price, int qtd, int stockAlert, int categoryId, int companyId, decimal taxing)
