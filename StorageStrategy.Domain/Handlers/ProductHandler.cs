@@ -68,6 +68,7 @@ namespace StorageStrategy.Domain.Handlers
                 return CreateError("Categoria não encontrada");
 
             product = _mapper.Map<ProductEntity>(request);
+            product.StockAlert = request.StockAlert;
             _repo.Clear();
             _repo.Update(product);
             await _repo.SaveAsync();

@@ -69,6 +69,8 @@ namespace StorageStrategy.Data.Repository
         public async Task<List<ProductEntity>> ToList(int companyId, bool active)
         {
             var query = _context.Product
+                .AsNoTracking()
+                .Include(p => p.Category)
                 .Where(p => p.CompanyId == companyId);
 
             if (active)
@@ -80,6 +82,8 @@ namespace StorageStrategy.Data.Repository
         public Task<List<ProductEntity>> ToList(int companyId)
         {
             var result = _context.Product
+                .AsNoTracking()
+                .Include(p => p.Category)
                 .Where(p => p.CompanyId == companyId)
                 .ToListAsync();
 

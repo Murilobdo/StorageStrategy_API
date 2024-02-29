@@ -25,18 +25,24 @@ namespace StorageStrategy.API.Controllers
         }
 
         [HttpGet("list")]
-        public async Task<IActionResult> ToList([FromServices] IProductRepository repo, int companyId, bool active)
+        public async Task<IActionResult> ToList([FromServices] IProductRepository repo, bool active)
         {
             List<CreateProductCommand> listProduct = new();
            
-            companyId = User.GetCompanyId();
+            int companyId = User.GetCompanyId();
 
             var products = await repo.ToList(companyId, active);
 
-            products.ForEach(category =>
+            products.ForEach(product =>
             {
-                listProduct.Add(_mapper.Map<CreateProductCommand>(category));
+                var currentProduct = _mapper.Map<CreateProductCommand>(product);
+                currentProduct.Name = $"{product.Category.Name} | {product.Name}";
+                listProduct.Add(_mapper.Map<CreateProductCommand>(currentProduct));
             });
+
+            listProduct = listProduct
+                .OrderBy(p => p.Name)
+                .ToList();
 
             return Ok(new Result(listProduct, "Busca realizada"));
         }
@@ -50,10 +56,15 @@ namespace StorageStrategy.API.Controllers
 
             var products = await repo.ToList(companyId);
 
-            products.ForEach(category =>
+            products.ForEach(product =>
             {
-                listProduct.Add(_mapper.Map<CreateProductCommand>(category));
+                var currentProduct = _mapper.Map<CreateProductCommand>(product);
+                listProduct.Add(_mapper.Map<CreateProductCommand>(product));
             });
+
+            listProduct = listProduct
+                .OrderBy(p => p.Name)
+                .ToList();
 
             return Ok(new Result(listProduct, "Busca realizada"));
         }

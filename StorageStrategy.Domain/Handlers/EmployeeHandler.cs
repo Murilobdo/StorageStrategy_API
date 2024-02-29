@@ -52,6 +52,7 @@ namespace StorageStrategy.Domain.Handlers
                 return CreateError("Funcionario não encontrado para a atualização");
 
             employee = _mapper.Map<EmployeeEntity>(request);
+            employee.PasswordHash = Argon2.Hash(request.Password);
 
             _repo.Update(employee);
             await _repo.SaveAsync();

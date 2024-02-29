@@ -22,6 +22,22 @@ namespace StorageStrategy.Models
 
         }
 
+        public ProductEntity(int productId, string name, decimal cost, decimal price, int qtd, int stockAlert, bool isActive, CategoryEntity category, int categoryId, CompanyEntity company, int companyId, decimal taxing)
+        {
+            ProductId = productId;
+            Name = name;
+            Cost = cost;
+            Price = price;
+            Qtd = qtd;
+            StockAlert = stockAlert;
+            IsActive = isActive;
+            Category = category;
+            CategoryId = categoryId;
+            Company = company;
+            CompanyId = companyId;
+            Taxing = taxing;
+        }
+
         public ProductEntity(int productId, string name, decimal cost, decimal price, int qtd, int stockAlert, int categoryId, int companyId, decimal taxing)
         {
             ProductId = productId;
