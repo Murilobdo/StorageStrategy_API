@@ -28,5 +28,17 @@ namespace StorageStrategy.Domain.Validations.Company
         protected void ValidationValidationAt() => RuleFor(p => p.Validate)
             .NotEmpty()
             .WithMessage("A Data de validade e obrigatório");
+
+        protected void ValidationCNPJ() => RuleFor(p => p.CNPJ)
+            .NotEmpty()
+            .WithMessage("O CNPJ e obrigatório");
+
+        protected void ValidationAddress() => RuleFor(p => p.Address)
+            .NotEmpty()
+            .WithMessage("O Endereço e obrigatório");
+
+        protected void ValidationPhone() => RuleFor(p => p.Phone)
+           .NotEmpty()
+           .WithMessage("O Telefone e obrigatório");
     }
 }

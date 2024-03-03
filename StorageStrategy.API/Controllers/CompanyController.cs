@@ -12,7 +12,7 @@ namespace StorageStrategy.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    //[Authorize]
     public class CompanyController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -45,13 +45,11 @@ namespace StorageStrategy.API.Controllers
             return Ok(new Result(company, "Busca realizada"));
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> Post([FromBody] CreateCompanyCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);
         }
-
-        
     }
 }
