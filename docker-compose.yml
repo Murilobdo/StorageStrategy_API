@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # api:
+  #   build: 
+  #     context: .
+  #     dockerfile: Dockerfile
+  #     labels:
+  #       - com.host.description=StorageApi
+  #     target: v1
+  #   container_name: storage-api
+  #   ports:
+  #     - 8080:8080
+  #   depends_on:
+  #     - database
+  #   networks:
+  #     - storage-network
+
+  database:
+    container_name: sql-server-database
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    volumes:
+      - ./data:/var/opt/mssql/data
+    ports:
+      - 1433:1433
+    expose:
+      - 1433
+    environment:
+      - MSSQL_SA_PASSWORD=Local@db123
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Developer
+    networks:
+      - storage-network
+
+networks:
+  storage-network:
+    driver: bridge
+    external: true
+
