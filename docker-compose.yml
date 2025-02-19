@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  api:
+    image: api-storage-strategy
+    container_name: api-storage-strategy
+    build:
+      context: .
+      dockerfile: StorageStrategy.API/Dockerfile
+    ports:
+      - "11800:11800"
+    networks:
+        - storage-strategy-network
+          
+networks:
+    storage-strategy-network:
+        driver: bridge
