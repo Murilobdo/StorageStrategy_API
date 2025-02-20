@@ -1,4 +1,4 @@
-main.tml: Publish API With Docker Compose
+name: Publish API With Docker Compose
 
 on:
   push:
