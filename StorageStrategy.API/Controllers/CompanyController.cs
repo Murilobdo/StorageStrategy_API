@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorageStrategy.Domain.Commands.Company;
-using StorageStrategy.Domain.Commands.Login;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
 using StorageStrategy.Utils.Extensions;
