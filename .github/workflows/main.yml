@@ -23,12 +23,20 @@ jobs:
           ssh-keyscan -H $VPS_IP >> ~/.ssh/known_hosts
 
           ssh ubuntu@$VPS_IP << 'EOF'
+            echo "1"
             cd /home/ubuntu/StorageStrategy/StorageStrategy_API
+            echo "2"
             echo "Baixando atualizacoes"
+            echo "3"
             git pull
+            echo "4"
             echo "Atualizacoes baixadas... "
+            echo "5"
             docker compose down
+            echo "6"
             docker compose build --no-cache
+            echo "7"
             docker compose up -d
+            echo "8"
             exit
           EOF
