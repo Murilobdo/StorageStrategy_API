@@ -17,19 +17,4 @@ jobs:
       - name: Setup SSH and Deploy
         run: |
           echo "Teste123"
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 700 ~/.ssh
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H $VPS_IP >> ~/.ssh/known_hosts
           
-          ssh ubuntu@$VPS_IP << 'EOF'
-            cd /home/ubuntu/StorageStrategy/StorageStrategy_API
-            echo "Baixando atualizacoes"
-            git pull
-            echo "Atualizacoes baixadas... "
-            docker compose down
-            docker compose build --no-cache
-            docker compose up -d
-            exit
-          EOF
