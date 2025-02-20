@@ -1,4 +1,4 @@
-main.yml: Publish API With Docker Compose
+main.tml: Publish API With Docker Compose
 
 on:
   push:
