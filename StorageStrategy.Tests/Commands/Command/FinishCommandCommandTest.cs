@@ -17,7 +17,7 @@ namespace StorageStrategy.Tests.Commands.Coommand
         {
             FinishCommandCommand finishCommand = new(
                 commandId:1, 
-                PaymentEnum.Credit, 
+                new PaymentCommand(1, PaymentEnum.Pix, 50), 
                 companyId: 1,
                 discount: 0,
                 increase: 0
@@ -31,7 +31,7 @@ namespace StorageStrategy.Tests.Commands.Coommand
         {
             FinishCommandCommand finishCommand = new(
                 commandId:0, 
-                payment:PaymentEnum.Credit, 
+                new PaymentCommand(1, PaymentEnum.Credit, 50), 
                 companyId: 1,
                 discount: 0,
                 increase: 0
@@ -45,7 +45,7 @@ namespace StorageStrategy.Tests.Commands.Coommand
         {
             FinishCommandCommand finishCommand = new(
                 commandId:1,
-                payment:PaymentEnum.Credit, 
+                new PaymentCommand(1, PaymentEnum.Credit, 50), 
                 companyId: 0,
                 discount: 0,
                 increase: 0
@@ -59,7 +59,7 @@ namespace StorageStrategy.Tests.Commands.Coommand
         {
             FinishCommandCommand finishCommand = new(
                 commandId: 1,
-                payment: PaymentEnum.Credit,
+                new PaymentCommand(1, PaymentEnum.Credit, 50), 
                 companyId: 1,
                 discount: -15,
                 increase: 0
@@ -73,7 +73,7 @@ namespace StorageStrategy.Tests.Commands.Coommand
         {
             FinishCommandCommand finishCommand = new(
                 commandId: 1,
-                payment: PaymentEnum.Credit,
+                new PaymentCommand(1, PaymentEnum.Credit, 50), 
                 companyId: 1,
                 discount: 0,
                 increase: -15

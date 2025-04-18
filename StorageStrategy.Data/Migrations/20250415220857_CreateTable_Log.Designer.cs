@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StorageStrategy.Data.Context;
 
@@ -11,9 +12,11 @@ using StorageStrategy.Data.Context;
 namespace StorageStrategy.Data.Migrations
 {
     [DbContext(typeof(StorageDbContext))]
-    partial class StorageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250415220857_CreateTable_Log")]
+    partial class CreateTableLog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,6 +80,9 @@ namespace StorageStrategy.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Payment")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("TotalCost")
                         .HasColumnType("decimal(18,2)");
@@ -182,12 +188,12 @@ namespace StorageStrategy.Data.Migrations
                             CompanyId = 1,
                             Address = "",
                             CNPJ = "",
-                            CreateAt = new DateTime(2025, 4, 17, 21, 55, 28, 264, DateTimeKind.Local).AddTicks(8598),
+                            CreateAt = new DateTime(2025, 4, 15, 19, 8, 56, 380, DateTimeKind.Local).AddTicks(6947),
                             Description = "Admin",
                             IsActive = true,
                             Name = "Admin Company",
                             Phone = "",
-                            Validate = new DateTime(2035, 4, 17, 21, 55, 28, 264, DateTimeKind.Local).AddTicks(8613)
+                            Validate = new DateTime(2035, 4, 15, 19, 8, 56, 380, DateTimeKind.Local).AddTicks(6963)
                         });
                 });
 
@@ -241,7 +247,7 @@ namespace StorageStrategy.Data.Migrations
                             IsActive = true,
                             JobRole = 7,
                             Name = "Murilo Bernardes (Admin)",
-                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$shu4UKDQIaCKvIPdVO+Hng$HpDqHonobK+KdzoD3lWzapEvuRbfQbH/tlv+X0FzY54"
+                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$7voE8M7epnLpNUqZFQXWfQ$4ywrg4eBy2Mat8LPh6Bi1/dk2CNx8hN0OgFFkIHZ16g"
                         });
                 });
 
@@ -323,30 +329,6 @@ namespace StorageStrategy.Data.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("LogApp", (string)null);
-                });
-
-            modelBuilder.Entity("StorageStrategy.Models.PaymentEntity", b =>
-                {
-                    b.Property<int>("PaymentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentId"));
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("CommandId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Method")
-                        .HasColumnType("int");
-
-                    b.HasKey("PaymentId");
-
-                    b.HasIndex("CommandId");
-
-                    b.ToTable("Payment", (string)null);
                 });
 
             modelBuilder.Entity("StorageStrategy.Models.ProductEntity", b =>
@@ -552,17 +534,6 @@ namespace StorageStrategy.Data.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("StorageStrategy.Models.PaymentEntity", b =>
-                {
-                    b.HasOne("StorageStrategy.Models.CommandEntity", "Command")
-                        .WithMany("Payments")
-                        .HasForeignKey("CommandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Command");
-                });
-
             modelBuilder.Entity("StorageStrategy.Models.ProductEntity", b =>
                 {
                     b.HasOne("StorageStrategy.Models.CategoryEntity", "Category")
@@ -612,8 +583,6 @@ namespace StorageStrategy.Data.Migrations
             modelBuilder.Entity("StorageStrategy.Models.CommandEntity", b =>
                 {
                     b.Navigation("Items");
-
-                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("StorageStrategy.Models.CompanyEntity", b =>

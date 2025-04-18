@@ -26,6 +26,10 @@ namespace StorageStrategy.Domain.Commands.Command
             Payment = payment;
         }
 
+        public CreateCommandCommand()
+        {
+            
+        }
         public List<Error> GetErros() => new CreateCommandValidation().Validate(this)
             .Errors.Select(p => new Error(p.ErrorMessage)).ToList();
 

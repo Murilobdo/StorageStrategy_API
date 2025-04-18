@@ -97,7 +97,12 @@ namespace StorageStrategy.Domain.Handlers
                 return CreateError("Comanda não encontrada");
 
             command.FinalDate = DateTime.Now.AddHours(-3);
-            command.Payment = request.Payment;
+
+            var payments = request.Payments
+                .Select(p => new PaymentEntity(0, command.CommandId, p.Method, p.Amount))
+                .ToList();
+            
+            command.Payments.AddRange(payments);
             command.Discount = request.Discount;
             command.Increase = request.Increase;
 

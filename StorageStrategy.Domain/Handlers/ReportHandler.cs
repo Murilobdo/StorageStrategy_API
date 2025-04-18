@@ -3,6 +3,7 @@ using MediatR;
 using StorageStrategy.Domain.Commands.Report;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
+using StorageStrategy.Utils.Helpers;
 
 namespace StorageStrategy.Domain.Handlers
 {
@@ -59,10 +60,12 @@ namespace StorageStrategy.Domain.Handlers
 
             var commands = await _repo.ReadCommandsByMounthAsync(request.CompanyId, request.Month, request.EmployeeId);
 
-            decimal totalPix = commands.Where(p => p.Payment == PaymentEnum.Pix).Sum(p => p.TotalPrice);
-            decimal totalCash = commands.Where(p => p.Payment == PaymentEnum.Cash).Sum(p => p.TotalPrice);
-            decimal totalCredit = commands.Where(p => p.Payment == PaymentEnum.Credit).Sum(p => p.TotalPrice);
-            decimal totalDebit = commands.Where(p => p.Payment == PaymentEnum.Debit).Sum(p => p.TotalPrice);
+            
+            
+            decimal totalPix = Calc.CountSalesPayment(commands, PaymentEnum.Pix);
+            decimal totalCash = Calc.CountSalesPayment(commands, PaymentEnum.Cash);
+            decimal totalCredit = Calc.CountSalesPayment(commands, PaymentEnum.Credit);
+            decimal totalDebit = Calc.CountSalesPayment(commands, PaymentEnum.Debit);
             decimal total = (totalPix + totalCash + totalCredit + totalDebit);
 
             return CreateResponse(new
