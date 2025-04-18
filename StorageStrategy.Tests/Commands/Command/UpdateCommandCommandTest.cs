@@ -15,7 +15,7 @@ namespace StorageStrategy.Tests.Commands.Coommand
         [Fact]
         public void Sucesso_ao_atualizar_uma_comanda()
         {
-            UpdateCommandCommand updateCommand = new(1, 1, "Comanda Teste", 1, GetCommandItems(), PaymentEnum.Pix);
+            UpdateCommandCommand updateCommand = new(1, 1, "Comanda Teste", 1, GetCommandItems());
 
             Assert.True(updateCommand.IsValid());
         }
@@ -23,7 +23,7 @@ namespace StorageStrategy.Tests.Commands.Coommand
         [Fact]
         public void Erro_ao_atualizar_uma_comanda_sem_companyId()
         {
-            UpdateCommandCommand updateCommand = new(1, 0, "Comanda Teste", 1, GetCommandItems(), PaymentEnum.Pix);
+            UpdateCommandCommand updateCommand = new(1, 0, "Comanda Teste", 1, GetCommandItems());
 
             Assert.True(MensagemDeErroExistente(updateCommand.GetErros(), "O Id da empresa e obrigatório"));
         }
@@ -31,7 +31,7 @@ namespace StorageStrategy.Tests.Commands.Coommand
         [Fact]
         public void Erro_ao_atualizar_uma_comanda_sem_employeeId()
         {
-            UpdateCommandCommand updateCommand = new(1, 1, "Comanda Teste", 0, GetCommandItems(), PaymentEnum.Pix);
+            UpdateCommandCommand updateCommand = new(1, 1, "Comanda Teste", 0, GetCommandItems());
 
             Assert.True(MensagemDeErroExistente(updateCommand.GetErros(), "O funcionário e obrigatório"));
         }
@@ -39,7 +39,7 @@ namespace StorageStrategy.Tests.Commands.Coommand
         [Fact]
         public void Erro_ao_atualizar_uma_comanda_sem_itens()
         {
-            UpdateCommandCommand updateCommand = new(1, 1, "Comanda Teste", 1, new List<CommandItemBase>(), PaymentEnum.Pix);
+            UpdateCommandCommand updateCommand = new(1, 1, "Comanda Teste", 1, new List<CommandItemBase>());
 
             Assert.True(MensagemDeErroExistente(updateCommand.GetErros(), "Essa comanda não possui produtos"));
         }

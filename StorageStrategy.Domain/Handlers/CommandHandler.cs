@@ -40,7 +40,8 @@ namespace StorageStrategy.Domain.Handlers
             if (employee is null)
                 return CreateError("Funcionario não encontrado");
 
-            var command = _mapper.Map<CommandEntity>(request);
+            var command = request.CreateCommand();
+            
             command.InitialDate = DateTime.Now.AddHours(-3);
 
             var result = await HasProductsInStock(request.Items, request.CompanyId);
@@ -96,8 +97,14 @@ namespace StorageStrategy.Domain.Handlers
             if(command is null)
                 return CreateError("Comanda não encontrada");
 
-            command.FinalDate = DateTime.Now.AddHours(-3);
+            var totalPrice = command.TotalPrice;
+            var sumPayments = command.Payments.Sum(p => p.Amount);
 
+            if (totalPrice == sumPayments)
+            {
+                command.FinalDate = DateTime.Now.AddHours(-3);
+            }
+            
             var payments = request.Payments
                 .Select(p => new PaymentEntity(0, command.CommandId, p.Method, p.Amount))
                 .ToList();

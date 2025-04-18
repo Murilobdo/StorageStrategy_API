@@ -1,12 +1,6 @@
 ﻿using StorageStrategy.Domain.Commands.Command;
 using StorageStrategy.Models;
 using StorageStrategy.Tests.FakeRepository;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StorageStrategy.Tests.Faktory.command
 {
@@ -48,7 +42,7 @@ namespace StorageStrategy.Tests.Faktory.command
                 discount: 0,
                 increase:0,
                 items: base.items,
-                payment: PaymentEnum.Pix
+                payment: new PaymentCommand(1, PaymentEnum.Cash, 30)
             );
         }
     }

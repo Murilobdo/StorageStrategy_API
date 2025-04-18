@@ -11,9 +11,15 @@ namespace StorageStrategy.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
+            migrationBuilder.AlterColumn<int>(
                 name: "Payment",
-                table: "Command");
+                table: "Command",
+                type: "int",
+                nullable: false,
+                defaultValue: 0,
+                oldClrType: typeof(int),
+                oldType: "int",
+                oldNullable: true);
 
             migrationBuilder.CreateTable(
                 name: "Payment",
@@ -41,14 +47,14 @@ namespace StorageStrategy.Data.Migrations
                 keyColumn: "CompanyId",
                 keyValue: 1,
                 columns: new[] { "CreateAt", "Validate" },
-                values: new object[] { new DateTime(2025, 4, 17, 21, 55, 28, 264, DateTimeKind.Local).AddTicks(8598), new DateTime(2035, 4, 17, 21, 55, 28, 264, DateTimeKind.Local).AddTicks(8613) });
+                values: new object[] { new DateTime(2025, 4, 18, 12, 23, 35, 324, DateTimeKind.Local).AddTicks(4758), new DateTime(2035, 4, 18, 12, 23, 35, 324, DateTimeKind.Local).AddTicks(4776) });
 
             migrationBuilder.UpdateData(
                 table: "Employee",
                 keyColumn: "EmployeeId",
                 keyValue: 1,
                 column: "PasswordHash",
-                value: "$argon2id$v=19$m=65536,t=3,p=1$shu4UKDQIaCKvIPdVO+Hng$HpDqHonobK+KdzoD3lWzapEvuRbfQbH/tlv+X0FzY54");
+                value: "$argon2id$v=19$m=65536,t=3,p=1$5Nfybd+3gRJIwQgJVtLMCA$CWky2M9JpotQ5OOcaucvaIfw6UNMkGYOovy7MF/jccQ");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payment_CommandId",
@@ -62,11 +68,13 @@ namespace StorageStrategy.Data.Migrations
             migrationBuilder.DropTable(
                 name: "Payment");
 
-            migrationBuilder.AddColumn<int>(
+            migrationBuilder.AlterColumn<int>(
                 name: "Payment",
                 table: "Command",
                 type: "int",
-                nullable: true);
+                nullable: true,
+                oldClrType: typeof(int),
+                oldType: "int");
 
             migrationBuilder.UpdateData(
                 table: "Company",

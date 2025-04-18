@@ -78,6 +78,9 @@ namespace StorageStrategy.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Payment")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("TotalCost")
                         .HasColumnType("decimal(18,2)");
 
@@ -182,12 +185,12 @@ namespace StorageStrategy.Data.Migrations
                             CompanyId = 1,
                             Address = "",
                             CNPJ = "",
-                            CreateAt = new DateTime(2025, 4, 17, 21, 55, 28, 264, DateTimeKind.Local).AddTicks(8598),
+                            CreateAt = new DateTime(2025, 4, 18, 12, 23, 35, 324, DateTimeKind.Local).AddTicks(4758),
                             Description = "Admin",
                             IsActive = true,
                             Name = "Admin Company",
                             Phone = "",
-                            Validate = new DateTime(2035, 4, 17, 21, 55, 28, 264, DateTimeKind.Local).AddTicks(8613)
+                            Validate = new DateTime(2035, 4, 18, 12, 23, 35, 324, DateTimeKind.Local).AddTicks(4776)
                         });
                 });
 
@@ -241,7 +244,7 @@ namespace StorageStrategy.Data.Migrations
                             IsActive = true,
                             JobRole = 7,
                             Name = "Murilo Bernardes (Admin)",
-                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$shu4UKDQIaCKvIPdVO+Hng$HpDqHonobK+KdzoD3lWzapEvuRbfQbH/tlv+X0FzY54"
+                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$5Nfybd+3gRJIwQgJVtLMCA$CWky2M9JpotQ5OOcaucvaIfw6UNMkGYOovy7MF/jccQ"
                         });
                 });
 

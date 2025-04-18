@@ -29,14 +29,14 @@ namespace StorageStrategy.API.Controllers
             [FromQuery] int companyId,
             [FromQuery] bool haveEndDate
         ) {
-           
             companyId = User.GetCompanyId();
             var command = await repo.ToListAsync(companyId, haveEndDate);
             List<CreateCommandCommand> result = new();
 
-            command.ForEach(category =>
+            command.ForEach(_command =>
             {
-                result.Add(_mapper.Map<CreateCommandCommand>(category));
+                CreateCommandCommand command = new CreateCommandCommand(_command);
+                result.Add(command);
             });
 
             return Ok(new Result(result, "Busca realizada"));
@@ -50,7 +50,7 @@ namespace StorageStrategy.API.Controllers
         ) {
             companyId = User.GetCompanyId();
             var entity = await repo.GetCommandByIdAsync(commandId, companyId);
-            var command = _mapper.Map<CreateCommandCommand>(entity);
+            var command = new CreateCommandCommand(entity);
             return Ok(new Result(command, "Busca realizada"));
         }
 

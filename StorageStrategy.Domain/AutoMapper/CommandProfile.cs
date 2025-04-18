@@ -10,14 +10,17 @@ namespace StorageStrategy.Domain.AutoMapper
         {
             CreateMap<CreateCommandCommand, CommandEntity>()
                 .ForMember(p => p.Company, opt => opt.Ignore())
+                .ForMember(p => p.Payments, opt => opt.Ignore())
                 .ForMember(p => p.Employee, opt => opt.Ignore());
 
             CreateMap<CommandEntity, CreateCommandCommand>()
+                .ForMember(p => p.Payments, opt => opt.MapFrom(src => src.Payments))
                 .ForMember(p => p.Items, opt => opt.MapFrom(src => src.Items));
 
             CreateMap<UpdateCommandCommand, CommandEntity>()
                 .ForMember(p => p.Items, opt => opt.MapFrom(src =>src.Items))
                 .ForMember(p => p.Company, opt => opt.Ignore())
+                .ForMember(p => p.Payments, opt => opt.Ignore())
                 .ForMember(p => p.Employee, opt => opt.Ignore());
 
             CreateMap<DeleteCommandCommand, CommandEntity>()

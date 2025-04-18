@@ -10,35 +10,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11e861bb-1922-436a-897d-d8b765b67785" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Data/Mappings/LogMapping.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Data/Mappings/PaymentMapping.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/20250415220857_CreateTable_Log.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Data/Repository/LogRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/AutoMapper/PaymentProfile.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/PaymentCommand.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Repository/ILogRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Models/LogApp.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Models/PaymentEntity.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Models/ViewModels/LogAppViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.StorageStrategy_API/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.StorageStrategy_API/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.StorageStrategy_API/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Context/StorageDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Context/StorageDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.API/Controllers/CommandController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/Controllers/CommandController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.API/Controllers/DashboardController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/Controllers/DashboardController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.API/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/appsettings.Development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Mappings/CommandMapping.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Mappings/CommandMapping.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Mappings/PaymentMapping.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Mappings/PaymentMapping.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/20250418005529_CreateTable_Payments.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/20250418005529_CreateTable_Payments.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/20250418152336_CreateTable_Payments.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/StorageDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/StorageDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Repository/CommandRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Repository/CommandRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/AutoMapper/CommandProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/AutoMapper/CommandProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CommandCommandBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CommandCommandBase.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CreateCommandCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CreateCommandCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/FinishCommandCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/FinishCommandCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/UpdateCommandCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/UpdateCommandCommand.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/AccountHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/AccountHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/ReportHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/ReportHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Validations/Command/FinishCommandValidation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Validations/Command/FinishCommandValidation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Validations/Command/CommandBaseValidation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Validations/Command/CommandBaseValidation.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Models/CommandEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Models/CommandEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/Commands/Command/FinishCommandCommandTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/Commands/Command/FinishCommandCommandTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/Factory/Entity/CreateCommandEntityWithItemsFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/Factory/Entity/CreateCommandEntityWithItemsFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/Handler/CommandHandlerTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/Handler/CommandHandlerTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Utils/Extensions/TokenExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Utils/Extensions/TokenExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Utils/Helpers/Calc.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Utils/Helpers/Calc.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Utils/Middleware/ExceptionErrorMiddleware.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Middleware/ExceptionErrorMiddleware.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Models/PaymentEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Models/PaymentEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/Commands/Command/CreateCommandCommandTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/Commands/Command/CreateCommandCommandTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/Commands/Command/UpdateCommandCommandTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/Commands/Command/UpdateCommandCommandTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/Factory/command/CreateCommandFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/Factory/command/CreateCommandFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Utils/Services/TokenService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Utils/Services/TokenService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,29 +48,29 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/66efbec125c33fdfb3a1bec1ed20a19604e9735174ac7196e96ed9476726/Mediator.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2vseS2Tf5XakKPeRTmVbCXUEI5H" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.StorageStrategy.API: http.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "XThreadsFramesViewSplitterKey": "0.5012407",
-    "git-widget-placeholder": "develop",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.StorageStrategy.API: http.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.5012407&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.StorageStrategy.API: http">
     <configuration name="StorageStrategy.API: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/StorageStrategy.API/StorageStrategy.API.csproj" />
@@ -132,7 +126,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1744938208391</updated>
-      <workItem from="1744938211570" duration="3042000" />
+      <workItem from="1744938211570" duration="3296000" />
+      <workItem from="1744989215573" duration="9810000" />
     </task>
     <servers />
   </component>

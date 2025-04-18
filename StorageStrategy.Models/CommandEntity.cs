@@ -17,6 +17,8 @@ namespace StorageStrategy.Models
         public decimal TotalPrice { get; set; } = 0;
         public decimal TotalTaxing { get; set; } = 0;
         public List<PaymentEntity> Payments { get; set; } = new();
+        
+        public PaymentEnum Payment { get; set; } 
         public DateTime InitialDate { get; set; }
         public DateTime? FinalDate { get; set; }
         public CompanyEntity Company { get; set; }

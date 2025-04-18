@@ -48,6 +48,7 @@ namespace StorageStrategy.Data.Repository
             var query =  _context.Command
                 .AsNoTracking()
                 .Include(p => p.Items)
+                .Include(p => p.Payments)
                 .Where(p => p.FinalDate != null)
                 .Where(p => p.InitialDate.Month == initialMonth)
                 .Where(p => p.CompanyId == companyId)
@@ -97,12 +98,14 @@ namespace StorageStrategy.Data.Repository
             if (haveEndDate)
                 return await _context.Command
                     .Where(p => p.CompanyId == companyId)
+                    .Include(p => p.Payments)
                     .Include(p => p.Items)
                     .Where(p => p.FinalDate != null)
                     .ToListAsync();
             else
                 return await _context.Command
                     .Where(p => p.CompanyId == companyId)
+                    .Include(p => p.Payments)
                     .Include(p => p.Items)
                     .Where(p => p.FinalDate == null)
                     .ToListAsync();

@@ -12,17 +12,38 @@ namespace StorageStrategy.Domain.Commands.Command
             decimal discount,
             decimal increase,
             List<CommandItemBase> items, 
-            PaymentEnum payment
+            List<PaymentCommand> payments
         ) {
             CommandId = commandId;
             CompanyId = companyId;
             Name = name;
             EmployeeId = employeeId;
             Items = items;
-            Payment = payment;
+            Payments = payments;
             Discount = discount;
             Increase = increase;
         }
+        
+        public CommandCommandBase(
+            int commandId, 
+            int companyId, 
+            string name, 
+            int employeeId, 
+            decimal discount,
+            decimal increase,
+            List<CommandItemBase> items, 
+            PaymentCommand? payment
+        ) {
+            CommandId = commandId;
+            CompanyId = companyId;
+            Name = name;
+            EmployeeId = employeeId;
+            Items = items;
+            Payments = new List<PaymentCommand>{payment};
+            Discount = discount;
+            Increase = increase;
+        }
+        
         public CommandCommandBase()
         {
 
@@ -35,8 +56,9 @@ namespace StorageStrategy.Domain.Commands.Command
         public DateTime InitialDate { get; set; }
         public DateTime? FinalDate { get; set; }
         public List<CommandItemBase> Items { get; set; } = new();
-        public PaymentEnum? Payment { get; set; }
+        public List<PaymentCommand> Payments { get; set; } = new();
         public decimal Discount { get; set; }
         public decimal Increase { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }

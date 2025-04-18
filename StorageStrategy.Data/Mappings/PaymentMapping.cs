@@ -10,5 +10,9 @@ public class PaymentMapping : IEntityTypeConfiguration<PaymentEntity>
     {
         builder.ToTable("Payment");
         builder.HasKey(x => x.PaymentId);
+
+        builder.HasOne(p => p.Command)
+            .WithMany(p => p.Payments)
+            .HasForeignKey(p => p.CommandId);
     }
 }

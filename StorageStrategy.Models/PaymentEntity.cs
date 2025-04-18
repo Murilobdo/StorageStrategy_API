@@ -15,4 +15,9 @@ public class PaymentEntity
         Method = method;
         Amount = amount;
     }
+
+    public PaymentEntity()
+    {
+        
+    }
 }
