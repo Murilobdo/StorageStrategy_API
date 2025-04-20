@@ -10,29 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11e861bb-1922-436a-897d-d8b765b67785" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/RemoveProductCommandCommand.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.API/Controllers/CommandController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/Controllers/CommandController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.API/Controllers/DashboardController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/Controllers/DashboardController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.API/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/appsettings.Development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Mappings/CommandMapping.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Mappings/CommandMapping.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Mappings/PaymentMapping.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Mappings/PaymentMapping.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/20250418005529_CreateTable_Payments.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/20250418005529_CreateTable_Payments.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/20250418152336_CreateTable_Payments.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/StorageDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/StorageDbContextModelSnapshot.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Repository/CommandRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Repository/CommandRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/AutoMapper/CommandProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/AutoMapper/CommandProfile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CommandCommandBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CommandCommandBase.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CreateCommandCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CreateCommandCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/UpdateCommandCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/UpdateCommandCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/AccountHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/AccountHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Validations/Command/CommandBaseValidation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Validations/Command/CommandBaseValidation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Models/CommandEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Models/CommandEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Models/PaymentEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Models/PaymentEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/Commands/Command/CreateCommandCommandTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/Commands/Command/CreateCommandCommandTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/Commands/Command/UpdateCommandCommandTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/Commands/Command/UpdateCommandCommandTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/Factory/command/CreateCommandFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/Factory/command/CreateCommandFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Utils/Services/TokenService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Utils/Services/TokenService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Repository/ICommandRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Repository/ICommandRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Models/CommandItemEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Models/CommandItemEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/FakeRepository/FakeCommandRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/FakeRepository/FakeCommandRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +34,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/66efbec125c33fdfb3a1bec1ed20a19604e9735174ac7196e96ed9476726/Mediator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b7208b3f72528d22781d25fde9a55271bdf2b5aade4f03b1324579a25493cd8/List.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -57,20 +45,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.StorageStrategy.API: http.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.5012407&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.StorageStrategy.API: http.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "XThreadsFramesViewSplitterKey": "0.5011494",
+    "git-widget-placeholder": "develop",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.StorageStrategy.API: http">
     <configuration name="StorageStrategy.API: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/StorageStrategy.API/StorageStrategy.API.csproj" />
@@ -127,7 +115,8 @@
       <option name="presentableId" value="Default" />
       <updated>1744938208391</updated>
       <workItem from="1744938211570" duration="3296000" />
-      <workItem from="1744989215573" duration="9810000" />
+      <workItem from="1744989215573" duration="10561000" />
+      <workItem from="1745160582527" duration="19393000" />
     </task>
     <servers />
   </component>
@@ -137,5 +126,50 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CreateCommandCommand.cs</url>
+          <line>19</line>
+          <properties documentPath="E:\StorageStrategy\StorageStrategy_API\StorageStrategy.Domain\Commands\Command\CreateCommandCommand.cs" containingFunctionPresentation="Constructor 'CreateCommandCommand'">
+            <startOffsets>
+              <option value="622" />
+            </startOffsets>
+            <endOffsets>
+              <option value="644" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs</url>
+          <line>232</line>
+          <properties documentPath="E:\StorageStrategy\StorageStrategy_API\StorageStrategy.Domain\Handlers\CommandHandler.cs" containingFunctionPresentation="Method 'Handle'">
+            <startOffsets>
+              <option value="9810" />
+            </startOffsets>
+            <endOffsets>
+              <option value="9839" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs</url>
+          <line>102</line>
+          <properties documentPath="E:\StorageStrategy\StorageStrategy_API\StorageStrategy.Domain\Handlers\CommandHandler.cs" containingFunctionPresentation="Method 'HasProductsInStock'">
+            <startOffsets>
+              <option value="4167" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4259" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

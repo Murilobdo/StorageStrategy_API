@@ -18,6 +18,12 @@ namespace StorageStrategy.Data.Repository
             await _context.CommandItems.AddRangeAsync(items);
         }
 
+        public async Task AddItemsAsync(CommandItemEntity item)
+        {
+            await _context.CommandItems.AddAsync(item);
+            await SaveAsync();
+        }
+
         public override async Task<CommandEntity> GetById(int id)
         {
             return await _context.Command.FirstOrDefaultAsync(p => p.CommandId == id);
@@ -84,6 +90,13 @@ namespace StorageStrategy.Data.Repository
                                 .SumAsync(p => (p.TotalPrice - p.Discount + p.Increase));
 
             return result;
+        }
+
+        public void UpdateCommandItemAsync(CommandItemEntity productItemDb)
+        {
+            productItemDb.Product = null;
+            _context.ChangeTracker.Clear();
+            _context.CommandItems.Update(productItemDb);
         }
 
         public async Task RemoveCommandItemsAsync(List<CommandItemEntity> items)

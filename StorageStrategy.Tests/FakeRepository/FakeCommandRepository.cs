@@ -50,6 +50,11 @@ namespace StorageStrategy.Tests.FakeRepository
             return Task.CompletedTask;
         }
 
+        public async Task AddItemsAsync(CommandItemEntity item)
+        {
+            commands[1].Items.Add(item);
+        }
+
         public void Clear()
         {
         }
@@ -122,6 +127,10 @@ namespace StorageStrategy.Tests.FakeRepository
                 .Sum(p => p.TotalPrice);
 
             return Task.FromResult(result);
+        }
+
+        public void UpdateCommandItemAsync(CommandItemEntity productItemDb)
+        {
         }
 
         public Task RemoveCommandItemsAsync(List<CommandItemEntity> items)

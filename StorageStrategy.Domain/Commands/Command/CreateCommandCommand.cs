@@ -43,6 +43,7 @@ namespace StorageStrategy.Domain.Commands.Command
             FinalDate = command.FinalDate;
             Items = command.Items.Select(p => new CommandItemBase
             {
+                CommandItemId = p.CommandItemId,
                 ProductId = p.ProductId,
                 Qtd = p.Qtd,
                 Name = p.Name,
@@ -76,6 +77,7 @@ namespace StorageStrategy.Domain.Commands.Command
                 {
                     ProductId = p.ProductId,
                     Qtd = p.Qtd,
+                    Name = p.Name,
                     Price = p.Price
                 }).ToList(),
                 Payments = Payments.Select(p => new PaymentEntity
