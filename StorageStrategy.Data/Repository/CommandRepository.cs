@@ -32,6 +32,7 @@ namespace StorageStrategy.Data.Repository
         public async Task<CommandEntity> GetCommandByIdAsync(int commandId, int companyId)
         {
             return await _context.Command
+                .Include(p => p.Payments)
                .Include(p => p.Items)
                     .ThenInclude(p => p.Product)
                .FirstOrDefaultAsync(p => p.CompanyId == companyId && p.CommandId == commandId);

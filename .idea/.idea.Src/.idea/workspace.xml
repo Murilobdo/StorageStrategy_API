@@ -11,9 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="11e861bb-1922-436a-897d-d8b765b67785" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.API/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/appsettings.Development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/DashboardHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/DashboardHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Utils/Services/TokenService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Utils/Services/TokenService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Repository/CommandRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Repository/CommandRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +109,7 @@
       <workItem from="1744938211570" duration="3296000" />
       <workItem from="1744989215573" duration="10561000" />
       <workItem from="1745160582527" duration="19985000" />
-      <workItem from="1745411123558" duration="1347000" />
+      <workItem from="1745411123558" duration="4085000" />
     </task>
     <servers />
   </component>
@@ -140,19 +138,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs</url>
-          <line>232</line>
-          <properties documentPath="E:\StorageStrategy\StorageStrategy_API\StorageStrategy.Domain\Handlers\CommandHandler.cs" containingFunctionPresentation="Method 'Handle'">
-            <startOffsets>
-              <option value="9810" />
-            </startOffsets>
-            <endOffsets>
-              <option value="9839" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs</url>
           <line>102</line>
           <properties documentPath="E:\StorageStrategy\StorageStrategy_API\StorageStrategy.Domain\Handlers\CommandHandler.cs" containingFunctionPresentation="Method 'HasProductsInStock'">
             <startOffsets>
@@ -163,32 +148,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/StorageStrategy.Domain/Middleware/ExceptionErrorMiddleware.cs</url>
-          <line>28</line>
-          <properties documentPath="E:\StorageStrategy\StorageStrategy_API\StorageStrategy.Domain\Middleware\ExceptionErrorMiddleware.cs" containingFunctionPresentation="Method 'Invoke'">
-            <startOffsets>
-              <option value="839" />
-            </startOffsets>
-            <endOffsets>
-              <option value="888" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/StorageStrategy.Domain/Handlers/DashboardHandler.cs</url>
-          <line>121</line>
-          <properties documentPath="E:\StorageStrategy\StorageStrategy_API\StorageStrategy.Domain\Handlers\DashboardHandler.cs" containingFunctionPresentation="Method 'Handle'">
-            <startOffsets>
-              <option value="5048" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5098" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
