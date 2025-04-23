@@ -11,7 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="11e861bb-1922-436a-897d-d8b765b67785" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Repository/CommandRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Repository/CommandRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.API/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/appsettings.Development.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +109,7 @@
       <workItem from="1744938211570" duration="3296000" />
       <workItem from="1744989215573" duration="10561000" />
       <workItem from="1745160582527" duration="19985000" />
-      <workItem from="1745411123558" duration="4085000" />
+      <workItem from="1745411123558" duration="5921000" />
     </task>
     <servers />
   </component>
