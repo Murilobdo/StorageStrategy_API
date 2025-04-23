@@ -22,8 +22,8 @@ namespace StorageStrategy.Domain.Validations.Command
             .GreaterThan(0)
             .WithMessage("O id da empresa e obrigatório");
 
-        protected void ValidatePayment() => RuleFor(p => p.Payment)
-            .IsInEnum()
+        protected void ValidatePayment() => RuleFor(p => p.Payments.Count)
+            .GreaterThan(0)
             .WithMessage("O tipo de pagamento e obrigatório");
 
         protected void ValidateDiscount() => RuleFor(p => p.Discount)

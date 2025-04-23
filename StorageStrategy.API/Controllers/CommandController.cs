@@ -29,14 +29,15 @@ namespace StorageStrategy.API.Controllers
             [FromQuery] int companyId,
             [FromQuery] bool haveEndDate
         ) {
-           
-            companyId = User.GetCompanyId();
-            var command = await repo.ToListAsync(companyId, haveEndDate);
             List<CreateCommandCommand> result = new();
+            companyId = User.GetCompanyId();
+            var commands = await repo.ToListAsync(companyId, haveEndDate);
+            commands = commands.OrderByDescending(p => p.InitialDate).ToList();
 
-            command.ForEach(category =>
+            commands.ForEach(_command =>
             {
-                result.Add(_mapper.Map<CreateCommandCommand>(category));
+                CreateCommandCommand command = new CreateCommandCommand(_command);
+                result.Add(command);
             });
 
             return Ok(new Result(result, "Busca realizada"));
@@ -50,7 +51,7 @@ namespace StorageStrategy.API.Controllers
         ) {
             companyId = User.GetCompanyId();
             var entity = await repo.GetCommandByIdAsync(commandId, companyId);
-            var command = _mapper.Map<CreateCommandCommand>(entity);
+            var command = new CreateCommandCommand(entity);
             return Ok(new Result(command, "Busca realizada"));
         }
 
@@ -75,6 +76,13 @@ namespace StorageStrategy.API.Controllers
         {
             command.CompanyId = User.GetCompanyId();
             var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+        
+        [HttpPut("remove-product-command/{commandId}/product/{productId}")]
+        public async Task<IActionResult> RemoveProductCommand([FromRoute]int commandId, [FromRoute]int productId)
+        {
+            var result = await _mediator.Send(new RemoveProductCommandCommand(commandId, productId, User.GetCompanyId()));
             return Ok(result);
         }
 

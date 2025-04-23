@@ -22,7 +22,7 @@ namespace StorageStrategy.Tests.Commands.Coommand
                 discount: 0,
                 increase:0,
                 items:GetCommandItems(), 
-                payment:PaymentEnum.Pix
+                payment: new PaymentCommand(1, PaymentEnum.Cash, 30)
             );
 
             Assert.True(createCommand.IsValid());
@@ -38,7 +38,7 @@ namespace StorageStrategy.Tests.Commands.Coommand
                 discount: 0,
                 increase: 0,
                 items: GetCommandItems(),
-                payment: PaymentEnum.Pix
+                payment: new PaymentCommand(1, PaymentEnum.Cash, 30)
             );
 
             Assert.True(MensagemDeErroExistente(createCommand.GetErros(), "O Id da empresa e obrigatório"));
@@ -54,7 +54,7 @@ namespace StorageStrategy.Tests.Commands.Coommand
                 discount: 0,
                 increase: 0,
                 items: GetCommandItems(),
-                payment: PaymentEnum.Pix
+                payment: new PaymentCommand(1, PaymentEnum.Cash, 30)
             );
 
             Assert.True(MensagemDeErroExistente(createCommand.GetErros(), "O funcionário e obrigatório"));
@@ -70,7 +70,7 @@ namespace StorageStrategy.Tests.Commands.Coommand
                 discount: 0,
                 increase: 0,
                 items: new List<CommandItemBase>(),
-                payment: PaymentEnum.Pix
+                payment: new PaymentCommand(1, PaymentEnum.Cash, 30)
             );
 
             Assert.True(MensagemDeErroExistente(createCommand.GetErros(), "Essa comanda não possui produtos"));
@@ -86,7 +86,7 @@ namespace StorageStrategy.Tests.Commands.Coommand
                 discount: -30,
                 increase: 0,
                 items: GetCommandItems(),
-                payment: PaymentEnum.Pix
+                payment: new PaymentCommand(1, PaymentEnum.Cash, 30)
             );
 
             Assert.True(MensagemDeErroExistente(createCommand.GetErros(), "O desconto não pode ser negativo"));
@@ -102,7 +102,7 @@ namespace StorageStrategy.Tests.Commands.Coommand
                 discount: 0,
                 increase: -30,
                 items: GetCommandItems(),
-                payment: PaymentEnum.Pix
+                payment: new PaymentCommand(1, PaymentEnum.Cash, 30)
             );
 
             Assert.True(MensagemDeErroExistente(createCommand.GetErros(), "O acréscimo não pode ser negativo"));

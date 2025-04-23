@@ -16,6 +16,7 @@ namespace StorageStrategy.Data.Mappings
 
             builder.HasOne(p => p.Employee)
                 .WithMany();
+            
         }
     }
 }

@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StorageStrategy.Domain.Commands.Dashboard;
 using StorageStrategy.Utils.Extensions;
-using StorageStrategy.Models.ViewModels;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace StorageStrategy.API.Controllers
 {

@@ -15,7 +15,7 @@ namespace StorageStrategy.Domain.Commands.Command
             decimal discount,
             decimal increase,
             List<CommandItemBase> items, 
-            PaymentEnum? payment
+            PaymentCommand payment
         ) {
             CompanyId = companyId;
             Name = name;
@@ -23,12 +23,70 @@ namespace StorageStrategy.Domain.Commands.Command
             Discount = discount;
             Increase = increase;
             Items = items;
-            Payment = payment;
+            Payments = new List<PaymentCommand>{payment};
         }
 
+        public CreateCommandCommand()
+        {
+            
+        }
+
+        public CreateCommandCommand(CommandEntity command)
+        {
+            CommandId = command.CommandId;
+            Name = command.Name;
+            EmployeeId = command.EmployeeId;
+            CompanyId = command.CompanyId;
+            Discount = command.Discount;
+            Increase = command.Increase;
+            InitialDate = command.InitialDate;
+            FinalDate = command.FinalDate;
+            Items = command.Items.Select(p => new CommandItemBase
+            {
+                CommandItemId = p.CommandItemId,
+                ProductId = p.ProductId,
+                Qtd = p.Qtd,
+                Name = p.Name,
+                Price = p.Price
+            }).ToList();
+            Payments = command.Payments.Select(p => new PaymentCommand
+            {
+                Method = p.Method,
+                Amount = p.Amount
+            }).ToList();
+            TotalPrice = Items.Sum(p => p.Price * p.Qtd) - Payments.Sum(p => p.Amount);
+        }
+        
         public List<Error> GetErros() => new CreateCommandValidation().Validate(this)
             .Errors.Select(p => new Error(p.ErrorMessage)).ToList();
 
         public bool IsValid() => new CreateCommandValidation().Validate(this).IsValid;
+
+        public CommandEntity CreateCommand()
+        {
+            return new CommandEntity
+            {
+                Name = Name,
+                EmployeeId = EmployeeId,
+                CompanyId = CompanyId,
+                Discount = Discount,
+                Increase = Increase,
+                InitialDate = InitialDate,
+                FinalDate = FinalDate,
+                Items = Items.Select(p => new CommandItemEntity
+                {
+                    ProductId = p.ProductId,
+                    Qtd = p.Qtd,
+                    Name = p.Name,
+                    Price = p.Price
+                }).ToList(),
+                Payments = Payments.Select(p => new PaymentEntity
+                {
+                    Method = p.Method,
+                    Amount = p.Amount,
+                    CommandId = CommandId
+                }).ToList()
+            };
+        }
     }
 }

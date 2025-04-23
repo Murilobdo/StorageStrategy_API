@@ -18,6 +18,12 @@ namespace StorageStrategy.Data.Repository
             await _context.CommandItems.AddRangeAsync(items);
         }
 
+        public async Task AddItemsAsync(CommandItemEntity item)
+        {
+            await _context.CommandItems.AddAsync(item);
+            await SaveAsync();
+        }
+
         public override async Task<CommandEntity> GetById(int id)
         {
             return await _context.Command.FirstOrDefaultAsync(p => p.CommandId == id);
@@ -26,6 +32,7 @@ namespace StorageStrategy.Data.Repository
         public async Task<CommandEntity> GetCommandByIdAsync(int commandId, int companyId)
         {
             return await _context.Command
+                .Include(p => p.Payments)
                .Include(p => p.Items)
                     .ThenInclude(p => p.Product)
                .FirstOrDefaultAsync(p => p.CompanyId == companyId && p.CommandId == commandId);
@@ -48,6 +55,7 @@ namespace StorageStrategy.Data.Repository
             var query =  _context.Command
                 .AsNoTracking()
                 .Include(p => p.Items)
+                .Include(p => p.Payments)
                 .Where(p => p.FinalDate != null)
                 .Where(p => p.InitialDate.Month == initialMonth)
                 .Where(p => p.CompanyId == companyId)
@@ -85,6 +93,13 @@ namespace StorageStrategy.Data.Repository
             return result;
         }
 
+        public void UpdateCommandItemAsync(CommandItemEntity productItemDb)
+        {
+            productItemDb.Product = null;
+            _context.ChangeTracker.Clear();
+            _context.CommandItems.Update(productItemDb);
+        }
+
         public async Task RemoveCommandItemsAsync(List<CommandItemEntity> items)
         {
             _context.ChangeTracker.Clear();
@@ -97,12 +112,14 @@ namespace StorageStrategy.Data.Repository
             if (haveEndDate)
                 return await _context.Command
                     .Where(p => p.CompanyId == companyId)
+                    .Include(p => p.Payments)
                     .Include(p => p.Items)
                     .Where(p => p.FinalDate != null)
                     .ToListAsync();
             else
                 return await _context.Command
                     .Where(p => p.CompanyId == companyId)
+                    .Include(p => p.Payments)
                     .Include(p => p.Items)
                     .Where(p => p.FinalDate == null)
                     .ToListAsync();

@@ -1,17 +1,10 @@
 ﻿using AutoMapper;
 using StorageStrategy.Domain.AutoMapper;
-using StorageStrategy.Domain.Commands.Category;
 using StorageStrategy.Domain.Commands.Command;
 using StorageStrategy.Domain.Handlers;
 using StorageStrategy.Models;
 using StorageStrategy.Tests.FakeRepository;
-using StorageStrategy.Tests.Faktory;
 using StorageStrategy.Tests.Faktory.command;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace StorageStrategy.Tests.Handler
@@ -112,7 +105,7 @@ namespace StorageStrategy.Tests.Handler
         {
             FinishCommandCommand command = new(
                 commandId: _repoCommand.commands[0].CommandId, 
-                payment: PaymentEnum.Cash, 
+                payment: new PaymentCommand(1, PaymentEnum.Cash, 30), 
                 companyId: 1,
                 discount: 0,
                 increase: 0
@@ -128,7 +121,7 @@ namespace StorageStrategy.Tests.Handler
         {
             FinishCommandCommand command = new(
                 commandId: _repoCommand.commands[0].CommandId, 
-                payment: PaymentEnum.Cash, 
+                payment: new PaymentCommand(1, PaymentEnum.Cash, 30), 
                 companyId: 1,
                 discount: 0,
                 increase: 0
@@ -137,7 +130,8 @@ namespace StorageStrategy.Tests.Handler
             var result = await _handler.Handle(command, _cancellationToken);
             var commandEntity = (CommandEntity) result.Response;
 
-            Assert.True(command.Payment == commandEntity.Payment);
+            //TODO: VERIFICAR O TESTE SE ESTA VALIDO 17/04/2025
+            Assert.True(command.Payments.Count == commandEntity.Payments.Count);
         }
 
         [Fact(DisplayName = "Sucesso ao validar a Data do Pagamento da Comanda")]
@@ -145,7 +139,7 @@ namespace StorageStrategy.Tests.Handler
         {
             FinishCommandCommand command = new(
                 commandId: _repoCommand.commands[0].CommandId, 
-                payment: PaymentEnum.Cash, 
+                payment: new PaymentCommand(1, PaymentEnum.Cash, 30), 
                 companyId: 1,
                 discount: 0,
                 increase: 0
@@ -162,7 +156,7 @@ namespace StorageStrategy.Tests.Handler
         {
             FinishCommandCommand command = new(
                 commandId: 80, 
-                payment: PaymentEnum.Cash, 
+                payment: new PaymentCommand(1, PaymentEnum.Cash, 30), 
                 companyId: 1,
                 discount: 0,
                 increase: 0

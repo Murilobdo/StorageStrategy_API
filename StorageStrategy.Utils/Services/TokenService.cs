@@ -19,7 +19,9 @@ namespace StorageStrategy.Utils.Services
                 {
                     new Claim(ClaimTypes.Name, emploeyee.Name.ToString()),
                     new Claim(ClaimTypes.Role, Enum.GetName(emploeyee.JobRole)),
+                    // new Claim("EmployeeId", "3"),
                     new Claim("EmployeeId", emploeyee.EmployeeId.ToString()),
+                    // new Claim("CompanyId", "3"),
                     new Claim("CompanyId", emploeyee.CompanyId.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddHours(8),

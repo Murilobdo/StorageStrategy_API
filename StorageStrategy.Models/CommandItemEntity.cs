@@ -28,5 +28,17 @@
             Qtd = qtd;
             Taxing = taxing;
         }
+        
+        public CommandItemEntity(int commandId, int productId, string name, decimal cost, decimal price, int qtd)
+        {
+            CommandId = commandId;
+            ProductId = productId;
+            Name = name;
+            Cost = cost;
+            Price = price;
+            Qtd = qtd;
+        }
+
+       
     }
 }

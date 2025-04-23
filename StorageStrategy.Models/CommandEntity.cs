@@ -16,7 +16,9 @@ namespace StorageStrategy.Models
         public decimal TotalCost { get; set; } = 0;
         public decimal TotalPrice { get; set; } = 0;
         public decimal TotalTaxing { get; set; } = 0;
-        public PaymentEnum? Payment { get; set; }
+        public List<PaymentEntity> Payments { get; set; } = new();
+        
+        public PaymentEnum Payment { get; set; } 
         public DateTime InitialDate { get; set; }
         public DateTime? FinalDate { get; set; }
         public CompanyEntity Company { get; set; }
@@ -35,7 +37,7 @@ namespace StorageStrategy.Models
             string name, 
             decimal totalCost,
             decimal totalPrice, 
-            PaymentEnum? payment, 
+            PaymentEntity? payment, 
             DateTime initialDate, 
             DateTime? finalDate, 
             int companyId
@@ -45,7 +47,30 @@ namespace StorageStrategy.Models
             Name = name;
             TotalCost = totalCost;
             TotalPrice = totalPrice;
-            Payment = payment;
+            Payments = new List<PaymentEntity>{payment};;
+            InitialDate = initialDate;
+            FinalDate = finalDate;
+            CompanyId = companyId;
+            Items = new List<CommandItemEntity>();
+        }
+        
+        public CommandEntity(
+            int commandId, 
+            int employeeId, 
+            string name, 
+            decimal totalCost,
+            decimal totalPrice, 
+            List<PaymentEntity>? payments, 
+            DateTime initialDate, 
+            DateTime? finalDate, 
+            int companyId
+        ) {
+            CommandId = commandId;
+            EmployeeId = employeeId;
+            Name = name;
+            TotalCost = totalCost;
+            TotalPrice = totalPrice;
+            Payments = payments;
             InitialDate = initialDate;
             FinalDate = finalDate;
             CompanyId = companyId;

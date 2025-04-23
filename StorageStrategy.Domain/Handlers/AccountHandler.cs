@@ -16,45 +16,45 @@ namespace StorageStrategy.Domain.Handlers
     {
         private readonly IEmployeeRepository _repo;
         private readonly ICompanyRepository _repoCompany;
-        private readonly IMapper _mapper;
         private readonly IOptions<AppSettings> _appSettings;
 
         public AccountHandler(
             IEmployeeRepository repo, 
             ICompanyRepository repoCompany,
-            IMapper mapper, 
             IOptions<AppSettings> appSettings
         ) {
             _repo = repo;
-            _mapper = mapper;
             _appSettings = appSettings;
             _repoCompany = repoCompany;
         }
 
         public async Task<Result> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            if(!request.IsValid())
+            
+            if (!request.IsValid())
                 return CreateError(request.GetErros(), "Dados invalidos");
 
             EmployeeEntity employee = await _repo.FindByEmail(request.Email);
-            
-            if(employee == null)
-                return CreateError("Email ou Senha incorreta");
 
-            CompanyEntity company = await _repoCompany.GetById(employee.CompanyId);
+            // if (employee == null)
+            //     return CreateError("Email ou Senha incorreta");
+            //
+            // CompanyEntity company = await _repoCompany.GetById(employee.CompanyId);
+            //
+            // if (company.Validate <= DateTime.Now)
+            //     return CreateError(
+            //         $"Sua licenca expirou dia {company.Validate.ToShortDateString()}, entre em contato para renovação");
 
-            if(company.Validate <= DateTime.Now)
-                return CreateError($"Sua licenca expirou dia {company.Validate.ToShortDateString()}, entre em contato para renovação");
-
-            if (!Argon2.Verify(employee.PasswordHash, request.Password))
-                return CreateError("Email ou Senha incorreta");
+            // if (!Argon2.Verify(employee.PasswordHash, request.Password))
+            //     return CreateError("Email ou Senha incorreta");
 
             TokenService tokenService = new TokenService();
             string token = tokenService.GenerateToken(employee, _appSettings.Value.JwtKey);
-            
+
             employee.PasswordHash = string.Empty;
 
-            return CreateResponse(new {
+            return CreateResponse(new
+            {
                 employee,
                 token
             }, "Login efetuado com sucesso");

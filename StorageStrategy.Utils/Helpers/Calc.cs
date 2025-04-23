@@ -1,10 +1,5 @@
 ﻿using StorageStrategy.Models;
 using StorageStrategy.Models.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StorageStrategy.Utils.Helpers
 {
@@ -12,18 +7,20 @@ namespace StorageStrategy.Utils.Helpers
     {
         public static int CountSalesPayment(List<CommandEntity> commands, PaymentEnum paymentEnum)
         {
-            int totalPrice = commands
-                .Where(p => p.Payment.Value == paymentEnum)
+            var totalPrice = commands
+                .SelectMany(p => p.Payments)
+                .Where(p => p.Method == paymentEnum)
                 .Count();
-
+            
             return totalPrice; 
         }
 
         public static decimal TotalCostForPayment(List<CommandEntity> commands, PaymentEnum paymentEnum)
         {
             decimal totalPrice = commands
-                .Where(p => p.Payment.Value == paymentEnum)
-                .Sum(p => p.TotalPrice);
+                .SelectMany(p => p.Payments)
+                .Where(p => p.Method == paymentEnum)
+                .Sum(p => p.Amount);
 
             return totalPrice;
         }

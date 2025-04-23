@@ -117,7 +117,7 @@ namespace StorageStrategy.Domain.Handlers
             request.TotalDebit = Calc.CountSalesPayment(commands, PaymentEnum.Debit);
             request.TotalCredit = Calc.CountSalesPayment(commands, PaymentEnum.Credit);
             request.TotalCash = Calc.CountSalesPayment(commands, PaymentEnum.Cash);
-            request.Total = commands.Count;
+            request.Total = commands.SelectMany(p => p.Payments).Count();
 
             return CreateResponse(request, "Busca realizada");
 

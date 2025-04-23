@@ -10,7 +10,9 @@ using System.ComponentModel.Design;
 namespace StorageStrategy.Domain.Handlers
 {
     public class CompanyHandler : HandlerBase,
-        IRequestHandler<CreateCompanyCommand, Result>
+        IRequestHandler<CreateCompanyCommand, Result>,
+        IRequestHandler<InactivateCompanyCommand, Result>,
+        IRequestHandler<RenovateCompanyCommand, Result>
     {
 
         private readonly ICompanyRepository _repository;
@@ -40,6 +42,32 @@ namespace StorageStrategy.Domain.Handlers
             await _repository.SaveAsync();
 
             return CreateResponse(company, "Empresa cadastrada com sucesso.");
+        }
+ 
+        public async Task<Result> Handle(InactivateCompanyCommand request, CancellationToken cancellationToken)
+        {
+            var company = await _repository.GetById(request.CompanyId);
+            company.IsActive = false;
+            _repository.Update(company);
+            await _repository.SaveAsync();
+            return CreateResponse(company, "Inativação realizãda");
+        }
+
+        public async Task<Result> Handle(RenovateCompanyCommand request, CancellationToken cancellationToken)
+        {
+            var company = await _repository.GetById(request.CompanyId);
+            company.IsActive = true;
+            var splitDate = request.NewDate.Split("/");
+
+            company.Validate = new DateTime(
+                day: Convert.ToInt32(splitDate[0]), 
+                month: Convert.ToInt32(splitDate[1]) - 1, 
+                year: Convert.ToInt32(splitDate[2])
+            );
+
+            _repository.Update(company);
+            await _repository.SaveAsync();
+            return CreateResponse(company, "Renovação realizãda");
         }
 
         private async Task CreateUserCompanyAdmin(string adminUserName, string adminUserEmail, string password, int companyId)

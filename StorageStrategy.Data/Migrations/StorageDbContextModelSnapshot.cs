@@ -78,7 +78,7 @@ namespace StorageStrategy.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Payment")
+                    b.Property<int>("Payment")
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalCost")
@@ -146,6 +146,14 @@ namespace StorageStrategy.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CompanyId"));
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CNPJ")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
@@ -160,6 +168,10 @@ namespace StorageStrategy.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Validate")
                         .HasColumnType("datetime2");
 
@@ -171,11 +183,14 @@ namespace StorageStrategy.Data.Migrations
                         new
                         {
                             CompanyId = 1,
-                            CreateAt = new DateTime(2024, 2, 19, 18, 54, 48, 627, DateTimeKind.Local).AddTicks(5791),
+                            Address = "",
+                            CNPJ = "",
+                            CreateAt = new DateTime(2025, 4, 18, 12, 23, 35, 324, DateTimeKind.Local).AddTicks(4758),
                             Description = "Admin",
                             IsActive = true,
                             Name = "Admin Company",
-                            Validate = new DateTime(2034, 2, 19, 18, 54, 48, 627, DateTimeKind.Local).AddTicks(5805)
+                            Phone = "",
+                            Validate = new DateTime(2035, 4, 18, 12, 23, 35, 324, DateTimeKind.Local).AddTicks(4776)
                         });
                 });
 
@@ -229,7 +244,7 @@ namespace StorageStrategy.Data.Migrations
                             IsActive = true,
                             JobRole = 7,
                             Name = "Murilo Bernardes (Admin)",
-                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$i6HmxsHEIynDrrJOIoQKZg$wmLlPAo3N9xgT25IS8WtWdz0rtzmt4ktTpO8CidYhBo"
+                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$5Nfybd+3gRJIwQgJVtLMCA$CWky2M9JpotQ5OOcaucvaIfw6UNMkGYOovy7MF/jccQ"
                         });
                 });
 
@@ -286,6 +301,55 @@ namespace StorageStrategy.Data.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("ExpensesType");
+                });
+
+            modelBuilder.Entity("StorageStrategy.Models.LogApp", b =>
+                {
+                    b.Property<int>("LogId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LogId"));
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("JsonData")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LogId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("LogApp", (string)null);
+                });
+
+            modelBuilder.Entity("StorageStrategy.Models.PaymentEntity", b =>
+                {
+                    b.Property<int>("PaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentId"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("CommandId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Method")
+                        .HasColumnType("int");
+
+                    b.HasKey("PaymentId");
+
+                    b.HasIndex("CommandId");
+
+                    b.ToTable("Payment", (string)null);
                 });
 
             modelBuilder.Entity("StorageStrategy.Models.ProductEntity", b =>
@@ -480,6 +544,28 @@ namespace StorageStrategy.Data.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("StorageStrategy.Models.LogApp", b =>
+                {
+                    b.HasOne("StorageStrategy.Models.EmployeeEntity", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("StorageStrategy.Models.PaymentEntity", b =>
+                {
+                    b.HasOne("StorageStrategy.Models.CommandEntity", "Command")
+                        .WithMany("Payments")
+                        .HasForeignKey("CommandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Command");
+                });
+
             modelBuilder.Entity("StorageStrategy.Models.ProductEntity", b =>
                 {
                     b.HasOne("StorageStrategy.Models.CategoryEntity", "Category")
@@ -529,6 +615,8 @@ namespace StorageStrategy.Data.Migrations
             modelBuilder.Entity("StorageStrategy.Models.CommandEntity", b =>
                 {
                     b.Navigation("Items");
+
+                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("StorageStrategy.Models.CompanyEntity", b =>

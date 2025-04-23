@@ -13,6 +13,9 @@ namespace StorageStrategy.Domain.Validations.Company
             ValidationDescription();
             ValidationCreateAt();
             ValidationValidationAt();
+            ValidationCNPJ();
+            ValidationAddress();
+            ValidationPhone();
         }
     }
 }

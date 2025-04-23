@@ -4,10 +4,13 @@
     {
         public int CompanyId { get; set; }
         public string Name { get; set; } = string.Empty;
+        public string Address { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public bool IsActive { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime Validate { get; set; }
+        public string CNPJ { get; set; } = string.Empty;
+        public string Phone { get; set; } = string.Empty;
         public List<ProductEntity> Products { get; set; } = new();
         public List<CategoryEntity> Categorys { get; set; } = new();
         public List<EmployeeEntity> Employees { get; set; } = new();

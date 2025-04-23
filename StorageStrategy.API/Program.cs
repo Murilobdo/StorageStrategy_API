@@ -1,11 +1,10 @@
-using DevTrends.ConfigurationExtensions;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using StorageStrategy.Data.Context;
 using StorageStrategy.Data.Repository;
 using StorageStrategy.Domain.Repository;
-using StorageStrategy.Utils.Middleware;
+using StorageStrategy.Domain.Middleware;
 using StorageStrategy.Utils.Services;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -75,6 +74,7 @@ void ConfigureDependencyInjection()
     builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
     builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
     builder.Services.AddScoped<IReportRepository, ReportRepository>();
+    builder.Services.AddScoped<ILogRepository, LogRepository>();
 }
 
 void ConfigureJwt()

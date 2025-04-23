@@ -35,9 +35,9 @@ namespace StorageStrategy.Domain.Validations.Command
             .GreaterThan(0)
             .WithMessage("O funcionário e obrigatório");
 
-        protected void ValidationPayament() => RuleFor(p => p.Payment)
-           .IsInEnum()
-           .WithMessage("O tipo do pagamento e obrigatório");
+        protected void ValidationPayament() => RuleFor(p => p.Payments.Count)
+            .GreaterThan(0)
+            .WithMessage("O tipo do pagamento e obrigatório");
 
         protected void ValidationProducts() => RuleFor(p => p.Items.Count)
             .GreaterThan(0)

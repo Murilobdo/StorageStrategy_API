@@ -1,11 +1,6 @@
 ﻿using StorageStrategy.Models;
 using StorageStrategy.Tests.FakeRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit.Sdk;
+
 
 namespace StorageStrategy.Tests.Faktory.Entity
 {
@@ -38,7 +33,17 @@ namespace StorageStrategy.Tests.Faktory.Entity
 
         protected override void CriarComanda()
         {
-            command = new CommandEntity(commandId: 1, employeeId: 1, name: "Gurinevers", totalCost: 62.5M, totalPrice: 181, payment: PaymentEnum.Pix, initialDate: DateTime.Now, finalDate: DateTime.Now.AddDays(1), companyId: 1);
+            command = new CommandEntity(
+                commandId: 1,
+                employeeId: 1,
+                name: "Gurinevers",
+                totalCost: 62.5M,
+                totalPrice: 181,
+                payments:new List<PaymentEntity>{new(1, 1,PaymentEnum.Pix, 30)},
+                initialDate: DateTime.Now, 
+                finalDate: DateTime.Now.AddDays(1), 
+                companyId: 1
+            );
         }
     }
 }

@@ -51,6 +51,18 @@ namespace StorageStrategy.API.Controllers
             return Ok(response);
         }
 
-        
+        [HttpPost("inactivate/{companyId:int}")]
+        public async Task<IActionResult> Inactivate([FromRoute] int companyId)
+        {
+            var response = await _mediator.Send(new InactivateCompanyCommand(companyId));
+            return Ok(response);
+        }
+        [HttpPost("renovate")]
+        public async Task<IActionResult> Renovate([FromBody] RenovateCompanyCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
     }
+    
 }
