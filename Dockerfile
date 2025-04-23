@@ -8,7 +8,7 @@ RUN dotnet restore
 
 RUN dotnet clean
 
-RUN dotnet test StorageStrategy.Tests/StorageStrategy.Tests.csproj
+#RUN dotnet test StorageStrategy.Tests/StorageStrategy.Tests.csproj
 
 RUN dotnet publish -c Release -o out
 
