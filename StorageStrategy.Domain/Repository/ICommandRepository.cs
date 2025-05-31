@@ -7,7 +7,7 @@ namespace StorageStrategy.Domain.Repository
         Task<List<CommandEntity>> ToListAsync(int companyId, bool haveEndDate);
         Task AddItemsAsync(IEnumerable<CommandItemEntity> items);
         Task AddItemsAsync(CommandItemEntity item);
-        Task<CommandEntity> GetCommandByIdAsync(int commandId, int companyId);
+        Task<CommandEntity?> GetCommandByIdAsync(int commandId, int companyId);
         Task RemoveCommandItemsAsync(List<CommandItemEntity> items);
         Task<List<CommandEntity>> ReadCommandsForPeriodAsync(int companyId, int initialMonth, int finalMounth = 0);
         Task<List<CommandItemEntity>> ReadCommandsForDaysAsync(int companyId, int day, int month);

@@ -3,6 +3,7 @@ using MediatR;
 using StorageStrategy.Domain.Commands.Command;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
+using StorageStrategy.Utils.Helpers;
 
 namespace StorageStrategy.Domain.Handlers
 {
@@ -113,30 +114,28 @@ namespace StorageStrategy.Domain.Handlers
                 return CreateError(request.GetErros(), "Dados inválidos");
 
             var command = await _repoCommand.GetCommandByIdAsync(request.CommandId, request.CompanyId);
-
             if(command is null)
                 return CreateError("Comanda não encontrada");
-
-            var totalPrice = command.TotalPrice;
-            var sumPayments = command.Payments.Sum(p => p.Amount) + request.Payments.Sum(p => p.Amount);
-
-            if (totalPrice == sumPayments)
-            {
-                command.FinalDate = DateTime.Now.AddHours(-3);
-            }
 
             var payments = request.Payments
                 .Select(p => new PaymentEntity(0, command.CommandId, p.Method, p.Amount))
                 .ToList();
             
             command.Payments.AddRange(payments);
-            command.Discount = request.Discount;
-            command.Increase = request.Increase;
+            command.AddIncrease(request.Increase);
+            command.AddDiscount(request.Discount);
 
+            string messageResponse = "Comanda atualizada com sucesso";
+            if (Calc.CommandHasFinishWithTotalPayments(command))
+            {
+                command.FinishCommand();
+                messageResponse =  "Comanda finalizada com sucesso";
+            }
+            
             _repoCommand.Update(command);
             await _repoCommand.SaveAsync();
 
-            return CreateResponse(command, "Comanda finalizada com sucesso.");
+            return CreateResponse(command, messageResponse);
         }   
 
         public async Task<Result> Handle(AddProductCommandCommand request, CancellationToken cancellationToken)

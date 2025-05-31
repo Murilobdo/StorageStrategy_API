@@ -79,7 +79,28 @@ namespace StorageStrategy.Models
 
         public decimal GetFinalPrice()
         {
-            return TotalPrice - Discount + Increase;
+            return TotalPrice + Increase - Discount;
+        }
+
+        public void AddDiscount(decimal discount)
+        {
+            if (discount > 0)
+            {
+                Discount += discount;
+            }
+        }
+        
+        public void AddIncrease(decimal increase)
+        {
+            if (increase > 0)
+            {
+                Increase += increase;
+            }
+        }
+
+        public void FinishCommand()
+        {
+            FinalDate = DateTime.Now.AddHours(-3);
         }
     }
 }
