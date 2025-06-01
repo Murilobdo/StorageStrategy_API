@@ -29,7 +29,7 @@ namespace StorageStrategy.Data.Repository
             return await _context.Command.FirstOrDefaultAsync(p => p.CommandId == id);
         }
 
-        public async Task<CommandEntity> GetCommandByIdAsync(int commandId, int companyId)
+        public async Task<CommandEntity?> GetCommandByIdAsync(int commandId, int companyId)
         {
             return await _context.Command
                 .Include(p => p.Payments)

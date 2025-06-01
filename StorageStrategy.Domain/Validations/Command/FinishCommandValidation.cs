@@ -12,8 +12,11 @@ namespace StorageStrategy.Domain.Validations.Command
             ValidateCompanyId();
             ValidateDiscount();
             ValidateIncrease();
+            ValidateCommandHasProducts();
         }
 
+        protected void ValidateCommandHasProducts() => RuleFor(p => true);
+        
         protected void ValidateCommandId() => RuleFor(p => p.CommandId)
             .GreaterThan(0)
             .WithMessage("O id da comanda e obrigatório");

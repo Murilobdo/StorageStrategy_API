@@ -15,6 +15,15 @@ namespace StorageStrategy.Utils.Helpers
             return totalPrice; 
         }
 
+        public static bool CommandHasFinishWithTotalPayments(CommandEntity command)
+        {
+            var _discount = command.Discount;
+            var _increase = command.Increase;
+            var _totalPaymentsAmount = command.Payments.Sum(p => p.Amount);
+            
+            return command.TotalPrice + _increase - _discount == _totalPaymentsAmount;
+        }
+
         public static decimal TotalCostForPayment(List<CommandEntity> commands, PaymentEnum paymentEnum)
         {
             decimal totalPrice = commands
@@ -24,6 +33,7 @@ namespace StorageStrategy.Utils.Helpers
 
             return totalPrice;
         }
+        
 
         public static List<TotalSalesCategoryViewModel> TotalSalesPerCategory(List<CommandEntity> commands)
         {
