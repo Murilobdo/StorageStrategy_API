@@ -30,7 +30,7 @@ namespace StorageStrategy.Domain.Handlers
                 return CreateError(request.GetErros(), "Dados invalidos");
 
             var commands = await _repo.ReadCommandsByDateAsync(request.CompanyId, request.InitialDate, request.FinalDate.AddDays(1), request.EmployeeId);
-
+            
             return CreateResponse(new {
                 Commands = commands,
                 TotalCost = commands.Sum(p => p.TotalCost),

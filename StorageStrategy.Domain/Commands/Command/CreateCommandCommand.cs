@@ -54,7 +54,7 @@ namespace StorageStrategy.Domain.Commands.Command
                 Method = p.Method,
                 Amount = p.Amount
             }).ToList();
-            TotalPrice = Items.Sum(p => p.Price * p.Qtd) - Payments.Sum(p => p.Amount);
+            TotalPrice = Items.Sum(p => p.Price * p.Qtd);
         }
         
         public List<Error> GetErros() => new CreateCommandValidation().Validate(this)

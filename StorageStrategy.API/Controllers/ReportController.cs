@@ -31,7 +31,7 @@ namespace StorageStrategy.API.Controllers
             var response = await _mediator.Send(command);
             return Ok(response);
         }
-
+        
         [HttpPost("GetCommandsByMounth")]
         public async Task<IActionResult> GetCommandsByMounth(
             [FromServices] IReportRepository repo, 

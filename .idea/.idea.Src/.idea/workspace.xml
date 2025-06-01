@@ -11,15 +11,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11e861bb-1922-436a-897d-d8b765b67785" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Src/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Src/.idea/projectSettingsUpdater.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.API/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/appsettings.Development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Repository/CommandRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Repository/CommandRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Repository/ICommandRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Repository/ICommandRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Validations/Command/FinishCommandValidation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Validations/Command/FinishCommandValidation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Models/CommandEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Models/CommandEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Utils/Helpers/Calc.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Utils/Helpers/Calc.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.API/Controllers/ReportController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/Controllers/ReportController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Repository/ReportRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Repository/ReportRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CreateCommandCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CreateCommandCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/ReportHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/ReportHandler.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +117,7 @@
       <workItem from="1745411123558" duration="7975000" />
       <workItem from="1748546417277" duration="3241000" />
       <workItem from="1748631359130" duration="1548000" />
-      <workItem from="1748655391263" duration="12118000" />
+      <workItem from="1748655391263" duration="26090000" />
     </task>
     <servers />
   </component>
@@ -148,6 +144,19 @@
           </properties>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StorageStrategy.API/Controllers/ReportController.cs</url>
+          <line>49</line>
+          <properties documentPath="D:\StorageStrategy\StorageStrategy_API\StorageStrategy.API\Controllers\ReportController.cs" containingFunctionPresentation="Method 'GetPaymentsOfCommands'">
+            <startOffsets>
+              <option value="1671" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1711" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
         <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
           <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
           <option name="timeStamp" value="36" />
@@ -162,5 +171,10 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Type#StorageStrategy.Models.CommandEntity" memberName="Payment" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

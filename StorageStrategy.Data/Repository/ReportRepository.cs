@@ -22,6 +22,7 @@ namespace StorageStrategy.Data.Repository
                 .AsNoTracking()
                 .Include(p => p.Items)
                     .ThenInclude(p => p.Product)
+                .Include(p => p.Payments)
                 .Include(p => p.Employee)
                 .Where(p => p.InitialDate >= initialDate)
                 .Where(p => p.CompanyId == companyId)
