@@ -16,6 +16,7 @@ namespace StorageStrategy.Data.Context
             _appSettings = appSettings;
         }
 
+        public DbSet<ClientEntity> Client { get; set; }
         public DbSet<CategoryEntity> Category { get; set; }
         public DbSet<ProductEntity> Product { get; set; }
         public DbSet<CompanyEntity> Company { get; set; }
@@ -64,6 +65,7 @@ namespace StorageStrategy.Data.Context
             modelBuilder.ApplyConfiguration(new StockHistoryItemMapping());
             modelBuilder.ApplyConfiguration(new LogMapping());
             modelBuilder.ApplyConfiguration(new PaymentMapping());
+            modelBuilder.ApplyConfiguration(new ClientMapping());
             base.OnModelCreating(modelBuilder);
         }
     }
