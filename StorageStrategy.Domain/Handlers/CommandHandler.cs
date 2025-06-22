@@ -18,11 +18,13 @@ namespace StorageStrategy.Domain.Handlers
         private ICommandRepository _repoCommand;
         private IEmployeeRepository _repoEmployee;
         private IMapper _mapper;
+        private IClientRepository _clientRepo;
 
         public CommandHandler(
             IProductRepository repoProduct, 
             ICommandRepository repoCommand, 
             IEmployeeRepository employeeRepository, 
+            IClientRepository clientRepo,
             IMapper mapper
         )
         {
@@ -30,6 +32,7 @@ namespace StorageStrategy.Domain.Handlers
             _mapper = mapper;
             _repoCommand = repoCommand;
             _repoEmployee = employeeRepository;
+            _clientRepo = clientRepo;
         }
 
         public async Task<Result> Handle(CreateCommandCommand request, CancellationToken cancellationToken)
@@ -53,9 +56,19 @@ namespace StorageStrategy.Domain.Handlers
 
             var commandItems = request.Items.Select(p => _mapper.Map<CommandItemEntity>(p)).ToList();
 
-            if (command.Name == "Consumidor")
+            if (request.ClientId == 0)
+            {
+                command.Name = "Consumidor";
+                command.ClientId = null;
                 command.FinalDate = DateTime.Now.AddHours(-3);
+            }
+            else
+            {
+                var client = await _clientRepo.GetById(request.ClientId);
+                command.Name = client.Name;
+            }
 
+            
             command.TotalPrice = commandItems.Sum(p => p.Price * p.Qtd);
             command.TotalCost = commandItems.Sum(p => p.Cost * p.Qtd);
             command.TotalTaxing = commandItems.Sum(p => p.Taxing * p.Qtd);
@@ -201,7 +214,7 @@ namespace StorageStrategy.Domain.Handlers
         {
             product.Qtd -= productRequest.Qtd;
             var newProductItem = new CommandItemEntity(productRequest.CommandId, productRequest.ProductId,
-                productRequest.Name, productRequest.Price, productRequest.Cost, productRequest.Qtd);
+                productRequest.Name, productRequest.Cost, productRequest.Price, productRequest.Qtd);
                 
             await _repoCommand.AddItemsAsync(newProductItem);
         }

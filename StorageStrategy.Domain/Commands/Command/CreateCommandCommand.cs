@@ -34,6 +34,7 @@ namespace StorageStrategy.Domain.Commands.Command
         public CreateCommandCommand(CommandEntity command)
         {
             CommandId = command.CommandId;
+            ClientId = command.ClientId.Value;
             Name = command.Name;
             EmployeeId = command.EmployeeId;
             CompanyId = command.CompanyId;
@@ -68,6 +69,7 @@ namespace StorageStrategy.Domain.Commands.Command
             {
                 Name = Name,
                 EmployeeId = EmployeeId,
+                ClientId = ClientId,
                 CompanyId = CompanyId,
                 Discount = Discount,
                 Increase = Increase,

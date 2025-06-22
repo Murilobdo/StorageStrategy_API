@@ -11,17 +11,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e6a583f-5c5e-4ed0-b0d2-b3ea197a0b5f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Data/Mappings/ClientMapping.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Models/ClientEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Src/.idea/.gitignore" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/StorageStrategy.API/Controllers/ClientController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StorageStrategy.Data/Repository/ClientRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Client/ClientCommand.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Client/CreateClientCommand.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/ClientHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Repository/IClientRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/launch.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/tasks.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Context/StorageDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Context/StorageDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Mappings/CommandMapping.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Mappings/CommandMapping.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/StorageDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/StorageDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Models/CommandEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Models/CommandEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CommandCommandBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CommandCommandBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CreateCommandCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CreateCommandCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Models/ClientEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Models/ClientEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Models/Result.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Models/Result.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +41,9 @@
   "associatedIndex": 2
 }]]></component>
   <component name="ProjectId" id="2ys5ghyuALt6QavANOcrxqhz61E" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -127,7 +132,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1750610554637</updated>
-      <workItem from="1750610558917" duration="2127000" />
+      <workItem from="1750610558917" duration="11109000" />
     </task>
     <servers />
   </component>
@@ -153,6 +158,45 @@
           <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="3" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StorageStrategy.Domain/Middleware/ExceptionErrorMiddleware.cs</url>
+          <line>27</line>
+          <properties documentPath="D:\StorageStrategy\StorageStrategy_API\StorageStrategy.Domain\Middleware\ExceptionErrorMiddleware.cs" containingFunctionPresentation="Method 'Invoke'">
+            <startOffsets>
+              <option value="821" />
+            </startOffsets>
+            <endOffsets>
+              <option value="822" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs</url>
+          <line>155</line>
+          <properties documentPath="D:\StorageStrategy\StorageStrategy_API\StorageStrategy.Domain\Handlers\CommandHandler.cs" containingFunctionPresentation="Method 'Handle'">
+            <startOffsets>
+              <option value="6134" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6157" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs</url>
+          <line>239</line>
+          <properties documentPath="D:\StorageStrategy\StorageStrategy_API\StorageStrategy.Domain\Handlers\CommandHandler.cs" containingFunctionPresentation="Method 'Handle'">
+            <startOffsets>
+              <option value="9890" />
+            </startOffsets>
+            <endOffsets>
+              <option value="9981" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

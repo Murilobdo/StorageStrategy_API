@@ -74,6 +74,7 @@ void ConfigureDependencyInjection()
     builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
     builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
     builder.Services.AddScoped<IReportRepository, ReportRepository>();
+    builder.Services.AddScoped<IClientRepository, ClientRepository>();
     builder.Services.AddScoped<ILogRepository, LogRepository>();
 }
 
