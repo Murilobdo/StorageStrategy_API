@@ -11,19 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e6a583f-5c5e-4ed0-b0d2-b3ea197a0b5f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.API/Controllers/ClientController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Data/Repository/ClientRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Client/ClientCommand.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Client/CreateClientCommand.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/ClientHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Repository/IClientRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CommandCommandBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CommandCommandBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CreateCommandCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CreateCommandCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Models/ClientEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Models/ClientEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Models/Result.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Models/Result.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/ClientHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/ClientHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/Handler/CommandHandlerTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/Handler/CommandHandlerTest.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +122,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1750610554637</updated>
-      <workItem from="1750610558917" duration="11109000" />
+      <workItem from="1750610558917" duration="12670000" />
     </task>
     <servers />
   </component>

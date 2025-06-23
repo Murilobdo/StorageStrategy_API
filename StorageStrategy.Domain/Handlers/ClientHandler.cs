@@ -23,7 +23,7 @@ public class ClientHandler : HandlerBase,
 
         var client = new ClientEntity(request.CompanyId, request.Name);
         await _repo.AddAsync(client);
-
+        await _repo.SaveAsync();
         return CreateResponse(client, "Cliente cadastrado");
     }
 }

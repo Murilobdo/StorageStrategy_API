@@ -2,6 +2,7 @@
 using StorageStrategy.Domain.AutoMapper;
 using StorageStrategy.Domain.Commands.Command;
 using StorageStrategy.Domain.Handlers;
+using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
 using StorageStrategy.Tests.FakeRepository;
 using StorageStrategy.Tests.Faktory.command;
@@ -15,6 +16,7 @@ namespace StorageStrategy.Tests.Handler
         private FakeProductRepository _repoProduct;
         private FakeCommandRepository _repoCommand;
         private FakeEmployeeRepository _repoEmployee;
+        private IClientRepository _repoClient;
         private IMapper _mapper;
         private CancellationToken _cancellationToken;
 
@@ -35,6 +37,7 @@ namespace StorageStrategy.Tests.Handler
                     _repoProduct,
                     _repoCommand,
                     _repoEmployee,
+                    _repoClient,
                     _mapper
                 );
         }
