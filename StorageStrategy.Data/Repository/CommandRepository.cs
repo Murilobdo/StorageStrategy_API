@@ -32,10 +32,11 @@ namespace StorageStrategy.Data.Repository
         public async Task<CommandEntity?> GetCommandByIdAsync(int commandId, int companyId)
         {
             return await _context.Command
+                .Include(p => p.Client)
                 .Include(p => p.Payments)
-               .Include(p => p.Items)
+                .Include(p => p.Items)
                     .ThenInclude(p => p.Product)
-               .FirstOrDefaultAsync(p => p.CompanyId == companyId && p.CommandId == commandId);
+                .FirstOrDefaultAsync(p => p.CompanyId == companyId && p.CommandId == commandId);
         }
 
         public async Task<List<CommandItemEntity>> ReadCommandsForDaysAsync(int companyId, int day, int month)
@@ -109,20 +110,20 @@ namespace StorageStrategy.Data.Repository
 
         public async Task<List<CommandEntity>> ToListAsync(int companyId, bool haveEndDate)
         {
+            var query = _context.Command
+                .Where(p => p.CompanyId == companyId)
+                .Include(p => p.Payments)
+                .Include(p => p.Items)
+                .Include(p => p.Client)
+                .AsNoTracking()
+                .AsQueryable();
+
             if (haveEndDate)
-                return await _context.Command
-                    .Where(p => p.CompanyId == companyId)
-                    .Include(p => p.Payments)
-                    .Include(p => p.Items)
-                    .Where(p => p.FinalDate != null)
-                    .ToListAsync();
+                query = query.Where(p => p.FinalDate != null);
             else
-                return await _context.Command
-                    .Where(p => p.CompanyId == companyId)
-                    .Include(p => p.Payments)
-                    .Include(p => p.Items)
-                    .Where(p => p.FinalDate == null)
-                    .ToListAsync();
+                query = query.Where(p => p.FinalDate == null);
+
+            return query.ToList();
         }
     }
 }

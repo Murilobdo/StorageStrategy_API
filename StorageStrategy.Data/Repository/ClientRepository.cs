@@ -27,4 +27,6 @@ public class ClientRepository : RepositoryBase<ClientEntity>, IClientRepository
     {
         return await _context.Client.FirstOrDefaultAsync(p => p.CompanyId == companyId && p.Name == requestName);
     }
+
+  
 }

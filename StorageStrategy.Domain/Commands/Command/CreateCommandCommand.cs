@@ -42,6 +42,7 @@ namespace StorageStrategy.Domain.Commands.Command
             Increase = command.Increase;
             InitialDate = command.InitialDate;
             FinalDate = command.FinalDate;
+            Client = new CreateClientCommand(command.Client);
             Items = command.Items.Select(p => new CommandItemBase
             {
                 CommandItemId = p.CommandItemId,

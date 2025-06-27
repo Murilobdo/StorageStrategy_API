@@ -13,13 +13,10 @@ namespace StorageStrategy.API.Controllers;
 public class ClientController : ControllerBase
 {
 
-    [HttpGet("get-clients/{companyId:int}")]
-    public async Task<IActionResult> Get(
-        [FromServices]IClientRepository repo,
-        [FromRoute] int companyId
-    )
+    [HttpGet("get-clients")]
+    public async Task<IActionResult> Get([FromServices]IClientRepository repo)
     {
-        var clients = await repo.GetClientsAsync(companyId);
+        var clients = await repo.GetClientsAsync( User.GetCompanyId());
         return Ok(new Result(clients, "Busca realizada"));
     }
     

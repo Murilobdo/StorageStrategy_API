@@ -52,6 +52,7 @@ namespace StorageStrategy.Domain.Commands.Command
         public int CommandId { get; set; }
         public int CompanyId { get; set; }
         public int ClientId { get; set; }
+        public ClientCommand? Client { get; set; } 
         public string Name { get; set; } = string.Empty;
         public int EmployeeId { get; set; }
         public DateTime InitialDate { get; set; }

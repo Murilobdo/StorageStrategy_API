@@ -14,22 +14,17 @@ namespace StorageStrategy.Domain.Handlers
     {
         
         private IReportRepository _repo;
-        private ICategoryRepository _repoCategory;
-        private IMapper _mapper;
-
-        public ReportHandler(IReportRepository repo, ICategoryRepository repoCategory, IMapper mapper)
+        public ReportHandler(IReportRepository repo)
         {
             _repo = repo;
-            _mapper = mapper;
-            _repoCategory = repoCategory;
         }
 
         public async Task<Result> Handle(ReadCommandsBetweenDatesCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid())
                 return CreateError(request.GetErros(), "Dados invalidos");
-
-            var commands = await _repo.ReadCommandsByDateAsync(request.CompanyId, request.InitialDate, request.FinalDate.AddDays(1), request.EmployeeId);
+            request.FinalDate = request.FinalDate.AddDays(1);
+            var commands = await _repo.ReadCommandsByDateAsync(request);
             
             return CreateResponse(new {
                 Commands = commands,
@@ -60,8 +55,6 @@ namespace StorageStrategy.Domain.Handlers
 
             var commands = await _repo.ReadCommandsByMounthAsync(request.CompanyId, request.Month, request.EmployeeId);
 
-            
-            
             decimal totalPix = Calc.CountSalesPayment(commands, PaymentEnum.Pix);
             decimal totalCash = Calc.CountSalesPayment(commands, PaymentEnum.Cash);
             decimal totalCredit = Calc.CountSalesPayment(commands, PaymentEnum.Credit);
