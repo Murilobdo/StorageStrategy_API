@@ -16,7 +16,14 @@ namespace StorageStrategy.Data.Mappings
 
             builder.HasOne(p => p.Employee)
                 .WithMany();
+
+            builder.Property(p => p.ClientId)
+                .IsRequired(false);
             
+            builder.HasOne(p => p.Client)
+                .WithMany(p => p.Commands)
+                .HasForeignKey(p => p.ClientId)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

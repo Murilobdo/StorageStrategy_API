@@ -31,6 +31,7 @@ namespace StorageStrategy.Models
         public Result(Error error)
         {
             Errors.Add(error);
+            ErrorMessage = error.ErrorMessage;
         }
     }
 }

@@ -25,7 +25,8 @@ namespace StorageStrategy.Models
         public int CompanyId { get; set; }
         public decimal Discount { get; set; }
         public decimal Increase { get; set; }
-
+        public int? ClientId { get; set; }
+        public ClientEntity Client { get; set; }
         public CommandEntity()
         {
             InitialDate = DateTime.Now;

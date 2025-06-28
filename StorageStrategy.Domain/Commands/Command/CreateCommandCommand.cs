@@ -34,6 +34,7 @@ namespace StorageStrategy.Domain.Commands.Command
         public CreateCommandCommand(CommandEntity command)
         {
             CommandId = command.CommandId;
+            ClientId = command.ClientId.Value;
             Name = command.Name;
             EmployeeId = command.EmployeeId;
             CompanyId = command.CompanyId;
@@ -41,6 +42,7 @@ namespace StorageStrategy.Domain.Commands.Command
             Increase = command.Increase;
             InitialDate = command.InitialDate;
             FinalDate = command.FinalDate;
+            Client = new CreateClientCommand(command.Client);
             Items = command.Items.Select(p => new CommandItemBase
             {
                 CommandItemId = p.CommandItemId,
@@ -68,6 +70,7 @@ namespace StorageStrategy.Domain.Commands.Command
             {
                 Name = Name,
                 EmployeeId = EmployeeId,
+                ClientId = ClientId,
                 CompanyId = CompanyId,
                 Discount = Discount,
                 Increase = Increase,

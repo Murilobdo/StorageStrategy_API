@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StorageStrategy.Data.Context;
+using StorageStrategy.Domain.Commands.Report;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
 
@@ -16,7 +17,7 @@ namespace StorageStrategy.Data.Repository
             return await _context.Command.FirstOrDefaultAsync(p => p.CommandId == id);
         }
 
-        public async Task<List<CommandEntity>> ReadCommandsByDateAsync(int companyId, DateTime initialDate, DateTime finalDate, int employeeId)
+        public async Task<List<CommandEntity>> ReadCommandsByDateAsync(ReadCommandsBetweenDatesCommand request)
         {
             var query = _context.Command
                 .AsNoTracking()
@@ -24,14 +25,18 @@ namespace StorageStrategy.Data.Repository
                     .ThenInclude(p => p.Product)
                 .Include(p => p.Payments)
                 .Include(p => p.Employee)
-                .Where(p => p.InitialDate >= initialDate)
-                .Where(p => p.CompanyId == companyId)
-                .Where(p => p.FinalDate != null && p.FinalDate.Value <= finalDate)
+                .Include(p => p.Client)
+                .Where(p => p.InitialDate >= request.InitialDate)
+                .Where(p => p.CompanyId == request.CompanyId)
+                .Where(p => p.FinalDate != null && p.FinalDate.Value <= request.FinalDate)
                 .OrderByDescending(p => p.InitialDate)
                 .AsQueryable();
 
-            if (employeeId > 0)
-                query = query.Where(p => p.EmployeeId == employeeId);
+            if (request.EmployeeId > 0)
+                query = query.Where(p => p.EmployeeId == request.EmployeeId);
+
+            if (request.ClientId > 0)
+                query = query.Where(p => p.ClientId == request.ClientId);
 
             return await query.ToListAsync();
         }

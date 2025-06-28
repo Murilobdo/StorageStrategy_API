@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StorageStrategy.Data.Context;
 
@@ -11,9 +12,11 @@ using StorageStrategy.Data.Context;
 namespace StorageStrategy.Data.Migrations
 {
     [DbContext(typeof(StorageDbContext))]
-    partial class StorageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250622173816_ClientTable_Command")]
+    partial class ClientTableCommand
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,9 +59,6 @@ namespace StorageStrategy.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientId"));
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
@@ -67,8 +67,6 @@ namespace StorageStrategy.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ClientId");
-
-                    b.HasIndex("CompanyId");
 
                     b.ToTable("Client");
                 });
@@ -215,12 +213,12 @@ namespace StorageStrategy.Data.Migrations
                             CompanyId = 1,
                             Address = "",
                             CNPJ = "",
-                            CreateAt = new DateTime(2025, 6, 22, 14, 42, 26, 240, DateTimeKind.Local).AddTicks(9827),
+                            CreateAt = new DateTime(2025, 6, 22, 14, 38, 15, 645, DateTimeKind.Local).AddTicks(5987),
                             Description = "Admin",
                             IsActive = true,
                             Name = "Admin Company",
                             Phone = "",
-                            Validate = new DateTime(2035, 6, 22, 14, 42, 26, 240, DateTimeKind.Local).AddTicks(9845)
+                            Validate = new DateTime(2035, 6, 22, 14, 38, 15, 645, DateTimeKind.Local).AddTicks(6004)
                         });
                 });
 
@@ -274,7 +272,7 @@ namespace StorageStrategy.Data.Migrations
                             IsActive = true,
                             JobRole = 7,
                             Name = "Murilo Bernardes (Admin)",
-                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$R7+Jz6t7OtWIvYCOaGylRw$Xev79b3VgRA6fLnE51JOsm3dvugWq+kpG7qITOA1k9E"
+                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$IxecMrZ3I2PjNlU0M4pFLQ$dJes/SDbQkIjBc2lYp9zJ79JZ+Pcevl6+Ydj7yEfFCc"
                         });
                 });
 
@@ -490,17 +488,6 @@ namespace StorageStrategy.Data.Migrations
                         .WithMany("Categorys")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("StorageStrategy.Models.ClientEntity", b =>
-                {
-                    b.HasOne("StorageStrategy.Models.CompanyEntity", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");

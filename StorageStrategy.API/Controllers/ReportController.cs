@@ -23,10 +23,8 @@ namespace StorageStrategy.API.Controllers
         }
 
         [HttpPost("GetCommands")]
-        public async Task<IActionResult> GetCommands(
-            [FromServices] IReportRepository repo, 
-            [FromBody] ReadCommandsBetweenDatesCommand command
-        ) {
+        public async Task<IActionResult> GetCommands([FromBody] ReadCommandsBetweenDatesCommand command) 
+        {
             command.CompanyId = User.GetCompanyId();
             var response = await _mediator.Send(command);
             return Ok(response);
