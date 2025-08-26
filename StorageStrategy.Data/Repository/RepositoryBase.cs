@@ -1,4 +1,5 @@
-﻿using StorageStrategy.Data.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using StorageStrategy.Data.Context;
 using StorageStrategy.Domain.Repository;
 
 namespace StorageStrategy.Data.Repository
@@ -12,6 +13,21 @@ namespace StorageStrategy.Data.Repository
             _context = context;
         }
         public async Task AddAsync(TModel model) => await _context.AddAsync(model);
+        public async Task<List<TModel>> GetAllAsync(Func<TModel, bool> filter, string[] includeProperties = null)
+        {
+            IQueryable<TModel> query = _context.Set<TModel>();
+
+            if (includeProperties is not null)
+            {
+                foreach (var includeProperty in includeProperties)
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+
+            return await Task.FromResult(query.AsNoTracking().Where(filter).ToList());
+        }
+
         public void Delete(TModel model) => _context.Remove(model);
         public void RemoveRange(TModel model) => _context.RemoveRange(model);
         public abstract Task<TModel> GetById(int id);

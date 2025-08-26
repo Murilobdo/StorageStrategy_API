@@ -5,6 +5,7 @@ namespace StorageStrategy.Domain.Repository
     public interface IRepositoryBase<TModel> where TModel : class
     {
         Task AddAsync(TModel model);
+        Task<List<TModel>> GetAllAsync(Func<TModel, bool> filter, string[] includeProperties = null);
         void Update(TModel model);
         void Delete(TModel id);
         void RemoveRange(TModel model);

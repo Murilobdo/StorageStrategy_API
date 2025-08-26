@@ -28,5 +28,10 @@ public class ClientRepository : RepositoryBase<ClientEntity>, IClientRepository
         return await _context.Client.FirstOrDefaultAsync(p => p.CompanyId == companyId && p.Name == requestName);
     }
 
-  
+    public async Task<int> GetTotalCommandsAsync(int clientId)
+    {
+        return await _context.Command
+            .Where(p => p.FinalDate != null)
+            .CountAsync(p => p.ClientId == clientId);
+    }
 }

@@ -1,7 +1,5 @@
 ﻿using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
-using System.ComponentModel.Design;
-using System.Xml.Linq;
 
 namespace StorageStrategy.Tests.FakeRepository
 {
@@ -24,6 +22,11 @@ namespace StorageStrategy.Tests.FakeRepository
         public Task AddAsync(CategoryEntity model)
         {
             return Task.CompletedTask;
+        }
+
+        public Task<List<CategoryEntity>> GetAllAsync(Func<CategoryEntity, bool> filter, string[] includeProperties = null)
+        {
+            throw new NotImplementedException();
         }
 
         public Task AddRange(IEnumerable<CategoryEntity> categorys)

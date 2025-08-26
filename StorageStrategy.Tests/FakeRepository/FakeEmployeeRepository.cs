@@ -1,9 +1,6 @@
-﻿using StorageStrategy.Domain.Commands.Category;
-using StorageStrategy.Domain.Commands.Employee;
+﻿using StorageStrategy.Domain.Commands.Employee;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
-using System.ComponentModel.Design;
-using System.Xml.Linq;
 
 namespace StorageStrategy.Tests.FakeRepository
 {
@@ -34,6 +31,11 @@ namespace StorageStrategy.Tests.FakeRepository
         {
             employees.Add(model);
             return Task.CompletedTask;
+        }
+
+        public Task<List<EmployeeEntity>> GetAllAsync(Func<EmployeeEntity, bool> filter, string[] includeProperties = null)
+        {
+            throw new NotImplementedException();
         }
 
         public void Clear()

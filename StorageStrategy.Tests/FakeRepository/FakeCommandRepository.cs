@@ -1,14 +1,7 @@
 ﻿using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
 using StorageStrategy.Tests.Factory.Entity;
-using StorageStrategy.Tests.Faktory;
 using StorageStrategy.Tests.Faktory.Entity;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StorageStrategy.Tests.FakeRepository
 {
@@ -30,6 +23,11 @@ namespace StorageStrategy.Tests.FakeRepository
         public Task AddAsync(CommandEntity model)
         {
             return Task.CompletedTask;
+        }
+
+        public Task<List<CommandEntity>> GetAllAsync(Func<CommandEntity, bool> filter, string[] includeProperties = null)
+        {
+            throw new NotImplementedException();
         }
 
         public Task AddItemsAsync(IEnumerable<CommandItemEntity> items)
