@@ -1,8 +1,6 @@
 ﻿using StorageStrategy.Domain.Commands.Products;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
-using System.ComponentModel.Design;
-using System.Xml.Linq;
 
 namespace StorageStrategy.Tests.FakeRepository
 {
@@ -36,6 +34,11 @@ namespace StorageStrategy.Tests.FakeRepository
         {
             products.Add(model);
             return Task.CompletedTask;
+        }
+
+        public Task<List<ProductEntity>> GetAllAsync(Func<ProductEntity, bool> filter, string[] includeProperties = null)
+        {
+            throw new NotImplementedException();
         }
 
         public Task AddRange(List<ProductEntity> products)
