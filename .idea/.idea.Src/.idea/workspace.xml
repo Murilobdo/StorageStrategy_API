@@ -11,24 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e6a583f-5c5e-4ed0-b0d2-b3ea197a0b5f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Client/GetClientsTotalCommandQuery.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/UpdateClientCommand.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Models/ViewModels/Client/ClientViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/main.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/main.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.API/Controllers/ClientController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/Controllers/ClientController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/StorageDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/StorageDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Repository/ClientRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Repository/ClientRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Repository/RepositoryBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Repository/RepositoryBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Client/ClientCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Client/ClientCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/ClientHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/ClientHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Repository/IClientRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Repository/IClientRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Repository/IRepositoryBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Repository/IRepositoryBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Models/ClientEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Models/ClientEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/FakeRepository/FakeCategoryRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/FakeRepository/FakeCategoryRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/FakeRepository/FakeCommandRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/FakeRepository/FakeCommandRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/FakeRepository/FakeEmployeeRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/FakeRepository/FakeEmployeeRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/FakeRepository/FakeProductRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/FakeRepository/FakeProductRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +131,7 @@
       <workItem from="1750765456097" duration="5000" />
       <workItem from="1750979143699" duration="13802000" />
       <workItem from="1751073456979" duration="1597000" />
-      <workItem from="1756225807925" duration="8498000" />
+      <workItem from="1756225807925" duration="11316000" />
     </task>
     <servers />
   </component>
