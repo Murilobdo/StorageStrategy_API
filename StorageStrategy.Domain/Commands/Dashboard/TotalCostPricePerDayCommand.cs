@@ -1,27 +1,20 @@
 ﻿using StorageStrategy.Domain.Validations.Dashboard;
 using StorageStrategy.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StorageStrategy.Domain.Commands.Dashboard
 {
-    public record class TotalCostPricePerDayCommand : CommandBase
+    public record class TotalCostPricePerDayCommand : DashboardCommandBase
     {
-        public int CompanyId { get; set; }
-        public int Month { get; set; }
-
         public TotalCostPricePerDayCommand()
         {
 
         }
 
-        public TotalCostPricePerDayCommand(int companyId, int month)
+        public TotalCostPricePerDayCommand(int companyId, int month, int year)
         {
             CompanyId = companyId;
             Month = month;
+            Year = year;
         }
 
         public List<Error> GetErros() => new TotalCostPricePerDayValidation().Validate(this)

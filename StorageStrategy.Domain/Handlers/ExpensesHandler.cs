@@ -15,7 +15,6 @@ namespace StorageStrategy.Domain.Handlers
         private readonly IExpenseRepository _repo;
         private readonly IMapper _mapper;
 
-
         public ExpensesHandler(IExpenseRepository repo, IMapper mapper)
         {
             _repo = repo;

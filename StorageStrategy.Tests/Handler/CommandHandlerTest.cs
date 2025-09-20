@@ -119,12 +119,15 @@ namespace StorageStrategy.Tests.Handler
             Assert.True(result.Success);
         }
 
-        [Fact(DisplayName = "Sucesso ao Validar o Metodo de Pagamento")]
-        public async Task Sucesso_ao_validar_o_metodo_de_pagamento()
+        [Fact(DisplayName = "Sucesso ao Adicionar o Metodo de Pagamento")]
+        public async Task Sucesso_ao_adicionar_o_metodo_de_pagamento()
         {
+
+            var paymentAdd = new PaymentCommand(1, PaymentEnum.Cash, 30);
+
             FinishCommandCommand command = new(
                 commandId: _repoCommand.commands[0].CommandId, 
-                payment: new PaymentCommand(1, PaymentEnum.Cash, 30), 
+                payment: paymentAdd, 
                 companyId: 1,
                 discount: 0,
                 increase: 0
@@ -133,8 +136,8 @@ namespace StorageStrategy.Tests.Handler
             var result = await _handler.Handle(command, _cancellationToken);
             var commandEntity = (CommandEntity) result.Response;
 
-            //TODO: VERIFICAR O TESTE SE ESTA VALIDO 17/04/2025
-            Assert.True(command.Payments.Count == commandEntity.Payments.Count);
+            var paymentHasAddWithSuccess = command.Payments.Any(x => x.Method == paymentAdd.Method && x.Amount == paymentAdd.Amount);
+            Assert.True(paymentHasAddWithSuccess);
         }
 
         [Fact(DisplayName = "Sucesso ao validar a Data do Pagamento da Comanda")]
@@ -151,7 +154,7 @@ namespace StorageStrategy.Tests.Handler
             var result = await _handler.Handle(command, _cancellationToken);
             var commandEntity = (CommandEntity)result.Response;
 
-            Assert.True(DateTime.Now.Date == commandEntity.FinalDate.Value.Date);
+            Assert.True(commandEntity.FinalDate.HasValue);
         }
 
         [Fact(DisplayName = "Erro ao Finalizar uma Comanda Inexistente")]

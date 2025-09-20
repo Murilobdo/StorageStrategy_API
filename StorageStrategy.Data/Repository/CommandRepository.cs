@@ -51,25 +51,23 @@ namespace StorageStrategy.Data.Repository
             return result;
         }
 
-        public async Task<List<CommandEntity>> ReadCommandsForPeriodAsync(int companyId, int initialMonth, int finalMounth = 0)
+        public async Task<List<CommandEntity>> ReadMonthCommandsAsync(int companyId, int month, int year)
         {
             var query =  _context.Command
                 .AsNoTracking()
                 .Include(p => p.Items)
                 .Include(p => p.Payments)
-                .Where(p => p.FinalDate != null)
-                .Where(p => p.InitialDate.Month == initialMonth)
                 .Where(p => p.CompanyId == companyId)
+                .Where(p => p.FinalDate != null)
+                .Where(p => p.FinalDate.Value.Month == month)
+                .Where(p => p.FinalDate.Value.Year == year)
                 .OrderBy(p => p.InitialDate.Day)
                 .AsQueryable();
-
-            if (finalMounth > 0)
-                query = query.Where(p => p.FinalDate.Value.Month == finalMounth);
                             
             return await query.ToListAsync();
         }
 
-        public async Task<List<CommandEntity>> ReadCommandsForPeriodWithItensAsync(int companyId, int month)
+        public async Task<List<CommandEntity>> ReadCommandsForPeriodWithItensAsync(int companyId, int month, int year)
         {
             var commands = await _context.Command
                 .Include(p => p.Items)
@@ -77,7 +75,7 @@ namespace StorageStrategy.Data.Repository
                         .ThenInclude(p => p.Category)
                 .AsNoTracking()
                 .Where(p => p.FinalDate != null)
-                .Where(p => p.InitialDate.Month == month)
+                .Where(p => p.FinalDate.Value.Month == month && p.FinalDate.Value.Year == year)
                 .Where(p => p.CompanyId == companyId)
                 .ToListAsync();
 

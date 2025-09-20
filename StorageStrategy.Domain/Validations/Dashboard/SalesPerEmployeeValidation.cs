@@ -14,6 +14,10 @@ namespace StorageStrategy.Domain.Validations.Dashboard
             RuleFor(p => p.Month)
                 .GreaterThan(0)
                 .WithMessage("O Mês e obrigatório");
+            
+            RuleFor(p => p.Year)
+                .GreaterThan(0)
+                .WithMessage("O Ano e obrigatório");
         }
     }
 }

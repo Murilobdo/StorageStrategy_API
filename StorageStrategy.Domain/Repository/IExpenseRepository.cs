@@ -17,6 +17,6 @@ namespace StorageStrategy.Domain.Repository
         Task<ExpensesTypeEntity> GetExpensesTypeByIdAsync(int expensesTypeId, int companyId);
         Task<ExpensesTypeEntity> GetExpensesTypeByDescriptionAsync(string description, int companyId);
         Task<List<ExpenseEntity>> ToList(int companyId);
-        Task<List<ExpenseEntity>> ReadTotalExpensesByMonth(int companyId, int month);
+        Task<List<ExpenseEntity>> ReadTotalExpensesByMonth(int companyId, int month, int year);
     }
 }

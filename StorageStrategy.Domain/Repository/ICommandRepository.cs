@@ -9,9 +9,9 @@ namespace StorageStrategy.Domain.Repository
         Task AddItemsAsync(CommandItemEntity item);
         Task<CommandEntity?> GetCommandByIdAsync(int commandId, int companyId);
         Task RemoveCommandItemsAsync(List<CommandItemEntity> items);
-        Task<List<CommandEntity>> ReadCommandsForPeriodAsync(int companyId, int initialMonth, int finalMounth = 0);
+        Task<List<CommandEntity>> ReadMonthCommandsAsync(int companyId, int month, int year);
         Task<List<CommandItemEntity>> ReadCommandsForDaysAsync(int companyId, int day, int month);
-        Task<List<CommandEntity>> ReadCommandsForPeriodWithItensAsync(int companyId, int month);
+        Task<List<CommandEntity>> ReadCommandsForPeriodWithItensAsync(int companyId, int month, int year);
         Task<decimal> ReadTotalSalesByCompany(int companyId, int month);
         void UpdateCommandItemAsync(CommandItemEntity productItemDb);
     }             

@@ -14,6 +14,21 @@ namespace StorageStrategy.Utils.Helpers
             
             return totalPrice; 
         }
+        
+        public static decimal TotalProfitCommands(List<CommandEntity> commands)
+        {
+            return GetTotalPriceWithDiscount(commands) - GetTotalCost(commands);
+        }
+
+        private static decimal GetTotalCost(List<CommandEntity> commands)
+        {
+            return commands.Sum(p => p.TotalCost);
+        }
+        
+        private static decimal GetTotalPriceWithDiscount(List<CommandEntity> commands)
+        {
+            return commands.Sum(p => p.TotalPrice - p.Discount + p.Increase);
+        }
 
         public static bool CommandHasFinishWithTotalPayments(CommandEntity command)
         {

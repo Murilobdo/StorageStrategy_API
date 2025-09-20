@@ -82,6 +82,7 @@ namespace StorageStrategy.Models
         {
             return TotalPrice + Increase - Discount;
         }
+        
 
         public void AddDiscount(decimal discount)
         {
