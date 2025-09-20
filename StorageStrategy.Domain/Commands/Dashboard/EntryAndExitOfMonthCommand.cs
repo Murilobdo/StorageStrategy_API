@@ -1,12 +1,9 @@
-﻿using StorageStrategy.Domain.Commands;
-using StorageStrategy.Domain.Validations.Command;
-using StorageStrategy.Domain.Validations.Dashboard;
+﻿using StorageStrategy.Domain.Validations.Dashboard;
 using StorageStrategy.Models;
-using System.Security.Cryptography;
 
 namespace StorageStrategy.Domain.Commands.Dashboard
 {
-    public record class EntryAndExitOfMonthCommand : CommandBase, IValidation
+    public record class EntryAndExitOfMonthCommand : DashboardCommandBase, IValidation
     {
         public EntryAndExitOfMonthCommand(int companyId, DateTime currentDate)
         {
@@ -14,7 +11,6 @@ namespace StorageStrategy.Domain.Commands.Dashboard
             CurrentDate = currentDate;
         }
 
-        public int CompanyId { get; set; }
         public DateTime CurrentDate { get; set; }
         public decimal MoneyIn { get; set; } = decimal.Zero;
         public decimal MoneyOut { get; set; } = decimal.Zero;

@@ -8,7 +8,7 @@ namespace StorageStrategy.Tests.Commands.Dashboard
         [Fact]
         public void Sucesso_ao_criar_TotalCostPricePerDayCommand()
         {
-            TotalCostPricePerDayCommand command = new(companyId:1, month:1);
+            TotalCostPricePerDayCommand command = new(companyId:1, month:1, year:2024);
 
             Assert.True(command.IsValid());
         }
@@ -16,7 +16,7 @@ namespace StorageStrategy.Tests.Commands.Dashboard
         [Fact]
         public void Erro_ao_criar_TotalCostPricePerDayCommand_sem_companyId()
         {
-            TotalCostPricePerDayCommand command = new(companyId: 0, month: 1);
+            TotalCostPricePerDayCommand command = new(companyId: 0, month: 1, year: 2024);
 
             Assert.True(MensagemDeErroExistente(command.GetErros(), "O Id da Empresa e obrigatório"));
         }
@@ -24,7 +24,7 @@ namespace StorageStrategy.Tests.Commands.Dashboard
         [Fact]
         public void Erro_ao_criar_TotalCostPricePerDayCommand_sem_month()
         {
-            TotalCostPricePerDayCommand command = new(companyId: 1, month: 0);
+            TotalCostPricePerDayCommand command = new(companyId: 1, month: 0, year: 2024);
 
             Assert.True(MensagemDeErroExistente(command.GetErros(), "O Mês e obrigatório"));
         }

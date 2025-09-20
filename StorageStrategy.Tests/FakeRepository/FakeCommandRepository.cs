@@ -92,21 +92,18 @@ namespace StorageStrategy.Tests.FakeRepository
             return Task.FromResult(result);
         }
 
-        public Task<List<CommandEntity>> ReadCommandsForPeriodAsync(int companyId, int initialMonth, int finalMounth = 0)
+        public Task<List<CommandEntity>> ReadMonthCommandsAsync(int companyId, int month, int year)
         {
             var query = commands
-                .Where(p => p.FinalDate != null)
-                .Where(p => p.InitialDate.Month == initialMonth)
                 .Where(p => p.CompanyId == companyId)
-                .AsQueryable();
-
-            if (finalMounth > 0)
-                query = query.Where(p => p.FinalDate.Value.Month == finalMounth);
+                .Where(p => p.InitialDate.Month == month)
+                .Where(p => p.FinalDate != null)
+                .Where(p => p.FinalDate.Value.Month == month && p.FinalDate.Value.Year == year);
 
             return Task.FromResult(query.ToList());
         }
 
-        public Task<List<CommandEntity>> ReadCommandsForPeriodWithItensAsync(int companyId, int month)
+        public Task<List<CommandEntity>> ReadCommandsForPeriodWithItensAsync(int companyId, int month, int year)
         {
             var response = commands
                 .Where(p => p.FinalDate != null)

@@ -3,7 +3,7 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Commands.Dashboard
 {
-    public record class EntryAndExitForDayCommand : CommandBase, IValidation
+    public record class EntryAndExitForDayCommand : DashboardCommandBase, IValidation
     {
         public EntryAndExitForDayCommand() 
         {
@@ -16,9 +16,7 @@ namespace StorageStrategy.Domain.Commands.Dashboard
             Month = month;
         }
 
-        public int CompanyId { get; set; }
         public int DayOfMonth { get; set; }
-        public int Month { get; set; }
         public decimal MoneyIn { get; set; }
         public decimal MoneyOut { get; set; }
 

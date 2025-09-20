@@ -3,13 +3,11 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Commands.Dashboard
 {
-    public record class DRECommand : CommandBase
+    public record class DRECommand : DashboardCommandBase
     {
         public DRECommand() 
         { }
 
-        public int CompanyId { get; set; }
-        public int Month { get; set; }
         public decimal ReceitaBruta { get; set; }
         public decimal DeducoesAbatimentos { get; set; }
         public decimal ReceitaLiquida { get; set; }

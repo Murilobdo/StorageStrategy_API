@@ -3,7 +3,7 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Commands.Dashboard
 {
-    public record class SalesPerEmployeeCommand : CommandBase
+    public record class SalesPerEmployeeCommand : DashboardCommandBase
     {
         public SalesPerEmployeeCommand()
         {
@@ -15,9 +15,6 @@ namespace StorageStrategy.Domain.Commands.Dashboard
             CompanyId = companyId;
             Month = month;
         }
-
-        public int CompanyId { get; set; }
-        public int Month { get; set; }
 
         public List<Error> GetErros() => new SalesPerEmployeeValidation().Validate(this)
            .Errors.Select(p => new Error(p.ErrorMessage)).ToList();

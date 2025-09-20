@@ -3,7 +3,7 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Commands.Dashboard
 {
-    public record class InfoPaymentCommand : CommandBase
+    public record class InfoPaymentCommand : DashboardCommandBase
     {
         public InfoPaymentCommand() 
         {
@@ -15,8 +15,6 @@ namespace StorageStrategy.Domain.Commands.Dashboard
             Month = month;
         }
 
-        public int CompanyId { get; set; }
-        public int Month { get; set; }
         public int Total { get; set; }
         public int TotalPix { get; set; }
         public int TotalCredit { get; set; }

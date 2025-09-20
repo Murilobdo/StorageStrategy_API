@@ -3,7 +3,7 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Commands.Dashboard
 {
-    public record class InfoCardCommand : CommandBase
+    public record class InfoCardCommand : DashboardCommandBase
     {
         public InfoCardCommand()
         { }
@@ -11,22 +11,17 @@ namespace StorageStrategy.Domain.Commands.Dashboard
         public InfoCardCommand(
             int companyId, 
             int month, 
-            int day, 
             decimal totalSales, 
-            decimal totalPriceInStok
+            decimal totalProfit
         ) {
             CompanyId = companyId;
             Month = month;
-            Day = day;
             TotalSales = totalSales;
-            TotalPriceInStok = totalPriceInStok;
+            TotalProfit = totalProfit;
         }
         
-        public int CompanyId { get; set; }
-        public int Month { get; set; }
-        public int Day  { get; set; }
         public decimal TotalSales { get; set; }
-        public decimal TotalPriceInStok { get; set; }
+        public decimal TotalProfit { get; set; }
         public decimal TotalMonthExpenses { get; set; }
 
         public List<Error> GetErros() => new InfoCardValidation().Validate(this)

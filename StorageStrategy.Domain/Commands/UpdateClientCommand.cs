@@ -1,13 +1,20 @@
 ﻿using StorageStrategy.Models;
-using MediatR;
 
 namespace StorageStrategy.Domain.Commands
 {
-    public class UpdateClientCommand : IRequest<Result>
+    public class UpdateClientCommand : ClientCommand
     {
-        public int ClientId { get; set; }
-        public int CompanyId { get; set; }
-        public string Name { get; set; }
-        public bool Active { get; set; }
+        public UpdateClientCommand(ClientEntity entity)
+        {
+            ClientId = entity.ClientId;
+            CompanyId = entity.CompanyId;
+            Name = entity.Name;
+            Active = entity.Active;
+        }
+
+        public UpdateClientCommand()
+        {
+            
+        }
     }
 }
