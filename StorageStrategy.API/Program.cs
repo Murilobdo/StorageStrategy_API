@@ -73,6 +73,7 @@ void ConfigureDependencyInjection()
     builder.Services.AddScoped<IReportRepository, ReportRepository>();
     builder.Services.AddScoped<IClientRepository, ClientRepository>();
     builder.Services.AddScoped<ILogRepository, LogRepository>();
+    builder.Services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
 }
 
 void ConfigureJwt()

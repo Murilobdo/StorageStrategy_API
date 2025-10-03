@@ -39,7 +39,7 @@ namespace StorageStrategy.Tests.Faktory.Entity
                 name: "Gurinevers",
                 totalCost: 62.5M,
                 totalPrice: 181,
-                payments:new List<PaymentEntity>{new(1, 1,PaymentEnum.Pix, 30)},
+                payments:new List<PaymentEntity>{new(1, 1,PaymentEnum.Pix, 30, 1, 1.5m, 1.7m)},
                 initialDate: DateTime.Now, 
                 finalDate: DateTime.Now.AddDays(1), 
                 companyId: 1

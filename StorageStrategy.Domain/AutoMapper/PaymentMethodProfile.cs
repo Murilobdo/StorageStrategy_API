@@ -1,6 +1,18 @@
-﻿namespace StorageStrategy.Domain.AutoMapper;
+﻿using AutoMapper;
+using StorageStrategy.Domain.Commands.PaymentMethod;
+using StorageStrategy.Models;
 
-public class PaymentMethodProfile
+namespace StorageStrategy.Domain.AutoMapper;
+
+public class PaymentMethodProfile : Profile
 {
-    
+    public PaymentMethodProfile()
+    {
+        
+        CreateMap<PaymentMethodEntity, CreatePaymentMethodCommand>();
+
+        CreateMap<CreatePaymentMethodCommand, PaymentMethodEntity>();
+        CreateMap<UpdatePaymentMethodCommand, PaymentMethodEntity>();
+
+    }
 }

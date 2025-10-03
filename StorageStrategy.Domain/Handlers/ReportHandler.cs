@@ -24,7 +24,7 @@ namespace StorageStrategy.Domain.Handlers
             if (!request.IsValid())
                 return CreateError(request.GetErros(), "Dados invalidos");
             request.FinalDate = request.FinalDate.AddDays(1);
-            var commands = await _repo.ReadCommandsByDateAsync(request);
+            var commands = await _repo.ReadFinishCommandsByDateAsync(request);
             
             return CreateResponse(new {
                 Commands = commands,

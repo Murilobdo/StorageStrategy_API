@@ -6,19 +6,21 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Handlers.PaymentMethod;
 
-public class CreatePaymentMethodHandler : PaymentMethodHandleBase, IRequestHandler<CreatePaymentMethodCommand, Result>
+public class UpdatePaymentMethodHandler : PaymentMethodHandleBase, IRequestHandler<UpdatePaymentMethodCommand, Result>
 {
-    public CreatePaymentMethodHandler(IPaymentMethodRepository repo, IMapper mapper) : base(repo, mapper)
+    public UpdatePaymentMethodHandler(IPaymentMethodRepository repo, IMapper mapper) : base(repo, mapper)
     {
     }
 
-    public async Task<Result> Handle(CreatePaymentMethodCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(UpdatePaymentMethodCommand request, CancellationToken cancellationToken)
     {
         if (!request.IsValid())
             return CreateError(request.GetErros(), "Dados inválidos");
         
-        var entity = _mapper.Map<PaymentMethodEntity>(request);
-        await _repo.AddAsync(entity);
+        var entity = await _repo.GetById(request.PaymentMethodId);
+        entity = _mapper.Map<PaymentMethodEntity>(request);
+        _repo.Update(entity);
+        await _repo.SaveAsync();
         
         return CreateResponse(entity, "Método de pagamento criado !");
     }

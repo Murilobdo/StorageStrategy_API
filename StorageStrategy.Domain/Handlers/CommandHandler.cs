@@ -129,10 +129,17 @@ namespace StorageStrategy.Domain.Handlers
             var command = await _repoCommand.GetCommandByIdAsync(request.CommandId, request.CompanyId);
             if(command is null)
                 return CreateError("Comanda não encontrada");
-
+            
             var payments = request.Payments
-                .Select(p => new PaymentEntity(0, command.CommandId, p.Method, p.Amount))
-                .ToList();
+                .Select(_payment => new PaymentEntity(
+                    0,
+                    command.CommandId,
+                    _payment.Method,
+                    _payment.Amount,
+                    _payment.PaymentMethodId,
+                    _payment.CreditFee,
+                    _payment.DebitFee
+                )).ToList();
             
             command.Payments.AddRange(payments);
             command.AddIncrease(request.Increase);

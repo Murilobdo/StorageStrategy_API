@@ -3,15 +3,6 @@
   <component name="CopilotDiffPersistence">
     <option name="pendingDiffs">
       <map>
-        <entry key="$PROJECT_DIR$/StorageStrategy.Domain/Commands/UpdateClientCommand.cs">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/StorageStrategy.Domain/Commands/UpdateClientCommand.cs" />
-              <option name="originalContent" value="using StorageStrategy.Models;&#10;using MediatR;&#10;&#10;namespace StorageStrategy.Domain.Commands&#10;{&#10;    public class UpdateClientCommand : IRequest&lt;Result&gt;&#10;    {&#10;        public int ClientId { get; set; }&#10;        public int CompanyId { get; set; }&#10;        public string Name { get; set; }&#10;        public bool Active { get; set; }&#10;    }&#10;}&#10;" />
-              <option name="updatedContent" value="using StorageStrategy.Models;&#10;&#10;namespace StorageStrategy.Domain.Commands&#10;{&#10;    public class UpdateClientCommand : ClientCommand&#10;    {&#10;        public UpdateClientCommand(ClientEntity entity)&#10;        {&#10;            ClientId = entity.ClientId;&#10;            CompanyId = entity.CompanyId;&#10;            Name = entity.Name;&#10;            Active = entity.Active;&#10;        }&#10;&#10;        public UpdateClientCommand()&#10;        {&#10;            &#10;        }&#10;    }&#10;}" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
         <entry key="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Account/AccountHandlerBase.cs">
           <value>
             <PendingDiffInfo>

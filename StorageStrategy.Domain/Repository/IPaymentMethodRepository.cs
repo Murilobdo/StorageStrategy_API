@@ -1,6 +1,8 @@
-﻿namespace StorageStrategy.Domain.Repository;
+﻿using StorageStrategy.Models;
 
-public interface IPaymentMethodRepository
+namespace StorageStrategy.Domain.Repository;
+
+public interface IPaymentMethodRepository : IRepositoryBase<PaymentMethodEntity>
 {
     
 }
