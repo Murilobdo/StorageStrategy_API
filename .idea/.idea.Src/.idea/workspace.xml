@@ -11,29 +11,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e6a583f-5c5e-4ed0-b0d2-b3ea197a0b5f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Src/.idea/copilotDiffState.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Src/.idea/copilotDiffState.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Command/AddProductCommandHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Command/CommandHandlerBase.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Command/CreateCommandHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Command/DeleteCommandHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Command/FinishCommandHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Command/RemoveProductCommandHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.API/Controllers/CommandController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/Controllers/CommandController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.API/Controllers/PaymentMethodController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/Controllers/PaymentMethodController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/AutoMapper/PaymentMethodProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/AutoMapper/PaymentMethodProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Mappings/PaymentMethodMapping.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Mappings/PaymentMethodMapping.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/20250922201015_CreateTable_PaymentMethod.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/20250922201015_CreateTable_PaymentMethod.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/20250922202802_AlterTable_PaymentMethod_RemoveColumn_ChangeTypeDecimal.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/20250922202802_AlterTable_PaymentMethod_RemoveColumn_ChangeTypeDecimal.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/20251002235213_PaymentTable_AddColumn.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/20251002235213_PaymentTable_AddColumn.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/StorageDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/StorageDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Repository/ReportRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Repository/ReportRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CreateCommandCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CreateCommandCommand.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/PaymentCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/PaymentCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/PaymentMethod/CreatePaymentMethodCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/PaymentMethod/CreatePaymentMethodCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Dashboard/EntryAndExitForDayCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Dashboard/EntryAndExitForDayCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Dashboard/SalesPerEmployeeCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Dashboard/SalesPerEmployeeCommand.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/PaymentMethod/PaymentCommandBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/PaymentMethod/PaymentCommandBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/PaymentMethod/UpdatePaymentMethodCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/PaymentMethod/UpdatePaymentMethodCommand.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/CommandHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/PaymentMethod/CreatePaymentMethodHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/PaymentMethod/CreatePaymentMethodHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/PaymentMethod/PaymentMethodHandleBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/PaymentMethod/PaymentMethodHandleBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/PaymentMethod/UpdatePaymentMethodHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/PaymentMethod/UpdatePaymentMethodHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Dashboard/InfoCardHandle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Dashboard/InfoCardHandle.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/DashboardHandler.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/ReportHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/ReportHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Repository/IPaymentMethodRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Repository/IPaymentMethodRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Repository/IReportRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Repository/IReportRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Validations/PaymentMethod/CreatePaymentMethodValidation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Validations/PaymentMethod/CreatePaymentMethodValidation.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Validations/PaymentMethod/PaymentValidationBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Validations/PaymentMethod/PaymentValidationBase.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Validations/PaymentMethod/UpdatePaymentMethodValidation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Validations/PaymentMethod/UpdatePaymentMethodValidation.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Models/CommandEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Models/CommandEntity.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Models/PaymentEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Models/PaymentEntity.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Models/PaymentMethodEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Models/PaymentMethodEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/Commands/Dashboard/EntryAndExitForDayCommandTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/Commands/Dashboard/EntryAndExitForDayCommandTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/Commands/Dashboard/SalesPerEmployeeTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/Commands/Dashboard/SalesPerEmployeeTest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/Factory/Entity/CreateCommandEntityWithItemsFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/Factory/Entity/CreateCommandEntityWithItemsFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Tests/Handler/CommandHandlerTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Tests/Handler/CommandHandlerTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Utils/Helpers/Calc.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Utils/Helpers/Calc.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,23 +79,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.StorageStrategy.API: http.executor&quot;: &quot;Debug&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.5031289&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/MaquinaCartao&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\JetBrains Rider 2025.1.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.StorageStrategy.API: http.executor": "Debug",
+    "20a7be1d-9448-4fbc-89c0-cf41c0cfd376.executor": "Debug",
+    "830ef2e9-bff8-4c4f-b3c7-48cff932d3a6.executor": "Debug",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "feature/MaquinaCartao",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\JetBrains Rider 2025.1.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.StorageStrategy.API: http">
     <configuration name="StorageStrategy.API: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/StorageStrategy.API/StorageStrategy.API.csproj" />
@@ -163,7 +180,10 @@
       <workItem from="1759167379833" duration="4783000" />
       <workItem from="1759406330140" duration="2700000" />
       <workItem from="1759443961988" duration="328000" />
-      <workItem from="1759444359993" duration="7061000" />
+      <workItem from="1759444359993" duration="7859000" />
+      <workItem from="1759495914466" duration="16024000" />
+      <workItem from="1759535016812" duration="887000" />
+      <workItem from="1759949994331" duration="8703000" />
     </task>
     <servers />
   </component>
@@ -189,6 +209,84 @@
           <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="3" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StorageStrategy.Domain/Middleware/ExceptionErrorMiddleware.cs</url>
+          <line>28</line>
+          <properties documentPath="D:\StorageStrategy\StorageStrategy_API\StorageStrategy.Domain\Middleware\ExceptionErrorMiddleware.cs" containingFunctionPresentation="Method 'Invoke'">
+            <startOffsets>
+              <option value="839" />
+            </startOffsets>
+            <endOffsets>
+              <option value="888" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StorageStrategy.API/Controllers/CommandController.cs</url>
+          <line>60</line>
+          <properties documentPath="D:\StorageStrategy\StorageStrategy_API\StorageStrategy.API\Controllers\CommandController.cs" containingFunctionPresentation="Method 'Create'">
+            <startOffsets>
+              <option value="2075" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2113" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StorageStrategy.Tests/Commands/Dashboard/EntryAndExitForDayCommandTest.cs</url>
+          <line>17</line>
+          <properties documentPath="D:\StorageStrategy\StorageStrategy_API\StorageStrategy.Tests\Commands\Dashboard\EntryAndExitForDayCommandTest.cs" containingFunctionPresentation="Method 'Sucesso_ao_criar_EntryAndExitForDayCommand'">
+            <startOffsets>
+              <option value="424" />
+            </startOffsets>
+            <endOffsets>
+              <option value="455" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Command/AddProductCommandHandler.cs</url>
+          <line>16</line>
+          <properties documentPath="D:\StorageStrategy\StorageStrategy_API\StorageStrategy.Domain\Handlers\Command\AddProductCommandHandler.cs" containingFunctionPresentation="Method 'Handle'">
+            <startOffsets>
+              <option value="672" />
+            </startOffsets>
+            <endOffsets>
+              <option value="695" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StorageStrategy.Tests/Handler/CommandHandlerTest.cs</url>
+          <line>226</line>
+          <properties documentPath="D:\StorageStrategy\StorageStrategy_API\StorageStrategy.Tests\Handler\CommandHandlerTest.cs" containingFunctionPresentation="Method 'Sucesso_ao_remover_produtos_da_comanda'">
+            <startOffsets>
+              <option value="9333" />
+            </startOffsets>
+            <endOffsets>
+              <option value="9384" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StorageStrategy.Tests/Handler/CommandHandlerTest.cs</url>
+          <line>218</line>
+          <properties documentPath="D:\StorageStrategy\StorageStrategy_API\StorageStrategy.Tests\Handler\CommandHandlerTest.cs" containingFunctionPresentation="Method 'Sucesso_ao_remover_produtos_da_comanda'">
+            <startOffsets>
+              <option value="9094" />
+            </startOffsets>
+            <endOffsets>
+              <option value="9242" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

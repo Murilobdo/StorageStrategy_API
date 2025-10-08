@@ -8,6 +8,7 @@ using StorageStrategy.Domain.Middleware;
 using StorageStrategy.Utils.Services;
 using System.Text;
 using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,14 @@ app.UseAuthorization();
 app.UseMiddleware(typeof(ExceptionErrorMiddleware));
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<StorageDbContext>();
+    var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
+    if(pendingMigrations.Any())
+        await context.Database.MigrateAsync();
+}
 
 app.Run();
 

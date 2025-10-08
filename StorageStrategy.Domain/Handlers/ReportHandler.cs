@@ -26,6 +26,10 @@ namespace StorageStrategy.Domain.Handlers
             request.FinalDate = request.FinalDate.AddDays(1);
             var commands = await _repo.ReadFinishCommandsByDateAsync(request);
             
+            var amounts = commands.SelectMany(p => p.Payments).Select(p => p.Amount);
+            var amountsWithFee = commands.SelectMany(p => p.Payments).Select(p => p.AmountWithFee);
+            
+            
             return CreateResponse(new {
                 Commands = commands,
                 TotalCost = commands.Sum(p => p.TotalCost),

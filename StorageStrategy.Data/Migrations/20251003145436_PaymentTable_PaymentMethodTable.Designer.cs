@@ -12,8 +12,8 @@ using StorageStrategy.Data.Context;
 namespace StorageStrategy.Data.Migrations
 {
     [DbContext(typeof(StorageDbContext))]
-    [Migration("20250922202802_AlterTable_PaymentMethod_RemoveColumn_ChangeTypeDecimal")]
-    partial class AlterTablePaymentMethodRemoveColumnChangeTypeDecimal
+    [Migration("20251003145436_PaymentTable_PaymentMethodTable")]
+    partial class PaymentTablePaymentMethodTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,12 +221,12 @@ namespace StorageStrategy.Data.Migrations
                             CompanyId = 1,
                             Address = "",
                             CNPJ = "",
-                            CreateAt = new DateTime(2025, 9, 22, 17, 28, 1, 82, DateTimeKind.Local).AddTicks(3676),
+                            CreateAt = new DateTime(2025, 10, 3, 11, 54, 35, 427, DateTimeKind.Local).AddTicks(9574),
                             Description = "Admin",
                             IsActive = true,
                             Name = "Admin Company",
                             Phone = "",
-                            Validate = new DateTime(2035, 9, 22, 17, 28, 1, 82, DateTimeKind.Local).AddTicks(3693)
+                            Validate = new DateTime(2035, 10, 3, 11, 54, 35, 427, DateTimeKind.Local).AddTicks(9593)
                         });
                 });
 
@@ -280,7 +280,7 @@ namespace StorageStrategy.Data.Migrations
                             IsActive = true,
                             JobRole = 7,
                             Name = "Murilo Bernardes (Admin)",
-                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$syEbJQgXdR054AvgiE4mZw$ffFJry3a/JYwY1lXoGOH0CqXwq9xac4jn2YhMfWJJMk"
+                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$ewPEXsHcNx9BbS7fidGnIQ$Hf5ITLXZBy/4QYd8eYszqLFsob0ghabIDK5MIjrZ4ro"
                         });
                 });
 
@@ -375,15 +375,26 @@ namespace StorageStrategy.Data.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("AmountWithFee")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("CommandId")
                         .HasColumnType("int");
 
                     b.Property<int>("Method")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PaymentMethodId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalFee")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("PaymentId");
 
                     b.HasIndex("CommandId");
+
+                    b.HasIndex("PaymentMethodId");
 
                     b.ToTable("Payment", (string)null);
                 });
@@ -403,14 +414,11 @@ namespace StorageStrategy.Data.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("CreditFee")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("DebitFee")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
+
+                    b.Property<decimal>("TotalFee")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("PaymentMethodId");
 
@@ -649,7 +657,13 @@ namespace StorageStrategy.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("StorageStrategy.Models.PaymentMethodEntity", "PaymentMethod")
+                        .WithMany()
+                        .HasForeignKey("PaymentMethodId");
+
                     b.Navigation("Command");
+
+                    b.Navigation("PaymentMethod");
                 });
 
             modelBuilder.Entity("StorageStrategy.Models.ProductEntity", b =>

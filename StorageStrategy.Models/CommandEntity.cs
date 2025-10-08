@@ -102,7 +102,7 @@ namespace StorageStrategy.Models
 
         public void FinishCommand()
         {
-            FinalDate = DateTime.Now.AddHours(-3);
+            FinalDate = DateTime.Now;
         }
     }
 }

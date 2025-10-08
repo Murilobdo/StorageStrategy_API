@@ -58,6 +58,7 @@ namespace StorageStrategy.API.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateCommandCommand command)
         {
+            command.EmployeeId = User.GetUserId();
             command.CompanyId = User.GetCompanyId();
             var result = await _mediator.Send(command);
             return Ok(result);

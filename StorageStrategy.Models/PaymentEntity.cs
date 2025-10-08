@@ -9,9 +9,8 @@ public class PaymentEntity
     public CommandEntity Command { get; set; } = new();
     public PaymentEnum Method { get; set; }
     public decimal Amount { get; set; }
-    public decimal DebitFee { get; set; }
-    public decimal CreditFee { get; set; }
-    
+    public decimal TotalFee { get; set; }
+    public decimal AmountWithFee { get; set; }
     public int? PaymentMethodId { get; set; }
     public PaymentMethodEntity PaymentMethod { get; set; }
 
@@ -21,16 +20,15 @@ public class PaymentEntity
         PaymentEnum method, 
         decimal amount,
         int paymentMethodId,
-        decimal debitFee,
-        decimal creditFee
+        decimal totalFee
     ) {
         PaymentId = paymentId;
         CommandId = commandId;
         Method = method;
         Amount = amount;
         PaymentMethodId = paymentMethodId;
-        DebitFee = debitFee;
-        CreditFee = creditFee;
+        TotalFee = totalFee;
+        AmountWithFee = amount - (amount * totalFee / 100);
     }
 
     public PaymentEntity()

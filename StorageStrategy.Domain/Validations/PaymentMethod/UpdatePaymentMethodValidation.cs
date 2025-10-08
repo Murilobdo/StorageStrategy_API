@@ -7,8 +7,6 @@ public class UpdatePaymentMethodValidation : PaymentValidationBase
         ValidationPaymentMethodId();
         ValidationCompanyId();
         ValidationCompany();
-        ValidationDebitFee();
-        ValidationCreditFee();
+        ValidationTotalFee();
     }
-    
 }

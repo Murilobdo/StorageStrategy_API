@@ -26,18 +26,12 @@ public class PaymentValidationBase : AbstractValidator<PaymentCommandBase>
             .WithMessage("A Empresa de obrigatorio");
     }
 
-    public void ValidationDebitFee()
+  
+    public void ValidationTotalFee()
     {
-        RuleFor(c => c.DebitFee)
+        RuleFor(c => c.TotalFee)
             .GreaterThanOrEqualTo(0)
-            .WithMessage("A taxa do débito deve ser maior ou igual a 0%");
-    }
-
-    public void ValidationCreditFee()
-    {
-        RuleFor(c => c.CreditFee)
-            .GreaterThanOrEqualTo(0)
-            .WithMessage("A taxa do crédito deve ser maior ou igual a 0%");
+            .WithMessage("A taxa de venda deve ser maior ou igual a 0%");
     }
     
 }

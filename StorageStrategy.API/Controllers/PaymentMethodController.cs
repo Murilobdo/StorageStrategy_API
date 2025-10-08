@@ -18,8 +18,8 @@ public class PaymentMethodController : Controller
     public async Task<IActionResult> Get(
         [FromServices]IPaymentMethodRepository repo
     ) {
-        var clients = await repo.GetAllAsync(p => p.CompanyId == User.GetCompanyId());
-        return Ok(new Result(clients, "Busca realizada"));
+        var methods = await repo.GetAllAsync(p => p.CompanyId == User.GetCompanyId());
+        return Ok(new Result(methods, "Busca realizada"));
     }
     
     [HttpPost("create")]

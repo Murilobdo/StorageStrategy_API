@@ -8,8 +8,7 @@ public class PaymentCommand
     public int PaymentMethodId { get; set; }
     public PaymentEnum Method { get; set; }
     public decimal Amount { get; set; }
-    public decimal DebitFee { get; set; }
-    public decimal CreditFee { get; set; }
+    public decimal TotalFee { get; set; }
 
     public PaymentCommand(int paymentId, PaymentEnum method, decimal amount)
     {

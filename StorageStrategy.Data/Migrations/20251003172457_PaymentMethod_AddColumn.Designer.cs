@@ -12,8 +12,8 @@ using StorageStrategy.Data.Context;
 namespace StorageStrategy.Data.Migrations
 {
     [DbContext(typeof(StorageDbContext))]
-    [Migration("20250922201015_CreateTable_PaymentMethod")]
-    partial class CreateTablePaymentMethod
+    [Migration("20251003172457_PaymentMethod_AddColumn")]
+    partial class PaymentMethodAddColumn
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,12 +221,12 @@ namespace StorageStrategy.Data.Migrations
                             CompanyId = 1,
                             Address = "",
                             CNPJ = "",
-                            CreateAt = new DateTime(2025, 9, 22, 17, 10, 14, 605, DateTimeKind.Local).AddTicks(608),
+                            CreateAt = new DateTime(2025, 10, 3, 14, 24, 55, 997, DateTimeKind.Local).AddTicks(245),
                             Description = "Admin",
                             IsActive = true,
                             Name = "Admin Company",
                             Phone = "",
-                            Validate = new DateTime(2035, 9, 22, 17, 10, 14, 605, DateTimeKind.Local).AddTicks(625)
+                            Validate = new DateTime(2035, 10, 3, 14, 24, 55, 997, DateTimeKind.Local).AddTicks(264)
                         });
                 });
 
@@ -280,7 +280,7 @@ namespace StorageStrategy.Data.Migrations
                             IsActive = true,
                             JobRole = 7,
                             Name = "Murilo Bernardes (Admin)",
-                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$7f5cfITYPw2Kf5wIcVa04A$18C9McIFE+hjfE8ber0LMPH2YoMyKo34SMm7v+Bf3Lo"
+                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$mfdPFQ7fBG7FsAyFmZw8Cw$JMaXXK3gcA+QJ26jLum3t4tZYuGW1pal912NPxc/JG4"
                         });
                 });
 
@@ -375,15 +375,26 @@ namespace StorageStrategy.Data.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("AmountWithFee")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("CommandId")
                         .HasColumnType("int");
 
                     b.Property<int>("Method")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PaymentMethodId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalFee")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("PaymentId");
 
                     b.HasIndex("CommandId");
+
+                    b.HasIndex("PaymentMethodId");
 
                     b.ToTable("Payment", (string)null);
                 });
@@ -398,27 +409,23 @@ namespace StorageStrategy.Data.Migrations
 
                     b.Property<string>("Company")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CreditFee")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DebitFee")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Method")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalFee")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("PaymentMethodId");
 
-                    b.HasIndex("CompanyId", "Name")
+                    b.HasIndex("CompanyId", "Company")
                         .IsUnique();
 
                     b.ToTable("PaymentMethod");
@@ -653,7 +660,13 @@ namespace StorageStrategy.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("StorageStrategy.Models.PaymentMethodEntity", "PaymentMethod")
+                        .WithMany()
+                        .HasForeignKey("PaymentMethodId");
+
                     b.Navigation("Command");
+
+                    b.Navigation("PaymentMethod");
                 });
 
             modelBuilder.Entity("StorageStrategy.Models.ProductEntity", b =>

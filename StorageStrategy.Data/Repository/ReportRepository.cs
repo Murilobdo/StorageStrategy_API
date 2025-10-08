@@ -28,7 +28,7 @@ namespace StorageStrategy.Data.Repository
                 .Include(p => p.Client)
                 .Where(p => p.CompanyId == request.CompanyId)
                 .Where(p => p.FinalDate != null && p.FinalDate.Value >= request.InitialDate && p.FinalDate.Value <= request.FinalDate)
-                .OrderByDescending(p => p.InitialDate)
+                .OrderByDescending(p => p.FinalDate)
                 .AsQueryable();
 
             if (request.EmployeeId > 0)

@@ -6,7 +6,6 @@ public class CreatePaymentMethodValidation : PaymentValidationBase
     {
         ValidationCompanyId();
         ValidationCompany();
-        ValidationDebitFee();
-        ValidationCreditFee();
+        ValidationTotalFee();
     }
 }

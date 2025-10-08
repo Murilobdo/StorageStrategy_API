@@ -14,6 +14,11 @@ namespace StorageStrategy.Utils.Helpers
             
             return totalPrice; 
         }
+
+        public static decimal TotalPaymentMethodFee(List<PaymentEntity> payments)
+        {
+            return 0;
+        }
         
         public static decimal TotalProfitCommands(List<CommandEntity> commands)
         {
@@ -27,7 +32,13 @@ namespace StorageStrategy.Utils.Helpers
         
         private static decimal GetTotalPriceWithDiscount(List<CommandEntity> commands)
         {
-            return commands.Sum(p => p.TotalPrice - p.Discount + p.Increase);
+            var payments = commands.SelectMany(p => p.Payments);
+            var totalPaymentsWithTaxing = payments
+                .Sum(p => p.AmountWithFee);
+            
+            decimal totalWithDiscount = commands.Sum(p => p.TotalPrice - p.Discount + p.Increase);
+            decimal realTotalTaxing = totalWithDiscount - totalPaymentsWithTaxing;
+            return totalWithDiscount - realTotalTaxing;
         }
 
         public static bool CommandHasFinishWithTotalPayments(CommandEntity command)
