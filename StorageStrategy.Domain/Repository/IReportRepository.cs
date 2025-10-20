@@ -5,7 +5,7 @@ namespace StorageStrategy.Domain.Repository
 {
     public interface IReportRepository : IRepositoryBase<CommandEntity>
     {
-        Task<List<CommandEntity>> ReadCommandsByDateAsync(ReadCommandsBetweenDatesCommand request);
+        Task<List<CommandEntity>> ReadFinishCommandsByDateAsync(ReadCommandsBetweenDatesCommand request);
         Task<List<CommandEntity>> ReadCommandsByMounthAsync(int companyId, int month, int? employeeId);
     }
 }

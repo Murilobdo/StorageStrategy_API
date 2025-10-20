@@ -10,10 +10,11 @@ namespace StorageStrategy.Domain.Commands.Dashboard
                 
         }
 
-        public SalesPerEmployeeCommand(int companyId, int month)
+        public SalesPerEmployeeCommand(int companyId, int month, int year)
         {
             CompanyId = companyId;
             Month = month;
+            Year = year;
         }
 
         public List<Error> GetErros() => new SalesPerEmployeeValidation().Validate(this)

@@ -3,15 +3,6 @@
   <component name="CopilotDiffPersistence">
     <option name="pendingDiffs">
       <map>
-        <entry key="$PROJECT_DIR$/StorageStrategy.Domain/Commands/UpdateClientCommand.cs">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/StorageStrategy.Domain/Commands/UpdateClientCommand.cs" />
-              <option name="originalContent" value="using StorageStrategy.Models;&#10;using MediatR;&#10;&#10;namespace StorageStrategy.Domain.Commands&#10;{&#10;    public class UpdateClientCommand : IRequest&lt;Result&gt;&#10;    {&#10;        public int ClientId { get; set; }&#10;        public int CompanyId { get; set; }&#10;        public string Name { get; set; }&#10;        public bool Active { get; set; }&#10;    }&#10;}&#10;" />
-              <option name="updatedContent" value="using StorageStrategy.Models;&#10;&#10;namespace StorageStrategy.Domain.Commands&#10;{&#10;    public class UpdateClientCommand : ClientCommand&#10;    {&#10;        public UpdateClientCommand(ClientEntity entity)&#10;        {&#10;            ClientId = entity.ClientId;&#10;            CompanyId = entity.CompanyId;&#10;            Name = entity.Name;&#10;            Active = entity.Active;&#10;        }&#10;&#10;        public UpdateClientCommand()&#10;        {&#10;            &#10;        }&#10;    }&#10;}" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
         <entry key="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Account/AccountHandlerBase.cs">
           <value>
             <PendingDiffInfo>
@@ -108,14 +99,6 @@
             <PendingDiffInfo>
               <option name="filePath" value="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Command/AddProductCommandHandle.cs" />
               <option name="updatedContent" value="using AutoMapper;&#10;using MediatR;&#10;using StorageStrategy.Domain.Commands.Command;&#10;using StorageStrategy.Domain.Repository;&#10;using StorageStrategy.Models;&#10;&#10;namespace StorageStrategy.Domain.Handlers.Command;&#10;&#10;public class AddProductCommandHandle : CommandHandlerBase, IRequestHandler&lt;AddProductCommandCommand, Result&gt;&#10;{&#10;    public AddProductCommandHandle(&#10;        IProductRepository repoProduct,&#10;        ICommandRepository repoCommand,&#10;        IEmployeeRepository employeeRepository,&#10;        IClientRepository clientRepo,&#10;        IMapper mapper) : base(repoProduct, repoCommand, employeeRepository, clientRepo, mapper)&#10;    {&#10;    }&#10;&#10;    public async Task&lt;Result&gt; Handle(AddProductCommandCommand request, CancellationToken cancellationToken)&#10;    {&#10;        if (!request.IsValid())&#10;            return CreateError(request.GetErros(), &quot;Dados invalidos&quot;);&#10;&#10;        var command = await _repoCommand.GetByIdAsync(request.CommandId);&#10;&#10;        if (command is null)&#10;            return CreateError(&quot;Comando não encontrado&quot;);&#10;&#10;        var product = await _repoProduct.GetByIdAsync(request.ProductId);&#10;&#10;        if (product is null)&#10;            return CreateError(&quot;Produto não encontrado&quot;);&#10;&#10;        if (product.Stock &lt; request.Quantity)&#10;            return CreateError(&quot;Estoque insuficiente&quot;);&#10;&#10;        var commandItem = new CommandItemEntity&#10;        {&#10;            CommandId = request.CommandId,&#10;            ProductId = request.ProductId,&#10;            Quantity = request.Quantity,&#10;            UnitPrice = request.UnitPrice,&#10;            UnitCost = product.Cost&#10;        };&#10;&#10;        command.Items.Add(commandItem);&#10;        product.Stock -= request.Quantity;&#10;&#10;        _repoCommand.Update(command);&#10;        _repoProduct.Update(product);&#10;        await _repoCommand.SaveAsync();&#10;&#10;        return CreateResponse(commandItem, &quot;Produto adicionado ao comando&quot;);&#10;    }&#10;}" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Command/CommandHandlerBase.cs">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Command/CommandHandlerBase.cs" />
-              <option name="updatedContent" value="using AutoMapper;&#10;using StorageStrategy.Domain.Repository;&#10;&#10;namespace StorageStrategy.Domain.Handlers.Command;&#10;&#10;public class CommandHandlerBase : HandlerBase&#10;{&#10;    protected readonly IProductRepository _repoProduct;&#10;    protected readonly ICommandRepository _repoCommand;&#10;    protected readonly IEmployeeRepository _repoEmployee;&#10;    protected readonly IMapper _mapper;&#10;    protected readonly IClientRepository _clientRepo;&#10;&#10;    public CommandHandlerBase(&#10;        IProductRepository repoProduct,&#10;        ICommandRepository repoCommand,&#10;        IEmployeeRepository employeeRepository,&#10;        IClientRepository clientRepo,&#10;        IMapper mapper)&#10;    {&#10;        _repoProduct = repoProduct;&#10;        _mapper = mapper;&#10;        _repoCommand = repoCommand;&#10;        _repoEmployee = employeeRepository;&#10;        _clientRepo = clientRepo;&#10;    }&#10;}" />
             </PendingDiffInfo>
           </value>
         </entry>

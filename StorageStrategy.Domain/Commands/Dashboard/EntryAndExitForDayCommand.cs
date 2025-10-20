@@ -10,10 +10,11 @@ namespace StorageStrategy.Domain.Commands.Dashboard
         
         }
 
-        public EntryAndExitForDayCommand(int companyId, int month)
+        public EntryAndExitForDayCommand(int companyId, int month, int year)
         {
             CompanyId = companyId;
             Month = month;
+            Year = year;
         }
 
         public int DayOfMonth { get; set; }

@@ -13,7 +13,7 @@ namespace StorageStrategy.Tests.Commands.Dashboard
         [Fact]
         public void Sucesso_ao_criar_EntryAndExitForDayCommand()
         {
-            EntryAndExitForDayCommand command = new(1, 1);
+            EntryAndExitForDayCommand command = new(1, 1, 2025);
 
             Assert.True(command.IsValid());
         }
@@ -21,7 +21,7 @@ namespace StorageStrategy.Tests.Commands.Dashboard
         [Fact]
         public void Erro_ao_criar_EntryAndExitForDayCommand_sem_companyId()
         {
-            EntryAndExitForDayCommand command = new(0, 1);
+            EntryAndExitForDayCommand command = new(0, 1, 2025);
 
             Assert.True(MensagemDeErroExistente(command.GetErros(), "O Id da Empresa e obrigatório"));
         }
@@ -29,7 +29,7 @@ namespace StorageStrategy.Tests.Commands.Dashboard
         [Fact]
         public void Erro_ao_criar_EntryAndExitForDayCommand_sem_mes()
         {
-            EntryAndExitForDayCommand command = new(1, 0);
+            EntryAndExitForDayCommand command = new(1, 0, 2025);
 
             Assert.True(MensagemDeErroExistente(command.GetErros(), "O Mês e obrigatório"));
         }
