@@ -3,6 +3,9 @@ name: Publish API With Docker Compose
 on:
   push:
     branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
 
 jobs:
   deploy:
