@@ -40,6 +40,7 @@ public class AddProductCommandHandler : CommandHandlerBase<AddProductCommandComm
                 }
                 
                 var productItemDb = productItems.FirstOrDefault(p => p.CommandItemId == productRequest.CommandItemId);
+                //2 > 5
                 if (productRequest.Qtd > productItemDb.Qtd)
                 {
                     var difference = Math.Abs(productRequest.Qtd - productItemDb.Qtd);

@@ -102,14 +102,6 @@
             </PendingDiffInfo>
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Command/CommandHandlerBase.cs">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Command/CommandHandlerBase.cs" />
-              <option name="updatedContent" value="using AutoMapper;&#10;using StorageStrategy.Domain.Repository;&#10;&#10;namespace StorageStrategy.Domain.Handlers.Command;&#10;&#10;public class CommandHandlerBase : HandlerBase&#10;{&#10;    protected readonly IProductRepository _repoProduct;&#10;    protected readonly ICommandRepository _repoCommand;&#10;    protected readonly IEmployeeRepository _repoEmployee;&#10;    protected readonly IMapper _mapper;&#10;    protected readonly IClientRepository _clientRepo;&#10;&#10;    public CommandHandlerBase(&#10;        IProductRepository repoProduct,&#10;        ICommandRepository repoCommand,&#10;        IEmployeeRepository employeeRepository,&#10;        IClientRepository clientRepo,&#10;        IMapper mapper)&#10;    {&#10;        _repoProduct = repoProduct;&#10;        _mapper = mapper;&#10;        _repoCommand = repoCommand;&#10;        _repoEmployee = employeeRepository;&#10;        _clientRepo = clientRepo;&#10;    }&#10;}" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
         <entry key="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Command/CreateCommandHandle.cs">
           <value>
             <PendingDiffInfo>

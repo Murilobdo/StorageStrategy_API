@@ -25,20 +25,14 @@ namespace StorageStrategy.Utils.Helpers
             return GetTotalPriceWithDiscount(commands) - GetTotalCost(commands);
         }
 
-        private static decimal GetTotalCost(List<CommandEntity> commands)
+        public static decimal GetTotalCost(List<CommandEntity> commands)
         {
             return commands.Sum(p => p.TotalCost);
         }
         
-        private static decimal GetTotalPriceWithDiscount(List<CommandEntity> commands)
+        public static decimal GetTotalPriceWithDiscount(List<CommandEntity> commands)
         {
-            var payments = commands.SelectMany(p => p.Payments);
-            var totalPaymentsWithTaxing = payments
-                .Sum(p => p.AmountWithFee);
-            
-            decimal totalWithDiscount = commands.Sum(p => p.TotalPrice - p.Discount + p.Increase);
-            decimal realTotalTaxing = totalWithDiscount - totalPaymentsWithTaxing;
-            return totalWithDiscount - realTotalTaxing;
+            return commands.Sum(p => p.GetFinalPrice());
         }
 
         public static bool CommandHasFinishWithTotalPayments(CommandEntity command)

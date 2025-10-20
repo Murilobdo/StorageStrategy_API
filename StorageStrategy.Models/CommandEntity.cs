@@ -80,7 +80,7 @@ namespace StorageStrategy.Models
 
         public decimal GetFinalPrice()
         {
-            return TotalPrice + Increase - Discount;
+            return Payments.Sum(p => p.AmountWithFee > 0 ? p.AmountWithFee : p.Amount) + Increase - Discount;
         }
         
 

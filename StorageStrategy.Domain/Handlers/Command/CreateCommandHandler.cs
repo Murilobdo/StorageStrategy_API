@@ -1,19 +1,31 @@
 ﻿using AutoMapper;
+using MediatR;
 using StorageStrategy.Domain.Commands.Command;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Handlers.Command;
 
-public class CreateCommandHandler : CommandHandlerBase<CreateCommandCommand>
+public class CreateCommandHandler : HandlerBase, IRequestHandler<CreateCommandCommand, Result>
 {
+    protected IProductRepository _repoProduct;
+    protected ICommandRepository _repoCommand;
+    protected IEmployeeRepository _repoEmployee;
+    protected IMapper _mapper;
+    protected IClientRepository _clientRepo;
+    
     public CreateCommandHandler(
         IProductRepository repoProduct, 
         ICommandRepository repoCommand, 
         IEmployeeRepository repoEmployee, 
         IMapper mapper, 
-        IClientRepository clientRepo) : base(repoProduct, repoCommand, repoEmployee, mapper, clientRepo)
+        IClientRepository clientRepo) 
     {
+        _repoProduct = repoProduct;
+        _repoCommand = repoCommand;
+        _repoEmployee = repoEmployee;
+        _mapper = mapper;
+        _clientRepo = clientRepo;
     }
 
     public async Task<Result> Handle(CreateCommandCommand request, CancellationToken cancellationToken)
@@ -41,7 +53,7 @@ public class CreateCommandHandler : CommandHandlerBase<CreateCommandCommand>
         {
             command.Name = "Consumidor";
             command.ClientId = null;
-            command.FinalDate = DateTime.Now.AddHours(-3);
+            command.FinalDate = DateTime.Now;
         }
         else
         {
@@ -62,7 +74,10 @@ public class CreateCommandHandler : CommandHandlerBase<CreateCommandCommand>
         command.TotalPrice = commandItems.Sum(p => p.Price * p.Qtd);
         command.TotalCost = commandItems.Sum(p => p.Cost * p.Qtd);
         command.TotalTaxing = commandItems.Sum(p => p.Taxing * p.Qtd);
-
+        
+        if(payments.Any())
+            command.Payments = payments;
+        
         await _repoCommand.AddAsync(command);
         await _repoCommand.SaveAsync();
 

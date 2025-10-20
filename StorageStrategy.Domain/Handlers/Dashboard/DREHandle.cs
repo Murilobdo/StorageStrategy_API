@@ -19,7 +19,7 @@ public class DREHandlee : DashboardHandlerBase, IRequestHandler<DRECommand, Resu
         var commands = await _repoCommand.ReadCommandsForPeriodWithItensAsync(request.CompanyId, request.Month, request.Year);
         var expenses = await _repoExpenses.ReadTotalExpensesByMonth(request.CompanyId, request.Month, request.Year);
 
-        request.ReceitaBruta = commands.Sum(p => p.TotalPrice - p.Discount + p.Increase);
+        request.ReceitaBruta = Calc.GetTotalPriceWithDiscount(commands);
         request.DeducoesAbatimentos = Calc.TotalDeImpostos(commands);
         request.ReceitaLiquida = request.ReceitaBruta - request.DeducoesAbatimentos;
         request.CPV = Calc.CustoProdutoVendido(commands);
