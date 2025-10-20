@@ -27,6 +27,7 @@ namespace StorageStrategy.Data.Context
         public DbSet<ExpensesTypeEntity> ExpensesType { get; set; }
         public DbSet<StockHistoryEntity> StockHistory { get; set; }
         public DbSet<StockHistoryItemEntity> StockHistoryItems { get; set; }
+        public DbSet<PaymentMethodEntity> PaymentMethod { get; set; }
         public DbSet<LogApp> Logs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -66,6 +67,7 @@ namespace StorageStrategy.Data.Context
             modelBuilder.ApplyConfiguration(new LogMapping());
             modelBuilder.ApplyConfiguration(new PaymentMapping());
             modelBuilder.ApplyConfiguration(new ClientMapping());
+            modelBuilder.ApplyConfiguration(new PaymentMethodMapping());
             base.OnModelCreating(modelBuilder);
         }
     }

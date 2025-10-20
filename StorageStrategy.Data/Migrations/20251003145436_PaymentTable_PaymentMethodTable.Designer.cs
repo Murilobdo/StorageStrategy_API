@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StorageStrategy.Data.Context;
 
@@ -11,9 +12,11 @@ using StorageStrategy.Data.Context;
 namespace StorageStrategy.Data.Migrations
 {
     [DbContext(typeof(StorageDbContext))]
-    partial class StorageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251003145436_PaymentTable_PaymentMethodTable")]
+    partial class PaymentTablePaymentMethodTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,12 +221,12 @@ namespace StorageStrategy.Data.Migrations
                             CompanyId = 1,
                             Address = "",
                             CNPJ = "",
-                            CreateAt = new DateTime(2025, 10, 3, 15, 13, 59, 906, DateTimeKind.Local).AddTicks(8668),
+                            CreateAt = new DateTime(2025, 10, 3, 11, 54, 35, 427, DateTimeKind.Local).AddTicks(9574),
                             Description = "Admin",
                             IsActive = true,
                             Name = "Admin Company",
                             Phone = "",
-                            Validate = new DateTime(2035, 10, 3, 15, 13, 59, 906, DateTimeKind.Local).AddTicks(8685)
+                            Validate = new DateTime(2035, 10, 3, 11, 54, 35, 427, DateTimeKind.Local).AddTicks(9593)
                         });
                 });
 
@@ -277,7 +280,7 @@ namespace StorageStrategy.Data.Migrations
                             IsActive = true,
                             JobRole = 7,
                             Name = "Murilo Bernardes (Admin)",
-                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$WLPidp1JKT/IGNF4VafScw$Uj342cBGCpCsnCIrcXnxLnSImvXqlKg4WFMCb+xeZb0"
+                            PasswordHash = "$argon2id$v=19$m=65536,t=3,p=1$ewPEXsHcNx9BbS7fidGnIQ$Hf5ITLXZBy/4QYd8eYszqLFsob0ghabIDK5MIjrZ4ro"
                         });
                 });
 
@@ -414,15 +417,12 @@ namespace StorageStrategy.Data.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Method")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("TotalFee")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("PaymentMethodId");
 
-                    b.HasIndex("Company", "Method")
+                    b.HasIndex("CompanyId", "Company")
                         .IsUnique();
 
                     b.ToTable("PaymentMethod");

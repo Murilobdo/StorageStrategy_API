@@ -9,7 +9,7 @@ namespace StorageStrategy.Tests.Commands.Dashboard
         [Fact]
         public void Sucesso_ao_criar_SalesPerEmployeeCommand() 
         {
-            SalesPerEmployeeCommand command = new(companyId: 1, month: 5);
+            SalesPerEmployeeCommand command = new(companyId: 1, month: 5, 2025);
 
             Assert.True(command.IsValid());
         }
@@ -17,7 +17,7 @@ namespace StorageStrategy.Tests.Commands.Dashboard
         [Fact]
         public void Erro_ao_criar_SalesPerEmployeeCommand_sem_companyId()
         {
-            SalesPerEmployeeCommand command = new(companyId: 0, month: 5);
+            SalesPerEmployeeCommand command = new(companyId: 0, month: 5, 2025);
 
             Assert.True(MensagemDeErroExistente(command.GetErros(), "O Id da Empresa e obrigatório"));
         }
@@ -25,10 +25,8 @@ namespace StorageStrategy.Tests.Commands.Dashboard
         [Fact]
         public void Erro_ao_criar_SalesPerEmployeeCommand_sem_month()
         {
-            SalesPerEmployeeCommand command = new(companyId: 1, month: 0);
-
+            SalesPerEmployeeCommand command = new(companyId: 1, month: 0, 2025);
             Assert.True(MensagemDeErroExistente(command.GetErros(), "O Mês e obrigatório"));
         }
-
     }
 }

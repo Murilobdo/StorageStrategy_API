@@ -12,10 +12,10 @@ namespace StorageStrategy.Models
         public int EmployeeId { get; set; }
         public EmployeeEntity Employee { get; set; }
         public string Name { get; set; } = string.Empty;
-        public List<CommandItemEntity> Items { get; set; } = new();
         public decimal TotalCost { get; set; } = 0;
         public decimal TotalPrice { get; set; } = 0;
         public decimal TotalTaxing { get; set; } = 0;
+        public List<CommandItemEntity> Items { get; set; } = new();
         public List<PaymentEntity> Payments { get; set; } = new();
         
         public PaymentEnum Payment { get; set; } 
@@ -80,7 +80,7 @@ namespace StorageStrategy.Models
 
         public decimal GetFinalPrice()
         {
-            return TotalPrice + Increase - Discount;
+            return Payments.Sum(p => p.AmountWithFee > 0 ? p.AmountWithFee : p.Amount) + Increase - Discount;
         }
         
 
@@ -102,7 +102,7 @@ namespace StorageStrategy.Models
 
         public void FinishCommand()
         {
-            FinalDate = DateTime.Now.AddHours(-3);
+            FinalDate = DateTime.Now;
         }
     }
 }

@@ -24,8 +24,8 @@ public class InfoCard : DashboardHandlerBase, IRequestHandler<InfoCardCommand, R
         
         var expensesMonth = await _repoExpenses.ReadTotalExpensesByMonth(request.CompanyId, request.Month, request.Year);
         request.TotalProfit = Calc.TotalProfitCommands(commands);
+        request.TotalSales = Calc.GetTotalPriceWithDiscount(commands);
         request.TotalMonthExpenses = expensesMonth.Sum(p => p.ExpenseValue);
-        request.TotalSales = await _repoCommand.ReadTotalSalesByCompany(request.CompanyId, request.Month);
 
         return CreateResponse(request, "Busca realizada !");
     }

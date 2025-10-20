@@ -73,6 +73,7 @@ namespace StorageStrategy.Data.Repository
                 .Include(p => p.Items)
                     .ThenInclude(p => p.Product)
                         .ThenInclude(p => p.Category)
+                .Include(p => p.Payments)
                 .AsNoTracking()
                 .Where(p => p.FinalDate != null)
                 .Where(p => p.FinalDate.Value.Month == month && p.FinalDate.Value.Year == year)

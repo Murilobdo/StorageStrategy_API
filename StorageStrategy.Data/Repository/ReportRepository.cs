@@ -17,7 +17,7 @@ namespace StorageStrategy.Data.Repository
             return await _context.Command.FirstOrDefaultAsync(p => p.CommandId == id);
         }
 
-        public async Task<List<CommandEntity>> ReadCommandsByDateAsync(ReadCommandsBetweenDatesCommand request)
+        public async Task<List<CommandEntity>> ReadFinishCommandsByDateAsync(ReadCommandsBetweenDatesCommand request)
         {
             var query = _context.Command
                 .AsNoTracking()
@@ -26,10 +26,9 @@ namespace StorageStrategy.Data.Repository
                 .Include(p => p.Payments)
                 .Include(p => p.Employee)
                 .Include(p => p.Client)
-                .Where(p => p.InitialDate >= request.InitialDate)
                 .Where(p => p.CompanyId == request.CompanyId)
-                .Where(p => p.FinalDate != null && p.FinalDate.Value <= request.FinalDate)
-                .OrderByDescending(p => p.InitialDate)
+                .Where(p => p.FinalDate != null && p.FinalDate.Value >= request.InitialDate && p.FinalDate.Value <= request.FinalDate)
+                .OrderByDescending(p => p.FinalDate)
                 .AsQueryable();
 
             if (request.EmployeeId > 0)

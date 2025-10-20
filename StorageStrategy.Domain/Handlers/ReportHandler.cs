@@ -23,13 +23,19 @@ namespace StorageStrategy.Domain.Handlers
         {
             if (!request.IsValid())
                 return CreateError(request.GetErros(), "Dados invalidos");
+            
             request.FinalDate = request.FinalDate.AddDays(1);
-            var commands = await _repo.ReadCommandsByDateAsync(request);
+            var commands = await _repo.ReadFinishCommandsByDateAsync(request);
+
+            var totalComanda = commands.Sum(p => p.GetFinalPrice());
+            var totalCusto = commands.Sum(p => p.TotalCost);
+            var totalLucro = totalComanda - totalCusto;
+            
             
             return CreateResponse(new {
                 Commands = commands,
                 TotalCost = commands.Sum(p => p.TotalCost),
-                TotalPrice = commands.Sum(p => p.TotalPrice - p.Discount + p.Increase),
+                TotalPrice = commands.Sum(p => p.GetFinalPrice()),
             }, "Busca realizada !");
         }
 
