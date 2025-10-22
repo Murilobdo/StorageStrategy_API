@@ -17,13 +17,13 @@ public class EntryAndExitOfMonthHandle : DashboardHandlerBase, IRequestHandler<E
         if (!request.IsValid())
             return CreateError(request.GetErros(), "Dados inválidos"); 
 
-        var command = await _repoCommand.ReadMonthCommandsAsync(request.CompanyId, request.Month, request.Year);
+        var command = await _repoCommand.ReadMonthCommandsAsync(request.CompanyId, request.CurrentDate.Month, request.CurrentDate.Year);
 
         if (command is null)
             return CreateError("Comanda não encontrada");
 
         request.MoneyOut = command.Sum(p => p.TotalCost);
-        request.MoneyIn = command.Sum(p => p.TotalPrice);
+        request.MoneyIn = command.Sum(p => p.GetFinalPrice());
 
         return CreateResponse(request, "Busca realizada");
     }
