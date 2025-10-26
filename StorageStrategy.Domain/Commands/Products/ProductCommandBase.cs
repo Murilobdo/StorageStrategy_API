@@ -31,5 +31,6 @@ namespace StorageStrategy.Domain.Commands.Products
         public int CategoryId { get; set; }
         public int CompanyId { get; set; }
         public decimal Taxing { get; set; }
+        public bool IsService { get; set; }
     }
 }

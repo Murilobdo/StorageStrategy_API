@@ -57,7 +57,7 @@ namespace StorageStrategy.Domain.Commands.Command
             Payments = command.Payments.Select(p => new PaymentCommand
             {
                 Method = p.Method,
-                Amount = p.Amount
+                Amount = p.AmountWithFee > 0 ? p.AmountWithFee : p.Amount,
             }).ToList();
             TotalPrice = Items.Sum(p => p.Price * p.Qtd);
         }

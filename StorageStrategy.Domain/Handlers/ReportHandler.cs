@@ -3,6 +3,7 @@ using MediatR;
 using StorageStrategy.Domain.Commands.Report;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
+using StorageStrategy.Models.ViewModels.Report;
 using StorageStrategy.Utils.Helpers;
 
 namespace StorageStrategy.Domain.Handlers
@@ -26,16 +27,13 @@ namespace StorageStrategy.Domain.Handlers
             
             request.FinalDate = request.FinalDate.AddDays(1);
             var commands = await _repo.ReadFinishCommandsByDateAsync(request);
-
-            var totalComanda = commands.Sum(p => p.GetFinalPrice());
-            var totalCusto = commands.Sum(p => p.TotalCost);
-            var totalLucro = totalComanda - totalCusto;
             
-            
-            return CreateResponse(new {
+            return CreateResponse(new ReportCommandViewModel {
                 Commands = commands,
-                TotalCost = commands.Sum(p => p.TotalCost),
-                TotalPrice = commands.Sum(p => p.GetFinalPrice()),
+                TotalCostService = Calc.SumCostService(commands),
+                TotalCostProduct = Calc.SumCostProduct(commands),
+                TotalPriceService = Calc.SumPriceService(commands),
+                TotalPriceProduct = Calc.GetTotalPriceWithDiscount(commands),
             }, "Busca realizada !");
         }
 
