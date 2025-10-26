@@ -92,5 +92,39 @@ namespace StorageStrategy.Utils.Helpers
             var result = commands.Sum(p => p.TotalCost);
             return result;
         }
+
+        public static decimal SumCostService(List<CommandEntity> commands)
+        {
+            return commands
+                .SelectMany(p => p.Items)
+                .Where(p => p.Product.IsService)
+                .Sum(p => p.Product.Cost);
+        }
+        public static decimal SumCostProduct(List<CommandEntity> commands)
+        {
+     
+            return commands
+                .SelectMany(p => p.Items)
+                .Where(p => !p.Product.IsService)
+                .Sum(p => p.Product.Cost);
+        }
+        public static decimal SumPriceService(List<CommandEntity> commands)
+        {
+            return commands
+                .SelectMany(p => p.Items)
+                .Where(p => p.Product.IsService)
+                .Sum(p => p.Product.Price);
+        }
+        
+        public static decimal SumPriceProduct(List<CommandEntity> commands)
+        {
+
+            return commands
+                .SelectMany(p => p.Items)
+                .Where(p => !p.Product.IsService)
+                .Sum(p => p.Product.Price);
+
+
+        }
     }
 }

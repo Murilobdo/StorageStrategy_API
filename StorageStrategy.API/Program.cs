@@ -26,6 +26,10 @@ ConfigureJwt();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+builder.Host.UseDefaultServiceProvider(cfg =>
+{
+    cfg.ValidateOnBuild = true;
+});
 
 var app = builder.Build();
 
