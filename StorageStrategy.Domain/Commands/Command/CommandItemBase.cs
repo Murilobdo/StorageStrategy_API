@@ -10,6 +10,7 @@
         public decimal Price { get; set; }
         public int Qtd { get; set; }
         public decimal Taxing { get; set; }
+        public bool IsService { get; set; }
 
         public CommandItemBase()
         {

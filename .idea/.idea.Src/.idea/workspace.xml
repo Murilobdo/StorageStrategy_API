@@ -11,16 +11,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e6a583f-5c5e-4ed0-b0d2-b3ea197a0b5f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/StorageStrategy.Models/ViewModels/Report/ReportCommandViewModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/ListCommandsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/Command/ListCommandsHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Src/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/StorageDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Migrations/StorageDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.API/Controllers/CommandController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.API/Controllers/CommandController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Data/Repository/CommandRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Data/Repository/CommandRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CommandItemBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CommandItemBase.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CreateCommandCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Command/CreateCommandCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Products/ProductCommandBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Commands/Products/ProductCommandBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/ReportHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Domain/Handlers/ReportHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Models/ProductEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Models/ProductEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Models/ViewModels/ReportCommandsViewModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/StorageStrategy.Utils/Helpers/Calc.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StorageStrategy.Utils/Helpers/Calc.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,6 +157,7 @@
       <workItem from="1761255533446" duration="150000" />
       <workItem from="1761255834045" duration="5424000" />
       <workItem from="1761510653647" duration="628000" />
+      <workItem from="1763239881595" duration="4330000" />
     </task>
     <servers />
   </component>

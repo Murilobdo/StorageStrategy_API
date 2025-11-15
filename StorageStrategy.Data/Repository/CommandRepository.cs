@@ -113,6 +113,7 @@ namespace StorageStrategy.Data.Repository
                 .Where(p => p.CompanyId == companyId)
                 .Include(p => p.Payments)
                 .Include(p => p.Items)
+                .ThenInclude(p => p.Product)
                 .Include(p => p.Client)
                 .AsNoTracking()
                 .AsQueryable();
