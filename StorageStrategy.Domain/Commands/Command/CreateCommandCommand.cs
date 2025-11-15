@@ -52,7 +52,8 @@ namespace StorageStrategy.Domain.Commands.Command
                 ProductId = p.ProductId,
                 Qtd = p.Qtd,
                 Name = p.Name,
-                Price = p.Price
+                Price = p.Price,
+                IsService = p.Product.IsService
             }).ToList();
             Payments = command.Payments.Select(p => new PaymentCommand
             {

@@ -25,22 +25,11 @@ namespace StorageStrategy.API.Controllers
 
         [HttpGet("list")]
         public async Task<IActionResult> ToList(
-            [FromServices] ICommandRepository repo, 
             [FromQuery] int companyId,
             [FromQuery] bool haveEndDate
         ) {
-            List<CreateCommandCommand> result = new();
-            companyId = User.GetCompanyId();
-            var commands = await repo.ToListAsync(companyId, haveEndDate);
-            commands = commands.OrderByDescending(p => p.InitialDate).ToList();
-
-            commands.ForEach(_command =>
-            {
-                CreateCommandCommand command = new CreateCommandCommand(_command);
-                result.Add(command);
-            });
-
-            return Ok(new Result(result, "Busca realizada"));
+            var response = await _mediator.Send(new ListCommandsQuery(haveEndDate, User.GetCompanyId()));
+            return Ok(response);
         }
 
         [HttpGet("getcommand")]
