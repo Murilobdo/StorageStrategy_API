@@ -29,7 +29,7 @@ namespace StorageStrategy.Tests.Handler
             cfg.AddProfile(new EmployeeProfile());
             _log = new Mock<ILoggerFactory>().Object;
 
-            _mapper = new MapperConfiguration(cfg, _log).CreateMapper();
+            _mapper = new MapperConfiguration(cfg).CreateMapper();
 
             _handler = new EmployeeHandler(
                 _repo,

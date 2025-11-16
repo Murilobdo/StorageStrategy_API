@@ -10,6 +10,7 @@ namespace StorageStrategy.Domain.Services.MinioStorage;
 public class StorageFile : IStorageFile
 {
     private readonly IMinioClient _client;
+    private const string ProductBucketPrefix = "products-company-";
 
     public StorageFile(IOptions<AppSettings> options)
     {
@@ -20,6 +21,21 @@ public class StorageFile : IStorageFile
             .WithCredentials(cfg.AccessKey, cfg.SecretKey)
             .WithSSL(cfg.UseSSL)
             .Build();
+    }
+
+    public async Task<string> UploadProductPhotoAsync(string requestPhotoUrl, int companyId, int productId)
+    {
+        await CreateBucketAsync($"{ProductBucketPrefix}{companyId}");
+        
+        var objectName = $"product-{productId}-{Guid.NewGuid()}";
+        await UploadAsync(
+            $"{ProductBucketPrefix}{companyId}",
+            objectName,
+            File.OpenRead(requestPhotoUrl),
+            "image/jpeg"
+        );
+        
+        return string.Empty;
     }
 
     public async Task<bool> BucketExistsAsync(string bucketName)

@@ -25,7 +25,7 @@ namespace StorageStrategy.Tests.Handler
             _log = new Mock<ILoggerFactory>().Object;
             MapperConfigurationExpression cfg = new MapperConfigurationExpression();
             cfg.AddProfile(new CategoryProfile());
-            _mapper = new MapperConfiguration(cfg, _log).CreateMapper();
+            _mapper = new MapperConfiguration(cfg).CreateMapper();
 
             _repo = new FakeCategoryRepository();
 

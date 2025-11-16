@@ -35,7 +35,7 @@ namespace StorageStrategy.Tests.Handler
 
             MapperConfigurationExpression cfg = new MapperConfigurationExpression();
             cfg.AddProfile(new CommandProfile());
-            _mapper = new MapperConfiguration(cfg, _log)
+            _mapper = new MapperConfiguration(cfg)
                 .CreateMapper();
 
            

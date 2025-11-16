@@ -7,11 +7,11 @@ namespace StorageStrategy.Tests.Commands.StockHistory
 {
     public class StockHistoryCommandTest : CommandBaseTest
     {
-        private readonly CreateStockHsitoryCommand _command;
+        private readonly CreateStockHistoryCommand _command;
 
         public StockHistoryCommandTest()
         {
-            _command = new CreateStockHsitoryCommand
+            _command = new CreateStockHistoryCommand
             {
                 CompanyId = 1,
                 Products = new List<StockHistoryItemEntity>

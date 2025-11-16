@@ -103,7 +103,7 @@ namespace StorageStrategy.API.Controllers
         }
 
         [HttpPut("update-stock")]
-        public async Task<IActionResult> UpdateStock([FromBody] CreateStockHsitoryCommand command)
+        public async Task<IActionResult> UpdateStock([FromBody] CreateStockHistoryCommand command)
         {
             command.CompanyId = User.GetCompanyId();
             var result = await _mediator.Send(command);

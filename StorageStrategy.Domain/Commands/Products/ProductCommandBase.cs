@@ -23,6 +23,10 @@ namespace StorageStrategy.Domain.Commands.Products
 
         public int ProductId { get; set; }
         public string Name { get; set; } = string.Empty;
+        public string PhotoUrl { get; set; }
+        public string PhotoDescription { get; set; }
+        public int Code { get; set; }
+        public string BarCode { get; set; }
         public decimal Cost { get; set; }
         public decimal Price { get; set; }
         public int Qtd { get; set; }
