@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.Extensions.Logging;
+using Moq;
 using StorageStrategy.Domain.AutoMapper;
 using StorageStrategy.Domain.Commands.Command;
 using StorageStrategy.Domain.Handlers;
@@ -20,6 +22,7 @@ namespace StorageStrategy.Tests.Handler
         private IClientRepository _repoClient;
         private IMapper _mapper;
         private CancellationToken _cancellationToken;
+        private ILoggerFactory _log;
 
         public CommandHandlerTest()
         {
@@ -28,11 +31,14 @@ namespace StorageStrategy.Tests.Handler
             _repoProduct = new FakeProductRepository();
             _repoEmployee = new FakeEmployeeRepository();
             _repoCommand = new FakeCommandRepository();
+            _log = new Mock<ILoggerFactory>().Object;
 
-            _mapper = new MapperConfiguration(config =>
-            {
-                config.AddProfile(new CommandProfile());
-            }).CreateMapper();
+            MapperConfigurationExpression cfg = new MapperConfigurationExpression();
+            cfg.AddProfile(new CommandProfile());
+            _mapper = new MapperConfiguration(cfg, _log)
+                .CreateMapper();
+
+           
 
         }
 
