@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
+using Moq;
 using StorageStrategy.Domain.AutoMapper;
 using StorageStrategy.Domain.Commands.Products;
 using StorageStrategy.Domain.Handlers;
@@ -15,17 +17,18 @@ namespace StorageStrategy.Tests.Handler
         public FakeCategoryRepository _repoCategory;
         public FakeProductRepository _repo;
         public FakeEmployeeRepository _repoEmployee;
+        private ILoggerFactory _log;
 
         public ProductHandlerTest()
         {
             _repo = new FakeProductRepository();
             _repoEmployee = new FakeEmployeeRepository();
             _repoCategory = new FakeCategoryRepository();
+            _log = new Mock<ILoggerFactory>().Object;
 
-            _mapper = new MapperConfiguration(config =>
-            {
-                config.AddProfile(new ProductProfile());
-            }).CreateMapper();
+            var cfg = new MapperConfigurationExpression();
+            cfg.AddProfile(new ProductProfile());
+            _mapper = new MapperConfiguration(cfg, _log).CreateMapper();
 
             _handler = new ProductHandler(
                     _repo,
