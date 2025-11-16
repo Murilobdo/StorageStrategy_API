@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using Moq;
 using StorageStrategy.Domain.AutoMapper;
 using StorageStrategy.Domain.Commands.Category;
@@ -16,14 +17,15 @@ namespace StorageStrategy.Tests.Handler
         private FakeCategoryRepository _repo;
         private IMapper _mapper;
         private CancellationToken _cancellationToken;
+        private ILoggerFactory _log;
 
         public CategoryHandlerTest()
         {
             _cancellationToken = new CancellationToken();
-            _mapper = new MapperConfiguration(config =>
-            {
-                config.AddProfile(new CategoryProfile());
-            }).CreateMapper();
+            _log = new Mock<ILoggerFactory>().Object;
+            MapperConfigurationExpression cfg = new MapperConfigurationExpression();
+            cfg.AddProfile(new CategoryProfile());
+            _mapper = new MapperConfiguration(cfg).CreateMapper();
 
             _repo = new FakeCategoryRepository();
 

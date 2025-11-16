@@ -7,7 +7,7 @@ using StorageStrategy.Models;
 
 namespace StorageStrategy.Domain.Commands.StockHistory
 {
-    public class CreateStockHsitoryCommand : IValidation, IRequest<Result>
+    public class CreateStockHistoryCommand : IValidation, IRequest<Result>
     {
         public int CompanyId { get; set; }
         public List<StockHistoryItemEntity> Products { get; set; } = new();

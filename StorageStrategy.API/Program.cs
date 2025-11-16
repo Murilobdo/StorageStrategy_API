@@ -9,11 +9,13 @@ using StorageStrategy.Utils.Services;
 using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using StorageStrategy.Domain.Services.MinioStorage;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+builder.Services.AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -26,6 +28,8 @@ ConfigureJwt();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+
+
 builder.Host.UseDefaultServiceProvider(cfg =>
 {
     cfg.ValidateOnBuild = true;
@@ -87,6 +91,7 @@ void ConfigureDependencyInjection()
     builder.Services.AddScoped<IClientRepository, ClientRepository>();
     builder.Services.AddScoped<ILogRepository, LogRepository>();
     builder.Services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
+    builder.Services.AddScoped<IStorageFile, StorageFile>();
 }
 
 void ConfigureJwt()

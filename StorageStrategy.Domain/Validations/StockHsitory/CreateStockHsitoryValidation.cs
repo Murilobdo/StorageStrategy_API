@@ -4,7 +4,7 @@ using StorageStrategy.Domain.Commands.StockHistory;
 
 namespace StorageStrategy.Domain.Validations.StockHsitory
 {
-    public class CreateStockHsitoryValidation : AbstractValidator<CreateStockHsitoryCommand>
+    public class CreateStockHsitoryValidation : AbstractValidator<CreateStockHistoryCommand>
     {
         public CreateStockHsitoryValidation()
         {

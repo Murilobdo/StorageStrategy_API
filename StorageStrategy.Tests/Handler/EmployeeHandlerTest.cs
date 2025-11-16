@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Moq;
 using StorageStrategy.Domain.AutoMapper;
 using StorageStrategy.Domain.Commands.Employee;
 using StorageStrategy.Domain.Handlers;
@@ -15,6 +17,7 @@ namespace StorageStrategy.Tests.Handler
         private FakeEmployeeRepository _repo;
         private IMapper _mapper;
         private CancellationToken _cancellationToken;
+        private ILoggerFactory _log;
 
 
         public EmployeeHandlerTest()
@@ -22,10 +25,11 @@ namespace StorageStrategy.Tests.Handler
             _cancellationToken = new CancellationToken();
             _repo = new FakeEmployeeRepository();
 
-            _mapper = new MapperConfiguration(config =>
-            {
-                config.AddProfile(new EmployeeProfile());
-            }).CreateMapper();
+            MapperConfigurationExpression cfg = new MapperConfigurationExpression();
+            cfg.AddProfile(new EmployeeProfile());
+            _log = new Mock<ILoggerFactory>().Object;
+
+            _mapper = new MapperConfiguration(cfg).CreateMapper();
 
             _handler = new EmployeeHandler(
                 _repo,

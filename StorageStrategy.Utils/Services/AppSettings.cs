@@ -8,5 +8,14 @@ namespace StorageStrategy.Utils.Services
         }
         public string JwtKey { get; set; } = string.Empty;
         public string Database { get; set; } = string.Empty;
+        public MinioSettings Minio { get; set; } = new();
+    }
+    
+    public class MinioSettings
+    {
+        public string Endpoint { get; set; } = string.Empty;
+        public string AccessKey { get; set; } = string.Empty;
+        public string SecretKey { get; set; } = string.Empty;
+        public bool UseSSL { get; set; }
     }
 }
