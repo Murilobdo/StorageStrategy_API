@@ -10,6 +10,6 @@ public class PaymentMethodMapping : IEntityTypeConfiguration<PaymentMethodEntity
     {
         builder.HasKey(p => p.PaymentMethodId);
         
-        builder.HasIndex(p => new { p.Company, p.Method }).IsUnique();
+        builder.HasIndex(p => new { p.CompanyId, p.Company, p.Method }).IsUnique();
     }
 }
