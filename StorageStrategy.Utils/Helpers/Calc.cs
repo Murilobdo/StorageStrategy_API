@@ -37,11 +37,9 @@ namespace StorageStrategy.Utils.Helpers
 
         public static bool CommandHasFinishWithTotalPayments(CommandEntity command)
         {
-            var _discount = command.Discount;
-            var _increase = command.Increase;
             var _totalPaymentsAmount = command.Payments.Sum(p => p.Amount);
             
-            return command.TotalPrice + _increase - _discount == _totalPaymentsAmount;
+            return command.TotalPrice == _totalPaymentsAmount;
         }
 
         public static decimal TotalCostForPayment(List<CommandEntity> commands, PaymentEnum paymentEnum)

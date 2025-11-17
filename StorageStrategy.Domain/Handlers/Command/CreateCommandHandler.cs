@@ -39,7 +39,8 @@ public class CreateCommandHandler : HandlerBase, IRequestHandler<CreateCommandCo
             return CreateError("Funcionario não encontrado");
 
         var command = request.CreateCommand();
-        
+        var lastCommand = await _repoCommand.GetLastCommandAsync(request.CompanyId);
+        command.Code = Convert.ToString(lastCommand is null ? 1 : Convert.ToInt32(lastCommand.Code) + 1);
         command.InitialDate = DateTime.Now.AddHours(-3);
 
         var result = await HasProductsInStock(request.Items, request.CompanyId);

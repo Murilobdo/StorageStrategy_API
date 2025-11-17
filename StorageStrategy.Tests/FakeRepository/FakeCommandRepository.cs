@@ -128,6 +128,11 @@ namespace StorageStrategy.Tests.FakeRepository
         {
         }
 
+        public Task<CommandEntity> GetLastCommandAsync(int requestCompanyId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task RemoveCommandItemsAsync(List<CommandItemEntity> items)
         {
             if(items.Count > 0)

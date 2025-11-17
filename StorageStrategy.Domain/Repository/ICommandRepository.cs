@@ -14,5 +14,6 @@ namespace StorageStrategy.Domain.Repository
         Task<List<CommandEntity>> ReadCommandsForPeriodWithItensAsync(int companyId, int month, int year);
         Task<decimal> ReadTotalSalesByCompany(int companyId, int month);
         void UpdateCommandItemAsync(CommandItemEntity productItemDb);
+        Task<CommandEntity> GetLastCommandAsync(int requestCompanyId);
     }             
 }

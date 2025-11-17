@@ -100,6 +100,14 @@ namespace StorageStrategy.Data.Repository
             _context.CommandItems.Update(productItemDb);
         }
 
+        public async Task<CommandEntity> GetLastCommandAsync(int companyId)
+        {
+           return await _context.Command
+                .Where(p => p.CompanyId == companyId)
+                .OrderByDescending(p => p.CommandId)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task RemoveCommandItemsAsync(List<CommandItemEntity> items)
         {
             _context.ChangeTracker.Clear();

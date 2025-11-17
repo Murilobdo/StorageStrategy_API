@@ -27,6 +27,7 @@ namespace StorageStrategy.Models
         public decimal Increase { get; set; }
         public int? ClientId { get; set; }
         public ClientEntity Client { get; set; }
+        public string Code { get; set; }
         public CommandEntity()
         {
             InitialDate = DateTime.Now;
@@ -102,7 +103,7 @@ namespace StorageStrategy.Models
 
         public void FinishCommand()
         {
-            FinalDate = DateTime.Now;
+            FinalDate = DateTime.Now.AddHours(-3);
         }
     }
 }
