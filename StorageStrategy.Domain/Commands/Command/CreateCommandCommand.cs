@@ -46,6 +46,7 @@ namespace StorageStrategy.Domain.Commands.Command
             Increase = command.Increase;
             InitialDate = command.InitialDate;
             FinalDate = command.FinalDate;
+            Code = command.Code;
             Items = command.Items.Select(p => new CommandItemBase
             {
                 CommandItemId = p.CommandItemId,
@@ -58,7 +59,8 @@ namespace StorageStrategy.Domain.Commands.Command
             Payments = command.Payments.Select(p => new PaymentCommand
             {
                 Method = p.Method,
-                Amount = p.AmountWithFee > 0 ? p.AmountWithFee : p.Amount,
+                Amount = p.Amount,
+                AmountWithFee = p.AmountWithFee,
             }).ToList();
             TotalPrice = Items.Sum(p => p.Price * p.Qtd);
         }

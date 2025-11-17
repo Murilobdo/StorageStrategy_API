@@ -52,6 +52,11 @@ namespace StorageStrategy.Tests.FakeRepository
             return Task.CompletedTask;
         }
 
+        public Task<ProductEntity> FindLastProductByCompany(int requestCompanyId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Clear()
         {
             

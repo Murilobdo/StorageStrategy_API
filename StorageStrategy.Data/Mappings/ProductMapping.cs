@@ -10,6 +10,11 @@ namespace StorageStrategy.Data.Mappings
         public void Configure(EntityTypeBuilder<ProductEntity> builder)
         {
             builder.HasKey(p => p.ProductId);
+            // builder.HasIndex(p => new
+            // {
+            //     p.CompanyId,
+            //     p.Code
+            // }).IsUnique();
 
             builder.Property(p => p.Name)
                 .HasMaxLength(100);

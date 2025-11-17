@@ -57,6 +57,9 @@ using (var scope = app.Services.CreateScope())
     var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
     if(pendingMigrations.Any())
         await context.Database.MigrateAsync();
+
+    // Seed default admin company and user if they don't exist
+    await context.SeedDefaultAdminAsync();
 }
 
 app.Run();
@@ -111,5 +114,3 @@ void ConfigureJwt()
         };
     });
 }
-
- 

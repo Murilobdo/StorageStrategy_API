@@ -19,6 +19,8 @@ namespace StorageStrategy.Models
         public bool IsService { get; set; }
         public string PhotoUrl { get; set; }
         public string PhotoDescription { get; set; }
+        public string Code { get; set; }    
+        public string BarCode { get; set; }
 
         public ProductEntity()
         {

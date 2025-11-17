@@ -10,32 +10,38 @@ namespace StorageStrategy.Domain.Services.MinioStorage;
 public class StorageFile : IStorageFile
 {
     private readonly IMinioClient _client;
-    private const string ProductBucketPrefix = "products-company-";
-
+    private const string BucketName = "storage-strategy";
+    private MinioSettings _minio;
     public StorageFile(IOptions<AppSettings> options)
     {
-        var cfg = options.Value.Minio;
+        _minio = options.Value.Minio;
 
         _client = new MinioClient()
-            .WithEndpoint(cfg.Endpoint)
-            .WithCredentials(cfg.AccessKey, cfg.SecretKey)
-            .WithSSL(cfg.UseSSL)
+            .WithEndpoint(_minio.Endpoint)
+            .WithCredentials(_minio.AccessKey, _minio.SecretKey)
+            .WithSSL(_minio.UseSSL)
             .Build();
     }
 
-    public async Task<string> UploadProductPhotoAsync(string requestPhotoUrl, int companyId, int productId)
+    public async Task<string> UploadProductPhotoAsync(string photo, string nameCompany, int productId)
     {
-        await CreateBucketAsync($"{ProductBucketPrefix}{companyId}");
+        nameCompany = nameCompany.Replace(" ", "-").ToLower();
+        photo = photo.Split("base64,")[1];
+        byte[] imageBytes = Convert.FromBase64String(photo);
+        using var stream = new MemoryStream(imageBytes);
         
-        var objectName = $"product-{productId}-{Guid.NewGuid()}";
+        await CreateBucketAsync(BucketName);
+        
+        var objectName = $"company-{nameCompany}-product-{Guid.NewGuid()}.jpeg";
+        
         await UploadAsync(
-            $"{ProductBucketPrefix}{companyId}",
+            $"{BucketName}",
             objectName,
-            File.OpenRead(requestPhotoUrl),
+            stream,
             "image/jpeg"
         );
         
-        return string.Empty;
+        return $"https://{_minio.Endpoint}/{BucketName}/{objectName}";
     }
 
     public async Task<bool> BucketExistsAsync(string bucketName)

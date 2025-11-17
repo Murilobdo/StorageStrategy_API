@@ -13,5 +13,6 @@ namespace StorageStrategy.Domain.Repository
         Task<int> QuantityInStockByCompany(int companyId);
         Task<List<ProductEntity>> GetProductsByIds(int companyId, IEnumerable<int> productsIds);
         Task AddStockHistory(StockHistoryEntity stockHistory);
+        Task<ProductEntity> FindLastProductByCompany(int requestCompanyId);
     }
 }

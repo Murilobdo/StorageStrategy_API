@@ -9,7 +9,11 @@ namespace StorageStrategy.Data.Mappings
         public void Configure(EntityTypeBuilder<CommandEntity> builder)
         {
             builder.HasKey(p => p.CommandId);
-
+            
+            // builder.HasIndex(p => new {p.CompanyId, p.Code})
+            //     .IsUnique();
+            
+            
             builder.HasMany(p => p.Items)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
