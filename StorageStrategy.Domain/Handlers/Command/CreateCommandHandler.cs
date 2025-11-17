@@ -54,7 +54,7 @@ public class CreateCommandHandler : HandlerBase, IRequestHandler<CreateCommandCo
         {
             command.Name = "Consumidor";
             command.ClientId = null;
-            command.FinalDate = DateTime.Now;
+            command.FinalDate = DateTime.Now.AddHours(-3);
         }
         else
         {
