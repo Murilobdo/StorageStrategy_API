@@ -55,8 +55,15 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<StorageDbContext>();
     var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
-    if(pendingMigrations.Any())
+    if (pendingMigrations.Any())
+    {
         await context.Database.MigrateAsync();
+        Console.WriteLine("Aplicando migrações pendentes no banco de dados...");
+    }
+    else
+    {
+        Console.WriteLine("Nenhum migração pendente encontrada no banco de dados.");
+    }
 
     // Seed default admin company and user if they don't exist
     await context.SeedDefaultAdminAsync();
