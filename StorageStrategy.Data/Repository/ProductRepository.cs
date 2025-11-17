@@ -25,6 +25,14 @@ namespace StorageStrategy.Data.Repository
             await _context.StockHistory.AddAsync(stockHistory);
         }
 
+        public async Task<ProductEntity> FindLastProductByCompany(int companyId)
+        {
+            return await _context.Product
+                .Where(p => p.CompanyId == companyId)
+                .OrderByDescending(p => p.ProductId)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<ProductEntity> FindByName(string name, int companyId)
         {
             return await _context.Product.FirstOrDefaultAsync(p => p.Name.ToLower().Trim() == name.ToLower().Trim() && p.CompanyId == companyId);

@@ -58,7 +58,6 @@ namespace StorageStrategy.API.Controllers
 
             products.ForEach(product =>
             {
-                var currentProduct = _mapper.Map<CreateProductCommand>(product);
                 listProduct.Add(_mapper.Map<CreateProductCommand>(product));
             });
 
@@ -107,6 +106,14 @@ namespace StorageStrategy.API.Controllers
         {
             command.CompanyId = User.GetCompanyId();
             var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpGet("generate-code")]
+        public async Task<IActionResult> GenerateCode()
+        {
+            int companyId = User.GetCompanyId();
+            var result = await _mediator.Send(new GenerateCodeCommand(companyId));
             return Ok(result);
         }
     }

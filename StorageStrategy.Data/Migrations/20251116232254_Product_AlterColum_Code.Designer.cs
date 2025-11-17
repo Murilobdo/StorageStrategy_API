@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StorageStrategy.Data.Context;
 
@@ -11,9 +12,11 @@ using StorageStrategy.Data.Context;
 namespace StorageStrategy.Data.Migrations
 {
     [DbContext(typeof(StorageDbContext))]
-    partial class StorageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251116232254_Product_AlterColum_Code")]
+    partial class Product_AlterColum_Code
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -416,9 +419,8 @@ namespace StorageStrategy.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
@@ -463,8 +465,7 @@ namespace StorageStrategy.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("CompanyId", "Code")
-                        .IsUnique();
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Product");
                 });

@@ -9,15 +9,18 @@ namespace StorageStrategy.Domain.Handlers.Product;
 public class CreateProductHandle : ProductHandlerBase<CreateProductCommand>
 {
     private IStorageFile _storage;
+    private ICompanyRepository _repoCompany;
     
     public CreateProductHandle(
         IProductRepository repoProduct, 
         ICategoryRepository repoCategory, 
         IMapper mapper,
-        IStorageFile storage
+        IStorageFile storage,
+        ICompanyRepository repoCompany
     ) : base(repoProduct, repoCategory, mapper)
     {
         _storage = storage;
+        _repoCompany = repoCompany;
     }
 
     public override async Task<Result> Handle(CreateProductCommand request, CancellationToken cancellationToken)
@@ -36,10 +39,12 @@ public class CreateProductHandle : ProductHandlerBase<CreateProductCommand>
             return CreateError("Categoria não encontrada");
 
         product = _mapper.Map<ProductEntity>(request);
-
+        product.StockAlert = request.StockAlert;
+        product.Taxing = request.Taxing;
         await _repoProduct.AddAsync(product);
         await _repoProduct.SaveAsync();
 
+        request.ProductId = product.ProductId;
         await UploadPhotoAsync(request);
 
         return CreateResponse(product, "Produto cadastrado com sucesso.");
@@ -47,10 +52,11 @@ public class CreateProductHandle : ProductHandlerBase<CreateProductCommand>
     
     private async Task UploadPhotoAsync(CreateProductCommand request)
     {
-        if (request.PhotoUrl is null || request.PhotoUrl.Length == 0)
+        var company = await _repoCompany.GetById(request.CompanyId);
+        if (request.PhotoUrl is null || request.PhotoUrl.Length == 0 || company is null)
             return;
 
-        var path = await _storage.UploadProductPhotoAsync(request.PhotoUrl, request.CompanyId, request.ProductId);
+        var path = await _storage.UploadProductPhotoAsync(request.PhotoUrl, company.Name, request.ProductId);
 
         var product = await _repoProduct.GetById(request.ProductId);
         product.PhotoUrl = path;
@@ -58,6 +64,4 @@ public class CreateProductHandle : ProductHandlerBase<CreateProductCommand>
         _repoProduct.Update(product);
         await _repoProduct.SaveAsync();
     }
-    
-    
 }

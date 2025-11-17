@@ -2,7 +2,7 @@
 
 public interface IStorageFile
 {
-    Task<string> UploadProductPhotoAsync(string requestPhotoUrl, int requestCompanyId, int requestProductId);
+    Task<string> UploadProductPhotoAsync(string requestPhotoUrl, string nameCompany, int requestProductId);
     
     Task<bool> BucketExistsAsync(string bucketName);
     Task CreateBucketAsync(string bucketName);

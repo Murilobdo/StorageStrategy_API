@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StorageStrategy.Data.Context;
 
@@ -11,9 +12,11 @@ using StorageStrategy.Data.Context;
 namespace StorageStrategy.Data.Migrations
 {
     [DbContext(typeof(StorageDbContext))]
-    partial class StorageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251116231427_Product_AddColumn_Photo_And_SerialNumber")]
+    partial class Product_AddColumn_Photo_And_SerialNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -409,16 +412,8 @@ namespace StorageStrategy.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
 
-                    b.Property<string>("BarCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
@@ -463,8 +458,7 @@ namespace StorageStrategy.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("CompanyId", "Code")
-                        .IsUnique();
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Product");
                 });
