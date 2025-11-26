@@ -67,7 +67,7 @@ namespace StorageStrategy.Data.Context
             // Ensure admin company exists
             if (!await Company.AnyAsync(c => c.Name == "Admin Company"))
             {
-                var adminCompany = new CompanyEntity(companyId: 1, name: "Admin Company", description: "Admin", 
+                var adminCompany = new CompanyEntity().InitAdmin(companyId: 1, name: "Admin Company", description: "Admin", 
                     createAt: DateTime.Now, validate: DateTime.Now.AddYears(10));
                 Company.Add(adminCompany);
                 await SaveChangesAsync();
