@@ -4,6 +4,7 @@ using Minio.ApiEndpoints;
 using Minio.DataModel.Args;
 using Minio.Exceptions;
 using StorageStrategy.Utils.Services;
+using static System.Net.WebRequestMethods;
 
 namespace StorageStrategy.Domain.Services.MinioStorage;
 
@@ -41,7 +42,7 @@ public class StorageFile : IStorageFile
             "image/jpeg"
         );
         
-        return $"https://{_minio.Endpoint}/{BucketName}/{objectName}";
+        return $"{(_minio.UseSSL ? "https" : "http")}://{_minio.Endpoint}/{BucketName}/{objectName}";
     }
 
     public async Task<bool> BucketExistsAsync(string bucketName)

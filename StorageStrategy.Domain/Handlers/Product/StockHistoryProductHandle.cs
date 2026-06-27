@@ -23,6 +23,7 @@ public class StockHistoryProductHandle : ProductHandlerBase<CreateStockHistoryCo
 
         var productsIds = stockHistory.Products.Select(p => p.ProductId);
         var productsToUpdate = await _repoProduct.GetProductsByIds(request.CompanyId, productsIds);
+
         await _repoProduct.AddStockHistory(stockHistory);
         await _repoProduct.SaveAsync();
 
@@ -34,9 +35,9 @@ public class StockHistoryProductHandle : ProductHandlerBase<CreateStockHistoryCo
             product.Cost = productHistory.Cost;
             product.Price = productHistory.Price;
             _repoProduct.Update(product);
+            await _repoProduct.SaveAsync();
         }
 
-        await _repoProduct.SaveAsync();
 
         return CreateResponse(stockHistory, "Estoque atualizado com sucesso.");
     }
