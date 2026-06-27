@@ -13,19 +13,22 @@ public class CreateCommandHandler : HandlerBase, IRequestHandler<CreateCommandCo
     protected IEmployeeRepository _repoEmployee;
     protected IMapper _mapper;
     protected IClientRepository _clientRepo;
+    protected IMediator _mediator;
     
     public CreateCommandHandler(
         IProductRepository repoProduct, 
         ICommandRepository repoCommand, 
         IEmployeeRepository repoEmployee, 
         IMapper mapper, 
-        IClientRepository clientRepo) 
-    {
+        IClientRepository clientRepo,
+        IMediator mediator
+    ) {
         _repoProduct = repoProduct;
         _repoCommand = repoCommand;
         _repoEmployee = repoEmployee;
         _mapper = mapper;
         _clientRepo = clientRepo;
+        _mediator = mediator;
     }
 
     public async Task<Result> Handle(CreateCommandCommand request, CancellationToken cancellationToken)
@@ -54,7 +57,6 @@ public class CreateCommandHandler : HandlerBase, IRequestHandler<CreateCommandCo
         {
             command.Name = "Consumidor";
             command.ClientId = null;
-            command.FinalDate = DateTime.Now.AddHours(-3);
         }
         else
         {
@@ -87,6 +89,13 @@ public class CreateCommandHandler : HandlerBase, IRequestHandler<CreateCommandCo
             var product = await _repoProduct.GetByIdAsync(commandItem.ProductId, request.CompanyId);
             product.Qtd -= commandItem.Qtd;
             _repoProduct.Update(product);
+            await _repoCommand.SaveAsync();
+        }
+
+        if(payments.Sum(p => p.Amount) == command.TotalPrice)
+        {
+            command.FinalDate = DateTime.Now.AddHours(-3);
+            _repoCommand.Update(command);
             await _repoCommand.SaveAsync();
         }
         
