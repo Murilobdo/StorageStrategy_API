@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using StorageStrategy.Data.Context;
 using StorageStrategy.Domain.Repository;
 
@@ -38,7 +39,7 @@ namespace StorageStrategy.Data.Repository
         }
         public async Task SaveAsync() => await _context.SaveChangesAsync();
         public void Save() => _context.SaveChanges();
-        public async Task CreateTranscationAsync() => await _context.Database.BeginTransactionAsync();
+        public async Task<IDbContextTransaction> CreateTranscationAsync(CancellationToken cancellationToken) =>  await _context.Database.BeginTransactionAsync(cancellationToken);
         public async Task RollbackAsync() => await _context.Database.RollbackTransactionAsync();
         public async Task CommitAsync() => await _context.Database.CommitTransactionAsync();
         public void Clear() => _context.ChangeTracker.Clear();

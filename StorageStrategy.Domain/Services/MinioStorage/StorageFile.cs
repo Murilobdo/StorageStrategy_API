@@ -33,16 +33,16 @@ public class StorageFile : IStorageFile
         
         await CreateBucketAsync(BucketName);
         
-        var objectName = $"company-{nameCompany}-product-{Guid.NewGuid()}.jpeg";
+        var fileName = $"company-{nameCompany}-product-{Guid.NewGuid()}.jpeg";
         
         await UploadAsync(
             $"{BucketName}",
-            objectName,
+            fileName,
             stream,
             "image/jpeg"
         );
         
-        return $"{(_minio.UseSSL ? "https" : "http")}://{_minio.Endpoint}/{BucketName}/{objectName}";
+        return $"{(_minio.UseSSL ? "https" : "http")}://{_minio.Endpoint}/{BucketName}/{fileName}";
     }
 
     public async Task<bool> BucketExistsAsync(string bucketName)

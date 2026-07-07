@@ -1,4 +1,5 @@
-﻿using StorageStrategy.Domain.Commands.Products;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using StorageStrategy.Domain.Commands.Products;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
 
@@ -67,9 +68,9 @@ namespace StorageStrategy.Tests.FakeRepository
             return Task.CompletedTask;
         }
 
-        public Task CreateTranscationAsync()
+        public Task<IDbContextTransaction> CreateTranscationAsync(CancellationToken cancellationToken)
         {
-            return Task.CompletedTask;
+            return null;
         }
 
         public void Delete(ProductEntity id)
