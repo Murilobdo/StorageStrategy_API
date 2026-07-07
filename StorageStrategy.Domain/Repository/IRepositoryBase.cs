@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using System.Linq.Expressions;
 
 namespace StorageStrategy.Domain.Repository
 {
@@ -12,7 +13,7 @@ namespace StorageStrategy.Domain.Repository
         Task<TModel> GetById(int id);
         void Save();
         Task SaveAsync();
-        Task CreateTranscationAsync();
+        Task<IDbContextTransaction> CreateTranscationAsync(CancellationToken cancellationToken);
         Task RollbackAsync();
         Task CommitAsync();
         void Clear();

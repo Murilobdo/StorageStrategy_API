@@ -38,7 +38,7 @@ namespace StorageStrategy.Domain.Handlers
                 CNPJ = request.CNPJ,
                 Phone = request.Phone,
                 Address = request.Address,
-                CreateAt = DateTime.Now,
+                CreateAt = DateTime.Now.AddHours(-3),
                 IsActive = true,
                 Description = request.Description,
                 Validate = DateTime.Now.AddMonths(1)

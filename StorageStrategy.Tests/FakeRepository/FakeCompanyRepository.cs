@@ -1,4 +1,5 @@
-﻿using StorageStrategy.Domain.Repository;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
 
 namespace StorageStrategy.Tests.FakeRepository;
@@ -45,9 +46,9 @@ public class FakeCompanyRepository : ICompanyRepository
         throw new NotImplementedException();
     }
 
-    public Task CreateTranscationAsync()
+    public Task<IDbContextTransaction> CreateTranscationAsync(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return null;
     }
 
     public Task RollbackAsync()

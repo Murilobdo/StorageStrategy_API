@@ -55,7 +55,7 @@ namespace StorageStrategy.API.Controllers
             command.ForEach(c => c.CompanyId = User.GetCompanyId());
 
             var logs = new List<Error>();
-            await repo.CreateTranscationAsync();
+            await repo.CreateTranscationAsync(CancellationToken.None);
 
             foreach (var category in command)
             {

@@ -15,19 +15,19 @@ public class ImportProductHandle: ProductHandlerBase<ImportProductCommand>
 
     public async Task<Result> Handle(ImportProductCommand request, CancellationToken cancellationToken)
     {
+        using var transaction = await _repoProduct.CreateTranscationAsync(cancellationToken);
         try
         {
-            await _repoProduct.CreateTranscationAsync();
             await CreateCategorys(request);
 
             var products = await CreateProducts(request);
-                
-            await _repoProduct.CommitAsync();
+
+            await transaction.CommitAsync();
             return CreateResponse(products, "Produtos importados com sucesso.");
         }
         catch (Exception ex)
         {
-            await _repoProduct.RollbackAsync();
+            await transaction.RollbackAsync();
             return CreateError(new Result("", ex.Message));
         }
     }
