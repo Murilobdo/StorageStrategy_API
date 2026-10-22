@@ -1,4 +1,5 @@
 ﻿using Isopoh.Cryptography.Argon2;
+using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using StorageStrategy.Data.Mappings;
@@ -9,7 +10,7 @@ using System.Linq;
 
 namespace StorageStrategy.Data.Context
 {
-    public class StorageDbContext : DbContext
+    public class StorageDbContext : DbContext, IDataProtectionKeyContext
     {
         private readonly IOptions<AppSettings> _appSettings;
         
@@ -31,6 +32,9 @@ namespace StorageStrategy.Data.Context
         public DbSet<StockHistoryItemEntity> StockHistoryItems { get; set; }
         public DbSet<PaymentMethodEntity> PaymentMethod { get; set; }
         public DbSet<LogApp> Logs { get; set; }
+        public DbSet<PixChargeEntity> PixCharges { get; set; }
+        public DbSet<PixCredentialEntity> PixCredentials { get; set; }
+        public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {   
@@ -57,6 +61,8 @@ namespace StorageStrategy.Data.Context
             modelBuilder.ApplyConfiguration(new PaymentMapping());
             modelBuilder.ApplyConfiguration(new ClientMapping());
             modelBuilder.ApplyConfiguration(new PaymentMethodMapping());
+            modelBuilder.ApplyConfiguration(new PixChargeMapping());
+            modelBuilder.ApplyConfiguration(new PixCredentialMapping());
             base.OnModelCreating(modelBuilder);
         }
 

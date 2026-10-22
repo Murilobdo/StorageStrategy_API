@@ -28,4 +28,25 @@ namespace StorageStrategy.Models
         [Display(Name = "Funcionário")]
         Employee = 2
     }
+
+    public enum PixChargeStatusEnum
+    {
+        [Display(Name = "Criando")]
+        Criando = 1,
+
+        [Display(Name = "Aguardando Pagamento")]
+        AguardandoPagamento = 2,
+
+        [Display(Name = "Pago")]
+        Pago = 3,
+
+        [Display(Name = "Rejeitado")]
+        Rejeitado = 4,
+
+        [Display(Name = "Cancelado")]
+        Cancelado = 5,
+
+        [Display(Name = "Expirado")]
+        Expirado = 6
+    }
 }

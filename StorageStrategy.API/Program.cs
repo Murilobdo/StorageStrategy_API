@@ -10,6 +10,11 @@ using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using StorageStrategy.Domain.Services.MinioStorage;
+using StorageStrategy.Domain.Services.MercadoPago;
+using StorageStrategy.Domain.Services.Refit;
+using Refit;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +30,10 @@ builder.Services.AddDbContext<StorageDbContext>();
 
 ConfigureDependencyInjection();
 ConfigureJwt();
+ConfigureDataProtection();
+
+builder.Services.AddRefitClient<IMercadoPagoService>()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://api.mercadopago.com"));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
@@ -102,6 +111,24 @@ void ConfigureDependencyInjection()
     builder.Services.AddScoped<ILogRepository, LogRepository>();
     builder.Services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
     builder.Services.AddScoped<IStorageFile, StorageFile>();
+    builder.Services.AddScoped<IPixChargeRepository, PixChargeRepository>();
+    builder.Services.AddScoped<IPixCredentialRepository, PixCredentialRepository>();
+    builder.Services.AddScoped<ISecretProtector, SecretProtector>();
+    builder.Services.AddScoped<IMercadoPagoGateway, MercadoPagoGateway>();
+    builder.Services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
+    builder.Services.AddHostedService<PixWebhookProcessingService>();
+    builder.Services.AddHostedService<PixExpirationJob>();
+}
+
+void ConfigureDataProtection()
+{
+    // Key ring persistido no próprio banco (tabela DataProtectionKeys) em vez do
+    // sistema de arquivos: sobrevive a rebuilds locais e a redeploys de container
+    // (o filesystem do container é recriado do zero a cada deploy), evitando que
+    // segredos já cifrados no banco (ex.: PixCredential) fiquem indecifráveis.
+    builder.Services.AddDataProtection()
+        .SetApplicationName("StorageStrategy")
+        .PersistKeysToDbContext<StorageDbContext>();
 }
 
 void ConfigureJwt()
