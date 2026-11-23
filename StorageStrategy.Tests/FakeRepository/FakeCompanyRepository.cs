@@ -6,14 +6,17 @@ namespace StorageStrategy.Tests.FakeRepository;
 
 public class FakeCompanyRepository : ICompanyRepository
 {
+    public List<CompanyEntity> companies = new();
+
     public Task AddAsync(CompanyEntity model)
     {
-        throw new NotImplementedException();
+        companies.Add(model);
+        return Task.CompletedTask;
     }
 
     public Task<List<CompanyEntity>> GetAllAsync(Func<CompanyEntity, bool> filter, string[] includeProperties = null)
     {
-        throw new NotImplementedException();
+        return Task.FromResult(companies.Where(filter).ToList());
     }
 
     public void Update(CompanyEntity model)
@@ -43,7 +46,7 @@ public class FakeCompanyRepository : ICompanyRepository
 
     public Task SaveAsync()
     {
-        throw new NotImplementedException();
+        return Task.CompletedTask;
     }
 
     public Task<IDbContextTransaction> CreateTranscationAsync(CancellationToken cancellationToken)

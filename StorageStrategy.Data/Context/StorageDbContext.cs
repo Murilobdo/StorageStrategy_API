@@ -1,5 +1,4 @@
-﻿using Isopoh.Cryptography.Argon2;
-using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using StorageStrategy.Data.Mappings;
@@ -45,7 +44,7 @@ namespace StorageStrategy.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Removed HasData seeding for admin company and admin user.
-            // Seeding is handled at runtime by SeedDefaultAdminAsync so the company and user are created only if they don't exist.
+            // Seeding is handled at runtime by PlatformAdminSeeder (Domain) so the company and user are created only if they don't exist.
 
             modelBuilder.ApplyConfiguration(new CompanyMapping());
             modelBuilder.ApplyConfiguration(new ProductMapping());
@@ -64,38 +63,6 @@ namespace StorageStrategy.Data.Context
             modelBuilder.ApplyConfiguration(new PixChargeMapping());
             modelBuilder.ApplyConfiguration(new PixCredentialMapping());
             base.OnModelCreating(modelBuilder);
-        }
-
-        // Call this method at application startup after obtaining a scope with StorageDbContext.
-        // It will create the default admin company and user only if they are not already present in the database.
-        public async Task SeedDefaultAdminAsync()
-        {
-            // Ensure admin company exists
-            if (!await Company.AnyAsync(c => c.Name == "Admin Company"))
-            {
-                var adminCompany = new CompanyEntity().InitAdmin(companyId: 1, name: "Admin Company", description: "Admin", 
-                    createAt: DateTime.Now, validate: DateTime.Now.AddYears(10));
-                Company.Add(adminCompany);
-                await SaveChangesAsync();
-            }
-
-            var company = await Company.FirstAsync(c => c.Name == "Admin Company");
-
-            // Ensure admin employee exists
-            if (!await Employee.AnyAsync(e => e.Email == "murilobdo@admin.com"))
-            {
-                Employee.Add(new EmployeeEntity {
-                    EmployeeId = 1,
-                    Name = "Murilo Bernardes (Admin)",
-                    Email = "murilobdo@admin.com",
-                    PasswordHash = Argon2.Hash("fib"),
-                    JobRole = EmployeeRole.Admin,
-                    CompanyId = company.CompanyId,
-                    Comission = 0,
-                    IsActive = true
-                });
-                await SaveChangesAsync();
-            }
         }
     }
 }

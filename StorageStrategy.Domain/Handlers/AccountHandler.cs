@@ -62,17 +62,25 @@ namespace StorageStrategy.Domain.Handlers
 
         public async Task<Result> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
         {
+            if (!request.IsValid())
+                return CreateError(request.GetErros(), "Dados invalidos");
+
+            // UserId/CompanyId vêm do token (preenchidos no controller), nunca do corpo.
             var employee = await _repo.GetByIdAsync(request.UserId, request.CompanyId);
 
             if(employee == null)
                 return CreateError("Funcionário não encontrado");
+
+            if (!Argon2.Verify(employee.PasswordHash, request.CurrentPassword))
+                return CreateError("Senha atual incorreta");
 
             employee.PasswordHash = Argon2.Hash(request.NewPassword);
 
             _repo.Update(employee);
             await _repo.SaveAsync();
 
-            return CreateResponse(employee, "Senha alterada com sucesso");
+            // A resposta não devolve o funcionário nem o hash.
+            return CreateResponse<object>("Senha alterada com sucesso");
         }
     }
 }
