@@ -1,4 +1,5 @@
-﻿using StorageStrategy.Domain.Commands.Employee;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using StorageStrategy.Domain.Commands.Employee;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
 
@@ -48,9 +49,9 @@ namespace StorageStrategy.Tests.FakeRepository
             return Task.CompletedTask;
         }
 
-        public Task CreateTranscationAsync()
+        public Task<IDbContextTransaction> CreateTranscationAsync(CancellationToken cancellationToken)
         {
-            return Task.CompletedTask;
+            return null;
         }
 
         public void Delete(EmployeeEntity id)

@@ -9,7 +9,6 @@ namespace StorageStrategy.Domain.Commands.Company
 {
     public record CreateCompanyCommand : CompanyCommandBase, IValidation
     {
-
         public CreateCompanyCommand(
             int companyId, 
             string name, 

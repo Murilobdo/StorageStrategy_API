@@ -22,6 +22,25 @@ namespace StorageStrategy.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Microsoft.AspNetCore.DataProtection.EntityFrameworkCore.DataProtectionKey", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FriendlyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Xml")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DataProtectionKeys");
+                });
+
             modelBuilder.Entity("StorageStrategy.Models.CategoryEntity", b =>
                 {
                     b.Property<int>("CategoryId")
@@ -404,6 +423,103 @@ namespace StorageStrategy.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("PaymentMethod");
+                });
+
+            modelBuilder.Entity("StorageStrategy.Models.PixChargeEntity", b =>
+                {
+                    b.Property<int>("PixChargeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PixChargeId"));
+
+                    b.Property<DateTime>("AtualizadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CommandId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpiraEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("MpPaymentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("QrCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QrCodeBase64")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TicketUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("PixChargeId");
+
+                    b.HasIndex("CommandId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("MpPaymentId")
+                        .IsUnique()
+                        .HasFilter("[MpPaymentId] IS NOT NULL");
+
+                    b.ToTable("PixCharge", (string)null);
+                });
+
+            modelBuilder.Entity("StorageStrategy.Models.PixCredentialEntity", b =>
+                {
+                    b.Property<int>("PixCredentialId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PixCredentialId"));
+
+                    b.Property<string>("AccessTokenEncrypted")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AccessTokenLastDigits")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AtualizadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("AtualizadoPorEmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("WebhookSecretEncrypted")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PixCredentialId");
+
+                    b.HasIndex("CompanyId")
+                        .IsUnique();
+
+                    b.ToTable("PixCredential", (string)null);
                 });
 
             modelBuilder.Entity("StorageStrategy.Models.ProductEntity", b =>

@@ -18,7 +18,7 @@
         public List<ExpenseEntity> Expenses { get; set; } = new();
         public List<StockHistoryEntity> StockHistory { get; set; } = new();
 
-        public CompanyEntity(int companyId, string name, string description, DateTime createAt, DateTime validate)
+        public CompanyEntity InitAdmin(int companyId, string name, string description, DateTime createAt, DateTime validate)
         {
             CompanyId = companyId;
             Name = name;
@@ -26,6 +26,8 @@
             IsActive = true;
             CreateAt = createAt;
             Validate = validate;
+
+            return this;
         }
 
         public CompanyEntity()

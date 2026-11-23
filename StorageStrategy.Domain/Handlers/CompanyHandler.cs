@@ -31,7 +31,18 @@ namespace StorageStrategy.Domain.Handlers
             if(!request.IsValid())
                 return CreateError(request.GetErros(), "Dados inválidos");
 
-            var company = _mapper.Map<CompanyEntity>(request);
+            var company = new CompanyEntity
+            {
+                CompanyId = 0,
+                Name = request.Name,
+                CNPJ = request.CNPJ,
+                Phone = request.Phone,
+                Address = request.Address,
+                CreateAt = DateTime.Now.AddHours(-3),
+                IsActive = true,
+                Description = request.Description,
+                Validate = DateTime.Now.AddMonths(1)
+            };
 
             await _repository.AddAsync(company);
             await _repository.SaveAsync();

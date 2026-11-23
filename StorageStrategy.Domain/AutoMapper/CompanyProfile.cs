@@ -10,7 +10,13 @@ namespace StorageStrategy.Domain.AutoMapper
         {
             CreateMap<CompanyEntity, CompanyCommandBase>();
 
-            CreateMap<CreateCompanyCommand, CompanyEntity>();
+            CreateMap<CreateCompanyCommand, CompanyEntity>()
+                .ForMember(p => p.Categorys, cfg => cfg.Ignore())
+                .ForMember(p => p.Commands, cfg => cfg.Ignore())
+                .ForMember(p => p.Employees, cfg => cfg.Ignore())
+                .ForMember(p => p.Expenses, cfg => cfg.Ignore())
+                .ForMember(p => p.StockHistory, cfg => cfg.Ignore())
+                .ForMember(p => p.Products, cfg => cfg.Ignore());
         }
     }
 }
