@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.Extensions.Options;
 using StorageStrategy.Domain.Commands.Products;
 using StorageStrategy.Domain.Commands.StockHistory;
@@ -19,7 +19,7 @@ public class StockHistoryProductHandle : ProductHandlerBase<CreateStockHistoryCo
         if(!request.IsValid())
             return CreateError(request.GetErros(), "Dados invalidos");
 
-        StockHistoryEntity stockHistory = new(request.CompanyId, request.Products);
+        StockHistoryEntity stockHistory = new(request.CompanyId, request.ToEntities());
 
         var productsIds = stockHistory.Products.Select(p => p.ProductId);
         var productsToUpdate = await _repoProduct.GetProductsByIds(request.CompanyId, productsIds);

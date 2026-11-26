@@ -23,15 +23,17 @@ namespace StorageStrategy.Tests.Handler
         private IMapper _mapper;
         private CancellationToken _cancellationToken;
         private ILoggerFactory _log;
+        private IMediator _mediator;
 
         public CommandHandlerTest()
         {
             _cancellationToken = new CancellationToken();
-            
+
             _repoProduct = new FakeProductRepository();
             _repoEmployee = new FakeEmployeeRepository();
             _repoCommand = new FakeCommandRepository();
             _log = new Mock<ILoggerFactory>().Object;
+            _mediator = new Mock<IMediator>().Object;
 
             MapperConfigurationExpression cfg = new MapperConfigurationExpression();
             cfg.AddProfile(new CommandProfile());
@@ -46,7 +48,7 @@ namespace StorageStrategy.Tests.Handler
         [Fact(DisplayName = "Sucesso ao Criar uma Comanda com Itens")]
         public async Task Sucesso_ao_criar_uma_comanda_com_itens()
         {
-            var handler = new CreateCommandHandler(_repoProduct, _repoCommand, _repoEmployee, _mapper, _repoClient);
+            var handler = new CreateCommandHandler(_repoProduct, _repoCommand, _repoEmployee, _mapper, _repoClient, _mediator);
             CreateCommandCommand command = (CreateCommandCommand) new CreateCommandFactory().command;
 
             var result = await handler.Handle(command, _cancellationToken);
@@ -57,7 +59,7 @@ namespace StorageStrategy.Tests.Handler
         [Fact(DisplayName = "Sucesso ao Comparar o Preco Total dos Itens com o Preco Total da Comanda cadastrada")]
         public async Task Suceso_ao_comparar_o_preco_total_dos_itens_com_o_preco_total_da_comanda_cadastrada()
         { 
-            var handler = new CreateCommandHandler(_repoProduct, _repoCommand, _repoEmployee, _mapper, _repoClient);
+            var handler = new CreateCommandHandler(_repoProduct, _repoCommand, _repoEmployee, _mapper, _repoClient, _mediator);
             
             CreateCommandCommand command = (CreateCommandCommand) new CreateCommandFactory().command;
             var totalPrice = command.Items.Sum(p => p.Price);
@@ -71,7 +73,7 @@ namespace StorageStrategy.Tests.Handler
         [Fact(DisplayName = "Sucesso ao Comparar o Custo Total dos Itens com o Custo Total da Comanda cadastrada")]
         public async Task Suceso_ao_comparar_o_custo_total_dos_itens_com_o_preco_total_da_comanda_cadastrada()
         {
-            var handler = new CreateCommandHandler(_repoProduct, _repoCommand, _repoEmployee, _mapper, _repoClient);
+            var handler = new CreateCommandHandler(_repoProduct, _repoCommand, _repoEmployee, _mapper, _repoClient, _mediator);
             
             CreateCommandCommand command = (CreateCommandCommand)new CreateCommandFactory().command;
             var totalCost = command.Items.Sum(p => p.Cost);
@@ -85,7 +87,7 @@ namespace StorageStrategy.Tests.Handler
         [Fact(DisplayName = "Erro ao Criar uma Comanda Sem Funcionario")]
         public async Task Erro_ao_criar_uma_comanda_sem_funcionario()
         {
-            var handler = new CreateCommandHandler(_repoProduct, _repoCommand, _repoEmployee, _mapper, _repoClient);
+            var handler = new CreateCommandHandler(_repoProduct, _repoCommand, _repoEmployee, _mapper, _repoClient, _mediator);
             
             CreateCommandCommand command = (CreateCommandCommand)new CreateCommandFactory().command;
 
@@ -99,7 +101,7 @@ namespace StorageStrategy.Tests.Handler
         [Fact(DisplayName = "Erro ao Criar uma Comanda Sem Produtos Disponiveis em Estoque")]
         public async Task Erro_ao_criar_uma_comanda_sem_produtos_disponiveis_em_estoque()
         {
-            var handler = new CreateCommandHandler(_repoProduct, _repoCommand, _repoEmployee, _mapper, _repoClient);
+            var handler = new CreateCommandHandler(_repoProduct, _repoCommand, _repoEmployee, _mapper, _repoClient, _mediator);
             
             CreateCommandCommand command = (CreateCommandCommand)new CreateCommandFactory().command;
 

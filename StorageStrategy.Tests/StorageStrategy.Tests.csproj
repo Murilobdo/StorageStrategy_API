@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
+    <!-- Necessário porque OpenApiDocumentTest chama AddOpenApi (gerador de código do OpenAPI). -->
+    <InterceptorsNamespaces>$(InterceptorsNamespaces);Microsoft.AspNetCore.OpenApi.Generated</InterceptorsNamespaces>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\StorageStrategy.Domain\StorageStrategy.Domain.csproj" />
+    <ProjectReference Include="..\StorageStrategy.API\StorageStrategy.API.csproj" />
   </ItemGroup>
 
 </Project>

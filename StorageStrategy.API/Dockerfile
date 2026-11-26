@@ -10,6 +10,7 @@ COPY ["StorageStrategy.Data/StorageStrategy.Data.csproj", "StorageStrategy.Data/
 COPY ["StorageStrategy.Domain/StorageStrategy.Domain.csproj", "StorageStrategy.Domain/"]
 COPY ["StorageStrategy.Models/StorageStrategy.Models.csproj", "StorageStrategy.Models/"]
 COPY ["StorageStrategy.Utils/StorageStrategy.Utils.csproj", "StorageStrategy.Utils/"]
+COPY ["StorageStrategy.Printer/StorageStrategy.Printer.csproj", "StorageStrategy.Printer/"]
 RUN dotnet restore "StorageStrategy.API/StorageStrategy.API.csproj"
 COPY . .
 WORKDIR "/src/StorageStrategy.API"

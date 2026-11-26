@@ -6,12 +6,13 @@ using StorageStrategy.Domain.Commands.Company;
 using StorageStrategy.Domain.Repository;
 using StorageStrategy.Models;
 using StorageStrategy.Utils.Extensions;
+using StorageStrategy.API.Configuration;
 
 namespace StorageStrategy.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize]
+    [Authorize]
     public class CompanyController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -24,6 +25,7 @@ namespace StorageStrategy.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = AuthorizationSetup.PlatformAdminPolicy)]
         public async Task<IActionResult> Get([FromServices] ICompanyRepository repo)
         {
             var companys = await repo.ToList();
@@ -45,6 +47,7 @@ namespace StorageStrategy.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = AuthorizationSetup.PlatformAdminPolicy)]
         public async Task<IActionResult> Post([FromBody] CreateCompanyCommand command)
         {
             var response = await _mediator.Send(command);
@@ -52,12 +55,14 @@ namespace StorageStrategy.API.Controllers
         }
 
         [HttpPost("inactivate/{companyId:int}")]
+        [Authorize(Policy = AuthorizationSetup.PlatformAdminPolicy)]
         public async Task<IActionResult> Inactivate([FromRoute] int companyId)
         {
             var response = await _mediator.Send(new InactivateCompanyCommand(companyId));
             return Ok(response);
         }
         [HttpPost("renovate")]
+        [Authorize(Policy = AuthorizationSetup.PlatformAdminPolicy)]
         public async Task<IActionResult> Renovate([FromBody] RenovateCompanyCommand command)
         {
             var response = await _mediator.Send(command);

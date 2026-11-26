@@ -10,6 +10,16 @@ using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using StorageStrategy.Domain.Services.MinioStorage;
+using StorageStrategy.Domain.Services.MercadoPago;
+using StorageStrategy.Domain.Services.Refit;
+using Refit;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
+using StorageStrategy.API.Configuration;
+using StorageStrategy.Domain.Services.PlatformAdmin;
+using Scalar.AspNetCore;
+using StorageStrategy.Printer;
+using StorageStrategy.Domain.Services.Printing;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,14 +27,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
     .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Descrição OpenAPI nativa (.NET 10); interface Scalar só em Development (ver pipeline abaixo).
+builder.Services.AddOpenApi(options => options.AddDocumentTransformer<BearerSecuritySchemeTransformer>());
 
 ConfigureCors();
 builder.Services.AddDbContext<StorageDbContext>();
 
 ConfigureDependencyInjection();
 ConfigureJwt();
+builder.Services.AddApiAuthorization(builder.Configuration);
+ConfigureDataProtection();
+
+builder.Services.AddRefitClient<IMercadoPagoService>()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://api.mercadopago.com"));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
@@ -37,12 +52,22 @@ builder.Host.UseDefaultServiceProvider(cfg =>
 
 var app = builder.Build();
 
+if (AuthorizationSetup.GetPlatformCompanyId(app.Configuration) <= 0)
+    app.Logger.LogWarning(
+        "{Key} não configurado: nenhuma operação de administração de empresas será permitida.",
+        AuthorizationSetup.PlatformCompanyIdKey);
+
 // Configure the HTTP request pipeline.
 
-if(app.Environment.IsDevelopment())
+// Documentação (descrição + interface) só em Development; em qualquer outro ambiente não é mapeada (404).
+// AllowAnonymous explícito para a FallbackPolicy não bloquear a própria documentação local.
+if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.MapOpenApi().AllowAnonymous();
+    app.MapScalarApiReference(options => options
+            .WithTitle("StorageStrategy API")
+            .AddPreferredSecuritySchemes(new[] { BearerSecuritySchemeTransformer.SchemeName }))
+        .AllowAnonymous();
 }
 
 app.UseHttpsRedirection();
@@ -69,8 +94,9 @@ using (var scope = app.Services.CreateScope())
         Console.WriteLine("Nenhum migração pendente encontrada no banco de dados.");
     }
 
-    // Seed default admin company and user if they don't exist
-    await context.SeedDefaultAdminAsync();
+    // Empresa e admin da plataforma: o admin só é criado com AppSettings:PlatformAdmin:InitialPassword
+    // configurada fora do código; admin existente nunca é alterado.
+    await scope.ServiceProvider.GetRequiredService<PlatformAdminSeeder>().SeedAsync();
 }
 
 app.Run();
@@ -106,6 +132,31 @@ void ConfigureDependencyInjection()
     builder.Services.AddScoped<ILogRepository, LogRepository>();
     builder.Services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
     builder.Services.AddScoped<IStorageFile, StorageFile>();
+    builder.Services.AddScoped<IPixChargeRepository, PixChargeRepository>();
+    builder.Services.AddScoped<IPixCredentialRepository, PixCredentialRepository>();
+    builder.Services.AddScoped<IPrintStationRepository, PrintStationRepository>();
+    builder.Services.AddScoped<IPrintJobRepository, PrintJobRepository>();
+    builder.Services.AddSingleton<IReceiptRenderer, ReceiptRenderer>();
+    builder.Services.AddScoped<ISecretProtector, SecretProtector>();
+    builder.Services.AddScoped<IMercadoPagoGateway, MercadoPagoGateway>();
+    builder.Services.AddScoped<PlatformAdminSeeder>();
+    builder.Services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
+    builder.Services.AddHostedService<PixWebhookProcessingService>();
+    builder.Services.AddHostedService<PixExpirationJob>();
+    builder.Services.AddSingleton(TimeProvider.System);
+    builder.Services.AddScoped<PrintJobMaintenance>();
+    builder.Services.AddHostedService<PrintJobMaintenanceJob>();
+}
+
+void ConfigureDataProtection()
+{
+    // Key ring persistido no próprio banco (tabela DataProtectionKeys) em vez do
+    // sistema de arquivos: sobrevive a rebuilds locais e a redeploys de container
+    // (o filesystem do container é recriado do zero a cada deploy), evitando que
+    // segredos já cifrados no banco (ex.: PixCredential) fiquem indecifráveis.
+    builder.Services.AddDataProtection()
+        .SetApplicationName("StorageStrategy")
+        .PersistKeysToDbContext<StorageDbContext>();
 }
 
 void ConfigureJwt()
@@ -123,5 +174,7 @@ void ConfigureJwt()
             ValidateIssuer = false,
             ValidateAudience = false
         };
-    });
+    })
+    // Agente de impressão (feature 006): chave da estação, usada só no PrintAgentController.
+    .AddPrintStationAuthentication();
 }
