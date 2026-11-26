@@ -36,7 +36,7 @@ public class FakeCompanyRepository : ICompanyRepository
 
     public Task<CompanyEntity> GetById(int id)
     {
-        throw new NotImplementedException();
+        return Task.FromResult(companies.FirstOrDefault(p => p.CompanyId == id)!);
     }
 
     public void Save()

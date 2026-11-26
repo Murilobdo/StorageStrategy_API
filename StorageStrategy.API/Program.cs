@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using StorageStrategy.API.Configuration;
 using StorageStrategy.Domain.Services.PlatformAdmin;
 using Scalar.AspNetCore;
+using StorageStrategy.Printer;
+using StorageStrategy.Domain.Services.Printing;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -132,12 +134,18 @@ void ConfigureDependencyInjection()
     builder.Services.AddScoped<IStorageFile, StorageFile>();
     builder.Services.AddScoped<IPixChargeRepository, PixChargeRepository>();
     builder.Services.AddScoped<IPixCredentialRepository, PixCredentialRepository>();
+    builder.Services.AddScoped<IPrintStationRepository, PrintStationRepository>();
+    builder.Services.AddScoped<IPrintJobRepository, PrintJobRepository>();
+    builder.Services.AddSingleton<IReceiptRenderer, ReceiptRenderer>();
     builder.Services.AddScoped<ISecretProtector, SecretProtector>();
     builder.Services.AddScoped<IMercadoPagoGateway, MercadoPagoGateway>();
     builder.Services.AddScoped<PlatformAdminSeeder>();
     builder.Services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
     builder.Services.AddHostedService<PixWebhookProcessingService>();
     builder.Services.AddHostedService<PixExpirationJob>();
+    builder.Services.AddSingleton(TimeProvider.System);
+    builder.Services.AddScoped<PrintJobMaintenance>();
+    builder.Services.AddHostedService<PrintJobMaintenanceJob>();
 }
 
 void ConfigureDataProtection()
@@ -166,5 +174,7 @@ void ConfigureJwt()
             ValidateIssuer = false,
             ValidateAudience = false
         };
-    });
+    })
+    // Agente de impressão (feature 006): chave da estação, usada só no PrintAgentController.
+    .AddPrintStationAuthentication();
 }

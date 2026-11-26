@@ -478,3 +478,10 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# PrintAgent: configuração local com a chave da estação (nunca versionar)
+StorageStrategy.PrintAgent/appsettings.Development.json
+StorageStrategy.PrintAgent/appsettings.Production.json
+
+# Instalador do agente de impressão: pacote gerado (setup.exe + publish), nunca vai para o GitHub
+installer-dist/

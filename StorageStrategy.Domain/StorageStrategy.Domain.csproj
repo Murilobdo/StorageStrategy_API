@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\StorageStrategy.Models\StorageStrategy.Models.csproj" />
     <ProjectReference Include="..\StorageStrategy.Utils\StorageStrategy.Utils.csproj" />
+    <ProjectReference Include="..\StorageStrategy.Printer\StorageStrategy.Printer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
