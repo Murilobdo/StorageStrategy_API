@@ -33,6 +33,8 @@ namespace StorageStrategy.Data.Context
         public DbSet<LogApp> Logs { get; set; }
         public DbSet<PixChargeEntity> PixCharges { get; set; }
         public DbSet<PixCredentialEntity> PixCredentials { get; set; }
+        public DbSet<PrintStationEntity> PrintStations { get; set; }
+        public DbSet<PrintJobEntity> PrintJobs { get; set; }
         public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -62,6 +64,8 @@ namespace StorageStrategy.Data.Context
             modelBuilder.ApplyConfiguration(new PaymentMethodMapping());
             modelBuilder.ApplyConfiguration(new PixChargeMapping());
             modelBuilder.ApplyConfiguration(new PixCredentialMapping());
+            modelBuilder.ApplyConfiguration(new PrintStationMapping());
+            modelBuilder.ApplyConfiguration(new PrintJobMapping());
             base.OnModelCreating(modelBuilder);
         }
     }
